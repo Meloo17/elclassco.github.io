@@ -1,553 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELCLASSCO - Ücretsiz Oyun İndir</title>
-    <style>
-        :root {
-            --bg-color: #0d0f12;
-            --card-bg: #161b22;
-            --accent-color: #00e676;
-            --accent-hover: #00c853;
-            --text-color: #f0f6fc;
-            --text-secondary: #8b949e;
-            --border-color: #30363d;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 50px;
-        }
-
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        header h1 {
-            color: var(--accent-color);
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .search-box {
-            width: 100%;
-            max-width: 500px;
-            padding: 10px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--accent-color);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-        }
-
-        .game-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .game-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-color);
-        }
-
-        .game-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding-right: 10px;
-        }
-
-        .game-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .game-size {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .download-btn {
-            background-color: var(--accent-color);
-            color: #000;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        .download-btn:hover {
-            background-color: var(--accent-hover);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100b20">
+<title>NOVA — Galaxy Game Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#090711;--panel:rgba(24,17,43,.78);--line:rgba(207,182,255,.16);--purple:#a855f7;--pink:#e879f9;--muted:#a69bbd;--white:#f7f3ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#39205d 0,transparent 37%),radial-gradient(ellipse at 0% 40%,#21143f 0,transparent 35%),var(--bg);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;background-image:radial-gradient(white .7px,transparent .8px),radial-gradient(#d8b4fe .8px,transparent 1px);background-size:51px 51px,83px 83px;background-position:0 0,22px 31px;z-index:-1}
+#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
+a{color:inherit;text-decoration:none}.wrap{width:min(1240px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(10,7,18,.76);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:28px;min-height:76px}.brand{font-size:23px;font-weight:900;letter-spacing:2px;background:linear-gradient(100deg,#fff,#c084fc 55%,#f0abfc);color:transparent;background-clip:text}.brand span{font-size:10px;display:block;letter-spacing:4px;color:#c4b5fd;margin-top:1px}
+.links{display:flex;gap:24px;margin-left:auto;align-items:center}.links a{font-size:13px;color:#d6cce7;font-weight:700;transition:.2s}.links a:hover{color:#e9d5ff}.discord{padding:11px 16px;border-radius:12px;background:#5865f2;color:white!important;box-shadow:0 8px 30px #5865f233}
+.hero{padding:76px 0 42px;position:relative}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #c084fc55;border-radius:100px;padding:8px 12px;background:#a855f71a;color:#e9d5ff;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:#d8b4fe;box-shadow:0 0 14px #c084fc}
+h1{font-size:clamp(44px,7.4vw,88px);line-height:.99;letter-spacing:-4px;margin:23px 0 20px;font-weight:900;max-width:850px}h1 em{font-style:normal;color:transparent;background:linear-gradient(90deg,#c084fc,#f0abfc 55%,#fff);background-clip:text}.lead{color:#bdb1d1;line-height:1.75;font-size:15px;max-width:600px}.hero-actions{display:flex;gap:12px;margin-top:27px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:13px;padding:13px 18px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:9px;cursor:pointer;transition:.2s}.btn.primary{background:linear-gradient(110deg,#9333ea,#c026d3);border:0;box-shadow:0 10px 34px #a855f733}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.stats{display:flex;gap:35px;margin-top:38px}.stat strong{font-size:23px;display:block}.stat span{font-size:10px;letter-spacing:1.4px;color:#998bad;text-transform:uppercase}
+.section{padding:24px 0 62px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.kicker{font-size:10px;font-weight:800;color:#c084fc;letter-spacing:2px;text-transform:uppercase}.section h2{font-size:27px;margin:7px 0 0;letter-spacing:-.8px}.section-sub{font-size:12px;color:var(--muted);margin-top:8px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 17px}.search{flex:1;min-width:220px;position:relative}.search input{width:100%;border:1px solid var(--line);background:#130e20;color:white;border-radius:12px;padding:14px 16px 14px 42px;outline:none;font:inherit;font-size:13px}.search input:focus{border-color:#c084fc99;box-shadow:0 0 0 3px #a855f71a}.search:before{content:"⌕";position:absolute;left:15px;top:8px;font-size:25px;color:#c4b5fd}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#171024;color:#bdb1d1;padding:10px 13px;border-radius:10px;font:inherit;font-size:11px;font-weight:700;cursor:pointer}.filter.active,.filter:hover{background:#9333ea2e;border-color:#c084fc88;color:#f3e8ff}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.game{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,rgba(35,23,57,.92),rgba(15,11,25,.94));transition:transform .25s,border-color .25s,box-shadow .25s;min-width:0}.game:hover{transform:translateY(-5px);border-color:#c084fc88;box-shadow:0 16px 42px #0005,0 0 25px #a855f71a}.cover{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 75% 20%,var(--glow,#a855f7),transparent 38%),linear-gradient(135deg,#21123e,#100b1d 70%)}.cover:before{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff17;border-radius:50%;transform:translate(50px,28px);box-shadow:0 0 0 22px #ffffff06,0 0 0 48px #ffffff04}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0e0919 0,transparent 72%)}.cover .glyph{font-size:54px;font-weight:900;letter-spacing:-4px;color:#ffffffdd;text-shadow:0 0 25px var(--glow,#a855f7);z-index:1}.cover .tag{position:absolute;top:12px;left:12px;z-index:2;background:#0a0719aa;border:1px solid #ffffff24;border-radius:6px;padding:5px 7px;font-size:9px;font-weight:800;letter-spacing:1px;color:#e9d5ff}.game-info{padding:14px}.game-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px}.category{font-size:10px;color:#c4b5fd}.open{font-size:10px;font-weight:800;color:#f5d0fe;border:1px solid #c084fc44;border-radius:8px;padding:7px 9px;white-space:nowrap}.open:hover{background:#a855f72b}.empty{display:none;padding:35px;text-align:center;border:1px dashed var(--line);border-radius:15px;color:var(--muted)}
+.panel{border:1px solid var(--line);background:linear-gradient(120deg,#24143dba,#130d20db);border-radius:20px;padding:27px;display:flex;justify-content:space-between;align-items:center;gap:20px}.panel h3{font-size:23px;margin:8px 0}.panel p{font-size:13px;line-height:1.7;color:#bdb1d1;max-width:650px;margin:0}.discord-mark{font-weight:900;font-size:35px;background:#5865f2;border-radius:17px;width:70px;height:70px;display:grid;place-items:center;flex-shrink:0}
+footer{border-top:1px solid var(--line);padding:26px 0 35px;color:#827591;font-size:11px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav{gap:15px}.links{gap:13px}}
+@media(max-width:650px){.nav{min-height:66px;flex-wrap:wrap;padding:13px 0}.links{width:100%;order:2;justify-content:space-between;gap:8px}.links a{font-size:11px}.discord{padding:9px 10px}.hero{padding:50px 0 30px}h1{letter-spacing:-2.5px}.stats{gap:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:125px}.game-info{padding:11px}.game-title{font-size:12px}.section-head{align-items:start;flex-direction:column}.panel{padding:20px}.discord-mark{width:54px;height:54px;font-size:27px}}
+</style>
 </head>
 <body>
-
-    <header>
-        <h1>ELCLASSCO</h1>
-        <input type="text" id="searchInput" class="search-box" placeholder="Oyun ara..." onkeyup="filterGames()">
-    </header>
-
-    <div class="container">
-
-        <h2 class="category-title">🎮 Crack Oyunlar</h2>
-        <div class="game-grid">
-            <div class="game-card"><div class="game-info"><span class="game-name">+18 Gaming</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">007 First Light</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">A Way Out</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Age Of History 2 DE</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Age of History 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Age of History 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed Shadows</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assassins Creed Black Flag Resynced</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assetto Corsa</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Battlefield 6</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Beamng Drive</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Blazing Sails</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Blur</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Bully</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Black Ops 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Black Ops 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Modern Warfare 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Modern Warfare 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Modern Warfare 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Clair Obscur. Expedition 33</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crysis 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crysis 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crysis 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">CS 1.6</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">CS Source</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">CS:GO</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Cyberpunk 2077</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dark Souls 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Days Gone</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dead Island</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Deadpool</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Detroit Become Human</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dying Light 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dying Light 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dying Light The Beast</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Elden Ring</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Euro Truck Simulator 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">F1 2013</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fallout 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 6</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry New Dawn</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry Primal</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Farming Simulator 25</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 14</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 15</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 16</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 17</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 18</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 19</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 20</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 21</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 22</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 23</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">FC 24</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">FC 25</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">FC 26</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">FC 27</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fnaf 1-4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Football Manager 2026</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Forza Horizon 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Forza Horizon 5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Forza Horizon 6</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Geometry Dash</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Getting Over It</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ghost of Tsushima</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">God Of War</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA Kurtlar Vadisi</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA San Andreas</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA SA Hızlı Sürüm</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA Türk</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA Vice City</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Half Life 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Half Life 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hearts Of Iron 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hello Neighbor</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hytale</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">It Takes Two</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">İnternet Cafe Simulator 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">İnternet Cafe Simulator 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Left 4 Dead 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Left 4 Dead 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mafia 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mafia 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mafia The Old Country</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Max Payne 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Max Payne 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Max Payne 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Medal Of Honor Warfighter</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Medal Of Honor</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Minecraft</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mirrors Edge</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mortal Kombat X</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mount And Blade Bannerlord</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Carbon</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Heat</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Most Wanted 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Most Wanted 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Payback</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Rivals</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS The Run</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Underground 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Underground 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2013</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2014</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2015</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2016</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2017</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2018</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2019</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2020</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2021</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Portal 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Portal 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PRAGMATA</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Prototype 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Prototype 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Red Dead Redemption 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Red Dead Redemption 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil 5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil 7</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil Requiem</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Resident Evil Village</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Rust</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Serious Sam 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sleeping Dogs</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sniper Elite 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sniper Elite 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sniper Elite 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">SnowRunner</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sons of The Forest</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Remastered 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Remastered 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Shattered Dimensions</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Ultimate</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Web of Shadows</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man: Miles Moralles</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Stardew Valley</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Subnautica 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Subnautica 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Subnautica Below Zero</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Teardown</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Terraria</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Amazing Spider-Man 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Amazing Spider-Man 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Elder Scrolls V Skyrim</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Forest</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Last of Us Part 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Last of Us Part 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Witcher 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ultrakill</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Uncharted</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Watch Dogs 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Watch Dogs 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K15</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K16</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K17</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K18</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K19</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K20</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K22</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K23</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K24</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">WWE 2K25</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">İndir</a></div>
-        </div>
-
-        <h2 class="category-title">⚡ Düşük Boyutlu Oyunlar</h2>
-        <div class="game-grid">
-            <div class="game-card"><div class="game-info"><span class="game-name">Age Of Empires 2</span><span class="game-size">79 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Arma 3</span><span class="game-size">6 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Assetto Corsa</span><span class="game-size">474 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">BeamNG.Drive</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Blur</span><span class="game-size">577 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Counter Strike 1.6</span><span class="game-size">146 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Euro Truck Simulator 2</span><span class="game-size">518 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 3</span><span class="game-size">58 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Bully</span><span class="game-size">497 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty 1</span><span class="game-size">424 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty 2</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">City Car Driving</span><span class="game-size">441 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">COD Modern Warfare 1</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">COD Modern Warfare 2</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">COD Modern Warfare 3</span><span class="game-size">3 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crysis</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Cyberpunk 2077</span><span class="game-size">17 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Delta Force Black Hawk Down</span><span class="game-size">187 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 2</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 3</span><span class="game-size">5 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">FIFA 07</span><span class="game-size">427 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 13</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fifa 17</span><span class="game-size">12 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 4</span><span class="game-size">622 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 5</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 5 (Full Harita)</span><span class="game-size">8 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA San Andreas</span><span class="game-size">315 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Gta Vice City</span><span class="game-size">152 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GUN</span><span class="game-size">223 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Far Cry 1</span><span class="game-size">855 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hearts Of Iron 4</span><span class="game-size">381 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hello Neighbor</span><span class="game-size">607 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Just Cause 2</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Left 4 Dead 1</span><span class="game-size">917 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Left 4 Dead 2</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mafia 2</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Max Payne 3</span><span class="game-size">8 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Medal Of Honor</span><span class="game-size">2 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mount And Blade 2 Bannerlord</span><span class="game-size">18 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Most Wanted</span><span class="game-size">348 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Underground 1</span><span class="game-size">149 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NFS Underground 2</span><span class="game-size">166 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2009</span><span class="game-size">922 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2010</span><span class="game-size">659 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2011</span><span class="game-size">909 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2012</span><span class="game-size">922 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2013</span><span class="game-size">980 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2014</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2017</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PES 2021</span><span class="game-size">9 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Prototype 2</span><span class="game-size">901 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ravenfield</span><span class="game-size">46 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">RDR 1</span><span class="game-size">5 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Sleeping Dogs</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man 1</span><span class="game-size">138 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man 2</span><span class="game-size">83 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man 3</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spiderman Friend Or Foe</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Shattered Dimensions</span><span class="game-size">5 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Spider-Man Web Of Shadows</span><span class="game-size">1 GB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ultimate Spider-Man</span><span class="game-size">80 MB</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-        </div>
-
-        <h2 class="category-title">🎬 YouTuber'ların Oynadığı Oyunlar</h2>
-        <div class="game-grid">
-            <div class="game-card"><div class="game-info"><span class="game-name">Among US</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Berry Bury Berry</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">BrokenLore: UNFOLLOW</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Car Dealer Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Car Dealership Simulator 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Car Dealership Simulator 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Car Service Together</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Cargo Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Climb The Backrooms</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crime Detective Red Flags</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crime Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Devour</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dispatch 1-8 Full Bölüm Türkçe</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dispatch ilk sürüm</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Escape Simulator 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Escape the Backrooms</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Floor 9</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Football Pitch Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Gamer Stop Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Granny Remake</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hellmart</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hello Neighbor 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hollow Knight Silksong</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Huddam 2 Berzah</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hytale</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">İblis 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">İblis 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">İfrit</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Keep Talking And Nobody</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Last Report</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Leaf it Alone</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">LOCKDOWN Protocol</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Long Drive North</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Lort</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Mall Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Megabonk</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Misery</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Monor Lords</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">My Winter Car</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">New.Face.On.The.Block</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Night Doner</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Obsessed Trace</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Only Up: BRAINROT TOGETHER</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Papers Please</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pawn Shop</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Peak</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pizza Restaurant Together</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Prologue GO Wayback</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pummel Party</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Quarantine Zone</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">RV.There.Yet</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">She Was 98</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Storage.Hunter.Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Baby In Yellow</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Ice Cream Shop</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Lightkeeper</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Truck & Logistics Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Uncanny Tales: 1992</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Vein</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Water Delivery</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Waterpark Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">We Used to Play Here</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Within Of Static</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">YAPYAP</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Zombie.Graveyard.Simulator.</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Zort</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-        </div>
-
-        <h2 class="category-title">📌 İstek Üzerine Eklenenler</h2>
-        <div class="game-grid">
-            <div class="game-card"><div class="game-info"><span class="game-name">Aliens Colonial Marines</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ark</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Becastled</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ben and Ed</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Duty Ghosts</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Call Of Juarez Gunslinger</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Car For Sale Simulator</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">COD WWII</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Crimson Desert</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dishonored 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Dishonored 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">F1 25</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fernbus</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Fnaf Security</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">God Of War Ragnarök</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Good Pizza</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">GTA 4 DLC</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hello Neighbor 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hitman 3 World</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Hitman Absolution</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">JudgeSim</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Just Cause 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Kingdom Come Deliverance 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">La Noire</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Manhunt 1-2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Minecraft Dungeons</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Minecraft Legends</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Minecraft: Java & Bedrock</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">MX Bikes</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">NBA 2K27</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Omsi 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Only Climb</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Outlast 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Outlast</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Payday 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Payday 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Payday 3</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 17 Full</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Pes 2016 Euro 2016</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Poppy Playtime 1-5</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">PTTR</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Punisher</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ready Or Not</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">A Plague Tale Legacy</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ride 4</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Ride 6</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Rise of the Tomb Raider</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Saints Row The Third</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Secret Neighbor</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Shadow of the Tomb Raider</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Streamer Life 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Crew 1</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Crew 2</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">LOTR Conquest</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">The Punisher</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Tomb Raider</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-        </div>
-
-        <h2 class="category-title">🌐 Online Oyunlar</h2>
-        <div class="game-grid">
-            <div class="game-card"><div class="game-info"><span class="game-name">How To Fish?</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Escape The Backrooms</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-            <div class="game-card"><div class="game-info"><span class="game-name">Meccha Chameleon</span></div><a href="https://chavoelmencho.blogspot.com/2026/10/18-gaming-indir-007-first-light-indir.html" target="_blank" class="download-btn">TIKLA</a></div>
-        </div>
-
-    </div>
-
-    <script>
-        function filterGames() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('game-card');
-
-            for (let i = 0; i < cards.length; i++) {
-                let gameName = cards[i].querySelector('.game-name').innerText.toLowerCase();
-                if (gameName.includes(input)) {
-                    cards[i].style.display = "flex";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-        }
-    </script>
+<canvas id="snow"></canvas>
+<header><div class="wrap nav">
+<a class="brand" href="#top">NOVA<span>GALAXY GAME HUB</span></a>
+<nav class="links"><a href="#games">OYUNLAR</a><a href="#cheats">HİLELER</a><a class="discord" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">◉ Discord</a></nav>
+</div></header>
+<main id="top">
+<section class="hero wrap">
+<div class="eyebrow"><span class="pulse"></span> YOUR NEXT ADVENTURE STARTS HERE</div>
+<h1>OYUN DÜNYASINA<br><em>YENİ BİR BOYUT.</em></h1>
+<p class="lead">Favori oyunlarını keşfet, türüne göre filtrele ve maceranı seç. Galaksinin derinliklerinden ilham alan oyun merkezine hoş geldin.</p>
+<div class="hero-actions"><a class="btn primary" href="#games">✦ Oyunları keşfet <span>↘</span></a><a class="btn" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">◉ Discord'a katıl</a></div>
+<div class="stats"><div class="stat"><strong id="gameCount">35+</strong><span>Oyun kataloğu</span></div><div class="stat"><strong>∞</strong><span>Yeni maceralar</span></div><div class="stat"><strong>01</strong><span>Galaxy community</span></div></div>
+</section>
+<section class="section wrap" id="games">
+<div class="section-head"><div><div class="kicker">EXPLORE THE UNIVERSE</div><h2>Oyun kütüphanesi</h2><div class="section-sub">Bir kategori seç veya aradığın oyunu yaz.</div></div></div>
+<div class="tools"><label class="search"><input id="search" type="search" placeholder="Oyun ara..." aria-label="Oyun ara"></label></div>
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div><div class="empty" id="empty">Bu filtrede oyun bulunamadı. Başka bir kategori dene.</div>
+</section>
+<section class="section wrap" id="cheats">
+<div class="panel"><div><div class="kicker">TWEAK • MOD • GUIDE</div><h3>Hileler & oyun rehberleri</h3><p>Bu alan yakında modlar, tek oyunculu oyun rehberleri ve oyun deneyimini kişiselleştiren içeriklerle güncellenecek. Güvenli ve izin verilen içeriklere öncelik veriyoruz.</p></div><a class="btn" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">Topluluğa sor ↗</a></div>
+</section>
+<section class="section wrap" id="about">
+<div class="panel"><div><div class="kicker">JOIN THE COMMUNITY</div><h3>Galakside yerini al.</h3><p>NOVA, oyuncuları tek bir yerde buluşturmak için tasarlanan topluluk odaklı bir oyun kataloğu. Yeni oyunlar, öneriler ve güncellemeler için Discord sunucumuza katıl.</p></div><a class="discord-mark" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener" aria-label="Discord'a katıl">◉</a></div>
+</section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 NOVA GALAXY GAME HUB</span><span>Fan-made game catalog • Oyunların hakları ilgili sahiplerine aittir.</span></div></footer>
+<script>
+const games = [
+["Battlefield 1","FPS / Aksiyon","BF1","#d6a35c"],["Battlefield 2","FPS / Aksiyon","BF2","#b3a58c"],["Battlefield 3","FPS / Aksiyon","BF3","#c58c62"],["Battlefield 4","FPS / Aksiyon","BF4","#d49a69"],["Battlefield 5","FPS / Aksiyon","BFV","#d8bd8b"],["Battlefield 6","FPS / Aksiyon","BF6","#a9b4cb"],
+["BeamNG.drive","Simülasyon / Araba","BNG","#6cb6b0"],["Cyberpunk 2077","Açık Dünya / RPG","2077","#f0d45c"],["Euro Truck Simulator 2","Simülasyon / Araba","ETS2","#7ca5ce"],["Grand Theft Auto V","Açık Dünya / Aksiyon","GTA V","#8fb66a"],["God of War","Aksiyon / Hikâye","GOW","#c6d4dc"],["Grand Theft Auto: San Andreas","Açık Dünya / Aksiyon","SA","#9bba78"],
+["eFootball PES 2021","Spor / Futbol","PES","#74a6d8"],["Red Dead Redemption 2","Açık Dünya / Hikâye","RDR2","#d57b67"],["Spider-Man 3","Aksiyon / Süper kahraman","SM3","#df666d"],["Watch Dogs 2","Açık Dünya / Aksiyon","WD2","#9cb6db"],["WWE 2K25","Spor / Güreş","WWE25","#c4a4ee"],["WWE 2K24","Spor / Güreş","WWE24","#bba4ed"],
+["Assetto Corsa","Yarış / Simülasyon","AC","#e5a45c"],["Car Dealership Simulator 2","Simülasyon / Araba","CDS2","#a4b2c5"],["Car Service Together","Simülasyon / Araba","CST","#70c2c2"],["Hello Neighbor 2","Korku / Gizem","HN2","#d6ad5f"],["İblis 3","Korku","İBLİS","#d47777"],["God of War Ragnarök","Aksiyon / Hikâye","RAGNARÖK","#92b8dc"],
+["Hitman: World of Assassination","Gizlilik / Aksiyon","HITMAN","#d3d2dc"],["Hitman: Absolution","Gizlilik / Aksiyon","ABS","#b8c1d3"],["NBA 2K27","Spor / Basketbol","NBA","#dba66c"],["Outlast 2","Korku","OUT2","#d5b35e"],["Outlast","Korku","OUT","#c6b46b"],["How to Fish?","Simülasyon","FISH","#8ac7df"],
+["Meccha Chamelon","Platform / Aksiyon","MECCHA","#a7a1ef"],["PAYDAY: The Heist","FPS / Aksiyon","PD1","#d2c1a0"],["PAYDAY 2","FPS / Aksiyon","PD2","#b7c1d2"],["PAYDAY 3","FPS / Aksiyon","PD3","#d5c6aa"],["PES 2017","Spor / Futbol","PES17","#7ba9d7"],["The Baby in Yellow","Korku","BABY","#e8d16c"]
+];
+const cats=["Tümü","FPS / Aksiyon","Açık Dünya / Aksiyon","Açık Dünya / RPG","Aksiyon / Hikâye","Yarış / Simülasyon","Simülasyon / Araba","Simülasyon","Spor / Futbol","Spor / Güreş","Spor / Basketbol","Korku","Korku / Gizem","Gizlilik / Aksiyon","Platform / Aksiyon"];
+let active="Tümü";
+const grid=document.getElementById("grid"), filters=document.getElementById("filters"), search=document.getElementById("search");
+cats.forEach(c=>{const b=document.createElement("button");b.className="filter"+(c===active?" active":"");b.textContent=c;b.onclick=()=>{active=c;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x.textContent===c));render()};filters.appendChild(b)});
+function officialSearch(name){return "https://store.steampowered.com/search/?term="+encodeURIComponent(name)}
+function render(){const q=search.value.trim().toLowerCase();const shown=games.filter(g=>(active==="Tümü"||g[1]===active)&&g[0].toLowerCase().includes(q));grid.innerHTML="";shown.forEach((g,i)=>{const card=document.createElement("article");card.className="game";card.innerHTML=`<div class="cover" style="--glow:${g[3]}"><span class="tag">${g[1].split(" / ")[0].toUpperCase()}</span><span class="glyph">${g[2]}</span></div><div class="game-info"><div class="game-title" title="${g[0]}">${g[0]}</div><div class="meta"><span class="category">${g[1]}</span><a class="open" href="${officialSearch(g[0])}" target="_blank" rel="noopener">Resmî mağaza ↗</a></div></div>`;grid.appendChild(card)});document.getElementById("empty").style.display=shown.length?"none":"block";document.getElementById("gameCount").textContent=games.length}
+search.addEventListener("input",render);render();
+// Gentle falling snow/star particles
+const canvas=document.getElementById("snow"),ctx=canvas.getContext("2d");let flakes=[];
+function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);flakes=Array.from({length:Math.min(105,Math.floor(innerWidth/10))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,v:Math.random()*1.05+.25,drift:(Math.random()-.5)*.35,a:Math.random()*.65+.2}))}
+function animate(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const f of flakes){ctx.beginPath();ctx.fillStyle=`rgba(255,255,255,${f.a})`;ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();f.y+=f.v;f.x+=f.drift;if(f.y>innerHeight+4){f.y=-5;f.x=Math.random()*innerWidth}if(f.x<0)f.x=innerWidth;if(f.x>innerWidth)f.x=0}requestAnimationFrame(animate)}
+addEventListener("resize",resize);resize();animate();
+</script>
 </body>
 </html>
