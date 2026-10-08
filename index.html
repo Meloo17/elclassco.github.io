@@ -1016,7 +1016,7 @@ chatToggle.addEventListener('click', () => {
 });
 
 // BURAYA DISCORD KANALININ WEBHOOK URL'SİNİ YAPIŞTIR
-const DISCORD_WEBHOOK_URL = "BURAYA_DISCORD_WEBHOOK_LINKINI_YAPISTIR";
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1557902827752530031/hWqWuUrxyLWJkLCK2kh8DVsK-0cJjZSVh_TF_kdtmOwTUDW9FuAgcFwPA9HzMgwByTDi";
 
 function sendChatMessage() {
   const user = document.getElementById('chat-user').value.trim() || 'Anonim';
@@ -1035,14 +1035,14 @@ function sendChatMessage() {
   document.getElementById('chat-msg').value = '';
 
   // Discord Webhook Gönderimi
-  if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== "https://discord.com/api/webhooks/1557902827752530031/hWqWuUrxyLWJkLCK2kh8DVsK-0cJjZSVH_TF_kdtmOwTUDW9FuAgcFwPA9hzMgWbyTDi") {
+  if (DISCORD_WEBHOOK_URL) {
+    const formData = new FormData();
+    formData.append('username', 'EL CLASSCO Web Chat');
+    formData.append('content', `**${user}**: ${msg}`);
+
     fetch(DISCORD_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: "EL CLASSCO Web Chat",
-        content: `**${user}**: ${msg}`
-      })
+      body: formData
     }).catch(err => console.error(err));
   }
 }
