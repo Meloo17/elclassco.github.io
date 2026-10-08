@@ -422,6 +422,122 @@ footer {
   flex-wrap:wrap;
 }
 
+/* Canlı Sohbet Widget Tasarımı */
+#chat-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(110deg,#9333ea,#c026d3);
+  color: white;
+  border: none;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s;
+}
+
+#chat-toggle:hover {
+  transform: scale(1.08);
+}
+
+#chat-box {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  width: 320px;
+  background: #171024;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 100;
+}
+
+#chat-box.open {
+  display: flex;
+}
+
+.chat-header {
+  background: linear-gradient(110deg,#9333ea,#c026d3);
+  padding: 14px;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header span {
+  font-size: 10px;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.chat-messages {
+  padding: 15px;
+  height: 220px;
+  overflow-y: auto;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  background: #231739;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+.msg strong {
+  color: #c084fc;
+  display: block;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+.chat-input {
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-input input, .chat-input textarea {
+  width: 100%;
+  background: #090711;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.chat-input button {
+  background: #9333ea;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 12px;
+}
+
 @media(max-width:950px) {
   .grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .links { gap:12px; }
@@ -566,6 +682,25 @@ footer {
     </div>
   </section>
 </main>
+
+<!-- Canlı Sohbet Penceresi -->
+<button id="chat-toggle">💬</button>
+<div id="chat-box">
+  <div class="chat-header">
+    Canlı Destek / Chat <span>Çevrimiçi</span>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg">
+      <strong>Sistem</strong>
+      Selam! Bize istediğin soruyu veya istek oyunu yazabilirsin.
+    </div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chat-user" placeholder="Kullanıcı Adın">
+    <textarea id="chat-msg" rows="2" placeholder="Mesajın..."></textarea>
+    <button onclick="sendChatMessage()">Gönder</button>
+  </div>
+</div>
 
 <footer>
   <div class="wrap foot">
@@ -871,6 +1006,46 @@ document.addEventListener("visibilitychange", () => {
     animate();
   }
 });
+
+/* Canlı Sohbet JS Mantığı */
+const chatToggle = document.getElementById('chat-toggle');
+const chatBox = document.getElementById('chat-box');
+
+chatToggle.addEventListener('click', () => {
+  chatBox.classList.toggle('open');
+});
+
+// BURAYA DISCORD KANALININ WEBHOOK URL'SİNİ YAPIŞTIR
+const DISCORD_WEBHOOK_URL = "BURAYA_DISCORD_WEBHOOK_LINKINI_YAPISTIR";
+
+function sendChatMessage() {
+  const user = document.getElementById('chat-user').value.trim() || 'Anonim';
+  const msg = document.getElementById('chat-msg').value.trim();
+  const chatMessages = document.getElementById('chat-messages');
+
+  if (!msg) return;
+
+  // Kutuda göster
+  const msgElement = document.createElement('div');
+  msgElement.className = 'msg';
+  msgElement.innerHTML = `<strong>${user}</strong>${msg}`;
+  chatMessages.appendChild(msgElement);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  document.getElementById('chat-msg').value = '';
+
+  // Discord Webhook Gönderimi
+  if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== "BURAYA_DISCORD_WEBHOOK_LINKINI_YAPISTIR") {
+    fetch(DISCORD_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: "EL CLASSCO Web Chat",
+        content: `**${user}**: ${msg}`
+      })
+    }).catch(err => console.error(err));
+  }
+}
 </script>
 </body>
 </html>
