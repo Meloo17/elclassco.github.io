@@ -1035,7 +1035,7 @@ function sendChatMessage() {
   document.getElementById('chat-msg').value = '';
 
   // Discord Webhook Gönderimi
-  if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== "BURAYA_DISCORD_WEBHOOK_LINKINI_YAPISTIR") {
+  if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== "https://discord.com/api/webhooks/1557902827752530031/hWqWuUrxyLWJkLCK2kh8DVsK-0cJjZSVH_TF_kdtmOwTUDW9FuAgcFwPA9hzMgWbyTDi") {
     fetch(DISCORD_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
