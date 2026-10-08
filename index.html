@@ -1,81 +1,868 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#100b20">
-<title>NOVA — Galaxy Game Hub</title>
+<meta name="theme-color" content="#0b0715">
+<title>EL CLASSCO | Ultimate Game Center</title>
+<meta name="description" content="EL CLASSCO oyun merkezi. Oyunları keşfet, kapaklarını görüntüle ve oyun sayfalarına ulaş.">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-:root{--bg:#090711;--panel:rgba(24,17,43,.78);--line:rgba(207,182,255,.16);--purple:#a855f7;--pink:#e879f9;--muted:#a69bbd;--white:#f7f3ff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#39205d 0,transparent 37%),radial-gradient(ellipse at 0% 40%,#21143f 0,transparent 35%),var(--bg);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;background-image:radial-gradient(white .7px,transparent .8px),radial-gradient(#d8b4fe .8px,transparent 1px);background-size:51px 51px,83px 83px;background-position:0 0,22px 31px;z-index:-1}
-#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
-a{color:inherit;text-decoration:none}.wrap{width:min(1240px,92%);margin:auto}
-header{position:sticky;top:0;z-index:20;background:rgba(10,7,18,.76);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:28px;min-height:76px}.brand{font-size:23px;font-weight:900;letter-spacing:2px;background:linear-gradient(100deg,#fff,#c084fc 55%,#f0abfc);color:transparent;background-clip:text}.brand span{font-size:10px;display:block;letter-spacing:4px;color:#c4b5fd;margin-top:1px}
-.links{display:flex;gap:24px;margin-left:auto;align-items:center}.links a{font-size:13px;color:#d6cce7;font-weight:700;transition:.2s}.links a:hover{color:#e9d5ff}.discord{padding:11px 16px;border-radius:12px;background:#5865f2;color:white!important;box-shadow:0 8px 30px #5865f233}
-.hero{padding:76px 0 42px;position:relative}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #c084fc55;border-radius:100px;padding:8px 12px;background:#a855f71a;color:#e9d5ff;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:#d8b4fe;box-shadow:0 0 14px #c084fc}
-h1{font-size:clamp(44px,7.4vw,88px);line-height:.99;letter-spacing:-4px;margin:23px 0 20px;font-weight:900;max-width:850px}h1 em{font-style:normal;color:transparent;background:linear-gradient(90deg,#c084fc,#f0abfc 55%,#fff);background-clip:text}.lead{color:#bdb1d1;line-height:1.75;font-size:15px;max-width:600px}.hero-actions{display:flex;gap:12px;margin-top:27px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:13px;padding:13px 18px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:9px;cursor:pointer;transition:.2s}.btn.primary{background:linear-gradient(110deg,#9333ea,#c026d3);border:0;box-shadow:0 10px 34px #a855f733}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
-.stats{display:flex;gap:35px;margin-top:38px}.stat strong{font-size:23px;display:block}.stat span{font-size:10px;letter-spacing:1.4px;color:#998bad;text-transform:uppercase}
-.section{padding:24px 0 62px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.kicker{font-size:10px;font-weight:800;color:#c084fc;letter-spacing:2px;text-transform:uppercase}.section h2{font-size:27px;margin:7px 0 0;letter-spacing:-.8px}.section-sub{font-size:12px;color:var(--muted);margin-top:8px}
-.tools{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 17px}.search{flex:1;min-width:220px;position:relative}.search input{width:100%;border:1px solid var(--line);background:#130e20;color:white;border-radius:12px;padding:14px 16px 14px 42px;outline:none;font:inherit;font-size:13px}.search input:focus{border-color:#c084fc99;box-shadow:0 0 0 3px #a855f71a}.search:before{content:"⌕";position:absolute;left:15px;top:8px;font-size:25px;color:#c4b5fd}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#171024;color:#bdb1d1;padding:10px 13px;border-radius:10px;font:inherit;font-size:11px;font-weight:700;cursor:pointer}.filter.active,.filter:hover{background:#9333ea2e;border-color:#c084fc88;color:#f3e8ff}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.game{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,rgba(35,23,57,.92),rgba(15,11,25,.94));transition:transform .25s,border-color .25s,box-shadow .25s;min-width:0}.game:hover{transform:translateY(-5px);border-color:#c084fc88;box-shadow:0 16px 42px #0005,0 0 25px #a855f71a}.cover{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 75% 20%,var(--glow,#a855f7),transparent 38%),linear-gradient(135deg,#21123e,#100b1d 70%)}.cover:before{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff17;border-radius:50%;transform:translate(50px,28px);box-shadow:0 0 0 22px #ffffff06,0 0 0 48px #ffffff04}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0e0919 0,transparent 72%)}.cover .glyph{font-size:54px;font-weight:900;letter-spacing:-4px;color:#ffffffdd;text-shadow:0 0 25px var(--glow,#a855f7);z-index:1}.cover .tag{position:absolute;top:12px;left:12px;z-index:2;background:#0a0719aa;border:1px solid #ffffff24;border-radius:6px;padding:5px 7px;font-size:9px;font-weight:800;letter-spacing:1px;color:#e9d5ff}.game-info{padding:14px}.game-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px}.category{font-size:10px;color:#c4b5fd}.open{font-size:10px;font-weight:800;color:#f5d0fe;border:1px solid #c084fc44;border-radius:8px;padding:7px 9px;white-space:nowrap}.open:hover{background:#a855f72b}.empty{display:none;padding:35px;text-align:center;border:1px dashed var(--line);border-radius:15px;color:var(--muted)}
-.panel{border:1px solid var(--line);background:linear-gradient(120deg,#24143dba,#130d20db);border-radius:20px;padding:27px;display:flex;justify-content:space-between;align-items:center;gap:20px}.panel h3{font-size:23px;margin:8px 0}.panel p{font-size:13px;line-height:1.7;color:#bdb1d1;max-width:650px;margin:0}.discord-mark{font-weight:900;font-size:35px;background:#5865f2;border-radius:17px;width:70px;height:70px;display:grid;place-items:center;flex-shrink:0}
-footer{border-top:1px solid var(--line);padding:26px 0 35px;color:#827591;font-size:11px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav{gap:15px}.links{gap:13px}}
-@media(max-width:650px){.nav{min-height:66px;flex-wrap:wrap;padding:13px 0}.links{width:100%;order:2;justify-content:space-between;gap:8px}.links a{font-size:11px}.discord{padding:9px 10px}.hero{padding:50px 0 30px}h1{letter-spacing:-2.5px}.stats{gap:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:125px}.game-info{padding:11px}.game-title{font-size:12px}.section-head{align-items:start;flex-direction:column}.panel{padding:20px}.discord-mark{width:54px;height:54px;font-size:27px}}
+
+:root {
+  --bg:#090711;
+  --panel:#171024;
+  --line:rgba(207,182,255,.16);
+  --purple:#a855f7;
+  --pink:#e879f9;
+  --white:#f7f3ff;
+  --muted:#a69bbd;
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at 70% 0%,#39205d 0,transparent 37%),
+    radial-gradient(ellipse at 0% 40%,#21143f 0,transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:Inter,Arial,sans-serif;
+}
+
+body:before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    radial-gradient(white .7px,transparent .8px),
+    radial-gradient(#d8b4fe .8px,transparent 1px);
+  background-size:51px 51px,83px 83px;
+  background-position:0 0,22px 31px;
+  z-index:-1;
+}
+
+#snow {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:5;
+}
+
+.wrap {
+  width:min(1240px,92%);
+  margin:auto;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(10,7,18,.84);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav {
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.brand {
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:2px;
+  background:linear-gradient(100deg,#fff,#c084fc 55%,#f0abfc);
+  color:transparent;
+  background-clip:text;
+  white-space:nowrap;
+}
+
+.brand small {
+  display:block;
+  font-size:9px;
+  letter-spacing:4px;
+  color:#c4b5fd;
+  margin-top:4px;
+}
+
+.links {
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-left:auto;
+}
+
+.links a {
+  color:#d6cce7;
+  font-size:12px;
+  font-weight:800;
+}
+
+.links a:hover { color:#fff; }
+
+.discord {
+  background:#5865f2;
+  padding:11px 15px;
+  border-radius:10px;
+  color:white!important;
+}
+
+.hero {
+  padding:78px 0 48px;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 13px;
+  border:1px solid #c084fc55;
+  border-radius:100px;
+  background:#a855f71a;
+  color:#e9d5ff;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.5px;
+}
+
+.pulse {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#d8b4fe;
+  box-shadow:0 0 14px #c084fc;
+}
+
+h1 {
+  font-size:clamp(42px,7vw,82px);
+  line-height:1;
+  letter-spacing:-3.5px;
+  margin:25px 0 20px;
+  font-weight:900;
+}
+
+h1 em {
+  font-style:normal;
+  color:transparent;
+  background:linear-gradient(90deg,#c084fc,#f0abfc 55%,#fff);
+  background-clip:text;
+}
+
+.lead {
+  max-width:600px;
+  color:#bdb1d1;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.actions {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:13px 17px;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover { transform:translateY(-2px); }
+
+.btn.primary {
+  border:0;
+  background:linear-gradient(110deg,#9333ea,#c026d3);
+  box-shadow:0 10px 30px #a855f733;
+}
+
+.stats {
+  display:flex;
+  gap:35px;
+  margin-top:37px;
+}
+
+.stat strong {
+  display:block;
+  font-size:23px;
+}
+
+.stat span {
+  color:#998bad;
+  font-size:9px;
+  letter-spacing:1.2px;
+}
+
+.section { padding:25px 0 55px; }
+
+.kicker {
+  color:#c084fc;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+h2 {
+  margin:9px 0;
+  font-size:27px;
+}
+
+.subtitle {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.tools {
+  display:flex;
+  gap:10px;
+  margin:22px 0 14px;
+}
+
+.search { flex:1; min-width:0; }
+
+.search input {
+  width:100%;
+  padding:14px 16px;
+  color:white;
+  background:#130e20;
+  border:1px solid var(--line);
+  border-radius:11px;
+  outline:none;
+  font:inherit;
+  font-size:13px;
+}
+
+.search input:focus { border-color:#c084fc; }
+
+.filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:21px;
+}
+
+.filter {
+  padding:10px 12px;
+  color:#bdb1d1;
+  background:#171024;
+  border:1px solid var(--line);
+  border-radius:9px;
+  font:inherit;
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.filter.active,
+.filter:hover {
+  background:#9333ea35;
+  border-color:#c084fc;
+  color:#f3e8ff;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:17px;
+}
+
+.game {
+  overflow:hidden;
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(160deg,#231739ed,#0f0b19f5);
+  transition:transform .22s,border-color .22s;
+}
+
+.game:hover {
+  transform:translateY(-4px);
+  border-color:#c084fc99;
+}
+
+.cover {
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:460 / 215;
+  background:
+    radial-gradient(circle at 75% 20%,var(--glow,#a855f7),transparent 48%),
+    linear-gradient(135deg,#21123e,#100b1d);
+}
+
+.cover img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .3s;
+}
+
+.game:hover .cover img { transform:scale(1.04); }
+
+.cover-fallback {
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:-2px;
+  color:#fff;
+  text-shadow:0 0 25px var(--glow,#a855f7);
+}
+
+.cover img:not([src=""]) + .cover-fallback { display:none; }
+
+.game-info { padding:13px; }
+
+.game-title {
+  font-size:12px;
+  line-height:1.5;
+  font-weight:800;
+  min-height:36px;
+}
+
+.game-category {
+  font-size:10px;
+  color:#c4b5fd;
+  line-height:1.5;
+  margin:5px 0 12px;
+}
+
+.game-actions {
+  display:flex;
+  gap:7px;
+}
+
+.game-link {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex:1;
+  min-width:0;
+  padding:9px 5px;
+  border:1px solid #c084fc55;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:800;
+  color:#f5d0fe;
+  text-align:center;
+}
+
+.game-link:hover { background:#a855f72b; }
+
+.empty {
+  display:none;
+  text-align:center;
+  padding:35px;
+  border:1px dashed var(--line);
+  border-radius:12px;
+  color:var(--muted);
+}
+
+.panel {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:26px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:linear-gradient(120deg,#24143dba,#130d20db);
+}
+
+.panel h3 {
+  font-size:21px;
+  margin:8px 0;
+}
+
+.panel p {
+  max-width:650px;
+  color:#bdb1d1;
+  font-size:12px;
+  line-height:1.8;
+}
+
+footer {
+  border-top:1px solid var(--line);
+  padding:26px 0 35px;
+  color:#998bad;
+  font-size:10px;
+}
+
+.foot {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+@media(max-width:950px) {
+  .grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .links { gap:12px; }
+}
+
+@media(max-width:620px) {
+  .nav {
+    flex-wrap:wrap;
+    padding:12px 0;
+    gap:12px;
+  }
+
+  .brand { font-size:21px; }
+
+  .links {
+    width:100%;
+    order:2;
+    justify-content:space-between;
+    gap:8px;
+  }
+
+  .links a { font-size:10px; }
+
+  .hero { padding:48px 0 30px; }
+
+  h1 { letter-spacing:-2px; }
+
+  .stats { gap:20px; }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .game-info { padding:10px; }
+
+  .game-title { font-size:11px; }
+
+  .game-link { font-size:9px; }
+
+  .panel { padding:18px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*:before,*:after {
+    animation:none!important;
+    transition:none!important;
+  }
+}
 </style>
 </head>
+
 <body>
-<canvas id="snow"></canvas>
-<header><div class="wrap nav">
-<a class="brand" href="#top">NOVA<span>GALAXY GAME HUB</span></a>
-<nav class="links"><a href="#games">OYUNLAR</a><a href="#cheats">HİLELER</a><a class="discord" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">◉ Discord</a></nav>
-</div></header>
+<canvas id="snow" aria-hidden="true"></canvas>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      EL CLASSCO
+      <small>ULTIMATE GAME CENTER</small>
+    </a>
+
+    <nav class="links">
+      <a href="#games">OYUNLAR</a>
+      <a href="#about">HAKKIMIZDA</a>
+      <a class="discord" href="https://discord.gg/rJBhRxVuY"
+         target="_blank" rel="noopener noreferrer">Discord ↗</a>
+    </nav>
+  </div>
+</header>
+
 <main id="top">
-<section class="hero wrap">
-<div class="eyebrow"><span class="pulse"></span> YOUR NEXT ADVENTURE STARTS HERE</div>
-<h1>OYUN DÜNYASINA<br><em>YENİ BİR BOYUT.</em></h1>
-<p class="lead">Favori oyunlarını keşfet, türüne göre filtrele ve maceranı seç. Galaksinin derinliklerinden ilham alan oyun merkezine hoş geldin.</p>
-<div class="hero-actions"><a class="btn primary" href="#games">✦ Oyunları keşfet <span>↘</span></a><a class="btn" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">◉ Discord'a katıl</a></div>
-<div class="stats"><div class="stat"><strong id="gameCount">35+</strong><span>Oyun kataloğu</span></div><div class="stat"><strong>∞</strong><span>Yeni maceralar</span></div><div class="stat"><strong>01</strong><span>Galaxy community</span></div></div>
-</section>
-<section class="section wrap" id="games">
-<div class="section-head"><div><div class="kicker">EXPLORE THE UNIVERSE</div><h2>Oyun kütüphanesi</h2><div class="section-sub">Bir kategori seç veya aradığın oyunu yaz.</div></div></div>
-<div class="tools"><label class="search"><input id="search" type="search" placeholder="Oyun ara..." aria-label="Oyun ara"></label></div>
-<div class="filters" id="filters"></div>
-<div class="grid" id="grid"></div><div class="empty" id="empty">Bu filtrede oyun bulunamadı. Başka bir kategori dene.</div>
-</section>
-<section class="section wrap" id="cheats">
-<div class="panel"><div><div class="kicker">TWEAK • MOD • GUIDE</div><h3>Hileler & oyun rehberleri</h3><p>Bu alan yakında modlar, tek oyunculu oyun rehberleri ve oyun deneyimini kişiselleştiren içeriklerle güncellenecek. Güvenli ve izin verilen içeriklere öncelik veriyoruz.</p></div><a class="btn" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener">Topluluğa sor ↗</a></div>
-</section>
-<section class="section wrap" id="about">
-<div class="panel"><div><div class="kicker">JOIN THE COMMUNITY</div><h3>Galakside yerini al.</h3><p>NOVA, oyuncuları tek bir yerde buluşturmak için tasarlanan topluluk odaklı bir oyun kataloğu. Yeni oyunlar, öneriler ve güncellemeler için Discord sunucumuza katıl.</p></div><a class="discord-mark" href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener" aria-label="Discord'a katıl">◉</a></div>
-</section>
+  <section class="hero wrap">
+    <div class="eyebrow">
+      <span class="pulse"></span>
+      WELCOME TO EL CLASSCO
+    </div>
+
+    <h1>
+      OYUN DÜNYASINA<br>
+      <em>HOŞ GELDİN.</em>
+    </h1>
+
+    <p class="lead">
+      Favori oyunlarını keşfet, kapaklarını incele ve
+      aradığın oyunun mağaza sayfasına ulaş.
+      Burası EL CLASSCO oyun merkezi.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="#games">✦ Oyunları keşfet ↘</a>
+      <a class="btn" href="https://discord.gg/rJBhRxVuY"
+         target="_blank" rel="noopener noreferrer">Discord'a katıl ↗</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="gameCount">36</strong>
+        <span>OYUN</span>
+      </div>
+      <div class="stat">
+        <strong>∞</strong>
+        <span>MACERA</span>
+      </div>
+      <div class="stat">
+        <strong>EC</strong>
+        <span>GAME CENTER</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="games">
+    <div class="kicker">EXPLORE THE COLLECTION</div>
+    <h2>Oyun kütüphanesi</h2>
+    <p class="subtitle">Oyunu ara veya kategorisini seç.</p>
+
+    <div class="tools">
+      <label class="search">
+        <input id="search" type="search"
+          placeholder="Oyun ara..." aria-label="Oyun ara">
+      </label>
+    </div>
+
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty">Oyun bulunamadı.</div>
+  </section>
+
+  <section class="section wrap" id="about">
+    <div class="panel">
+      <div>
+        <div class="kicker">THIS IS EL CLASSCO</div>
+        <h3>Oyun dünyasının merkezine hoş geldin.</h3>
+        <p>
+          EL CLASSCO, oyunları tek bir yerde keşfetmen için
+          hazırlanan bağımsız bir oyun kataloğudur.
+          Oyun görselleri ilgili oyunların mağaza görsellerinden
+          yüklenir. Satın alma ve indirme koşulları ilgili
+          platformlar tarafından belirlenir.
+        </p>
+      </div>
+
+      <a class="btn primary" href="#games">Kataloğu keşfet ↗</a>
+    </div>
+  </section>
 </main>
-<footer><div class="wrap foot"><span>© 2026 NOVA GALAXY GAME HUB</span><span>Fan-made game catalog • Oyunların hakları ilgili sahiplerine aittir.</span></div></footer>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 EL CLASSCO</span>
+    <span>Bağımsız oyun kataloğu • Oyun hakları sahiplerine aittir.</span>
+  </div>
+</footer>
+
 <script>
+/*
+  Steam App ID'leri bilinen oyunlar için mağaza kapakları kullanılır.
+  Kapak adresi çalışmazsa kartın yedek görseli gösterilir.
+  Steam'de bulunmayan oyunlar için mağaza arama bağlantısı sağlanır.
+*/
+
 const games = [
-["Battlefield 1","FPS / Aksiyon","BF1","#d6a35c"],["Battlefield 2","FPS / Aksiyon","BF2","#b3a58c"],["Battlefield 3","FPS / Aksiyon","BF3","#c58c62"],["Battlefield 4","FPS / Aksiyon","BF4","#d49a69"],["Battlefield 5","FPS / Aksiyon","BFV","#d8bd8b"],["Battlefield 6","FPS / Aksiyon","BF6","#a9b4cb"],
-["BeamNG.drive","Simülasyon / Araba","BNG","#6cb6b0"],["Cyberpunk 2077","Açık Dünya / RPG","2077","#f0d45c"],["Euro Truck Simulator 2","Simülasyon / Araba","ETS2","#7ca5ce"],["Grand Theft Auto V","Açık Dünya / Aksiyon","GTA V","#8fb66a"],["God of War","Aksiyon / Hikâye","GOW","#c6d4dc"],["Grand Theft Auto: San Andreas","Açık Dünya / Aksiyon","SA","#9bba78"],
-["eFootball PES 2021","Spor / Futbol","PES","#74a6d8"],["Red Dead Redemption 2","Açık Dünya / Hikâye","RDR2","#d57b67"],["Spider-Man 3","Aksiyon / Süper kahraman","SM3","#df666d"],["Watch Dogs 2","Açık Dünya / Aksiyon","WD2","#9cb6db"],["WWE 2K25","Spor / Güreş","WWE25","#c4a4ee"],["WWE 2K24","Spor / Güreş","WWE24","#bba4ed"],
-["Assetto Corsa","Yarış / Simülasyon","AC","#e5a45c"],["Car Dealership Simulator 2","Simülasyon / Araba","CDS2","#a4b2c5"],["Car Service Together","Simülasyon / Araba","CST","#70c2c2"],["Hello Neighbor 2","Korku / Gizem","HN2","#d6ad5f"],["İblis 3","Korku","İBLİS","#d47777"],["God of War Ragnarök","Aksiyon / Hikâye","RAGNARÖK","#92b8dc"],
-["Hitman: World of Assassination","Gizlilik / Aksiyon","HITMAN","#d3d2dc"],["Hitman: Absolution","Gizlilik / Aksiyon","ABS","#b8c1d3"],["NBA 2K27","Spor / Basketbol","NBA","#dba66c"],["Outlast 2","Korku","OUT2","#d5b35e"],["Outlast","Korku","OUT","#c6b46b"],["How to Fish?","Simülasyon","FISH","#8ac7df"],
-["Meccha Chamelon","Platform / Aksiyon","MECCHA","#a7a1ef"],["PAYDAY: The Heist","FPS / Aksiyon","PD1","#d2c1a0"],["PAYDAY 2","FPS / Aksiyon","PD2","#b7c1d2"],["PAYDAY 3","FPS / Aksiyon","PD3","#d5c6aa"],["PES 2017","Spor / Futbol","PES17","#7ba9d7"],["The Baby in Yellow","Korku","BABY","#e8d16c"]
+  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c"},
+  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c"},
+  {name:"Battlefield 3",cat:"FPS / Aksiyon",app:1238820,color:"#c58c62"},
+  {name:"Battlefield 4",cat:"FPS / Aksiyon",app:1238860,color:"#d49a69"},
+  {name:"Battlefield 5",cat:"FPS / Aksiyon",app:1238810,color:"#d8bd8b"},
+  {name:"Battlefield 6",cat:"FPS / Aksiyon",app:2807960,color:"#a9b4cb"},
+
+  {name:"BeamNG.drive",cat:"Simülasyon / Araba",app:284160,color:"#6cb6b0"},
+  {name:"Cyberpunk 2077",cat:"Açık Dünya / RPG",app:1091500,color:"#f0d45c"},
+  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce"},
+  {name:"Grand Theft Auto V",cat:"Açık Dünya / Aksiyon",app:271590,color:"#8fb66a"},
+  {name:"God of War",cat:"Aksiyon / Hikâye",app:1593500,color:"#c6d4dc"},
+  {name:"Grand Theft Auto: San Andreas",cat:"Açık Dünya / Aksiyon",app:12120,color:"#9bba78"},
+
+  {name:"eFootball PES 2021",cat:"Spor / Futbol",app:1259970,color:"#74a6d8"},
+  {name:"Red Dead Redemption 2",cat:"Açık Dünya / Hikâye",app:1174180,color:"#d57b67"},
+  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d"},
+  {name:"Watch Dogs 2",cat:"Açık Dünya / Aksiyon",app:447040,color:"#9cb6db"},
+  {name:"WWE 2K25",cat:"Spor / Güreş",app:2878960,color:"#c4a4ee"},
+  {name:"WWE 2K24",cat:"Spor / Güreş",app:2315690,color:"#bba4ed"},
+
+  {name:"Assetto Corsa",cat:"Yarış / Simülasyon",app:244210,color:"#e5a45c"},
+  {name:"Car Dealership Simulator 2",cat:"Simülasyon / Araba",app:null,color:"#a4b2c5"},
+  {name:"Car Service Together",cat:"Simülasyon / Araba",app:null,color:"#70c2c2"},
+  {name:"Hello Neighbor 2",cat:"Korku / Gizem",app:1321680,color:"#d6ad5f"},
+  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777"},
+  {name:"God of War Ragnarök",cat:"Aksiyon / Hikâye",app:2322010,color:"#92b8dc"},
+
+  {name:"Hitman: World of Assassination",cat:"Gizlilik / Aksiyon",app:1659040,color:"#d3d2dc"},
+  {name:"Hitman: Absolution",cat:"Gizlilik / Aksiyon",app:203140,color:"#b8c1d3"},
+  {name:"NBA 2K27",cat:"Spor / Basketbol",app:null,color:"#dba66c"},
+  {name:"Outlast 2",cat:"Korku",app:414700,color:"#d5b35e"},
+  {name:"Outlast",cat:"Korku",app:238320,color:"#c6b46b"},
+  {name:"How to Fish?",cat:"Simülasyon",app:null,color:"#8ac7df"},
+
+  {name:"Meccha Chamelon",cat:"Platform / Aksiyon",app:null,color:"#a7a1ef"},
+  {name:"PAYDAY: The Heist",cat:"FPS / Aksiyon",app:24240,color:"#d2c1a0"},
+  {name:"PAYDAY 2",cat:"FPS / Aksiyon",app:218620,color:"#b7c1d2"},
+  {name:"PAYDAY 3",cat:"FPS / Aksiyon",app:1272080,color:"#d5c6aa"},
+  {name:"PES 2017",cat:"Spor / Futbol",app:456610,color:"#7ba9d7"},
+  {name:"The Baby in Yellow",cat:"Korku",app:1501610,color:"#e8d16c"}
 ];
-const cats=["Tümü","FPS / Aksiyon","Açık Dünya / Aksiyon","Açık Dünya / RPG","Aksiyon / Hikâye","Yarış / Simülasyon","Simülasyon / Araba","Simülasyon","Spor / Futbol","Spor / Güreş","Spor / Basketbol","Korku","Korku / Gizem","Gizlilik / Aksiyon","Platform / Aksiyon"];
-let active="Tümü";
-const grid=document.getElementById("grid"), filters=document.getElementById("filters"), search=document.getElementById("search");
-cats.forEach(c=>{const b=document.createElement("button");b.className="filter"+(c===active?" active":"");b.textContent=c;b.onclick=()=>{active=c;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x.textContent===c));render()};filters.appendChild(b)});
-function officialSearch(name){return "https://store.steampowered.com/search/?term="+encodeURIComponent(name)}
-function render(){const q=search.value.trim().toLowerCase();const shown=games.filter(g=>(active==="Tümü"||g[1]===active)&&g[0].toLowerCase().includes(q));grid.innerHTML="";shown.forEach((g,i)=>{const card=document.createElement("article");card.className="game";card.innerHTML=`<div class="cover" style="--glow:${g[3]}"><span class="tag">${g[1].split(" / ")[0].toUpperCase()}</span><span class="glyph">${g[2]}</span></div><div class="game-info"><div class="game-title" title="${g[0]}">${g[0]}</div><div class="meta"><span class="category">${g[1]}</span><a class="open" href="${officialSearch(g[0])}" target="_blank" rel="noopener">Resmî mağaza ↗</a></div></div>`;grid.appendChild(card)});document.getElementById("empty").style.display=shown.length?"none":"block";document.getElementById("gameCount").textContent=games.length}
-search.addEventListener("input",render);render();
-// Gentle falling snow/star particles
-const canvas=document.getElementById("snow"),ctx=canvas.getContext("2d");let flakes=[];
-function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);flakes=Array.from({length:Math.min(105,Math.floor(innerWidth/10))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,v:Math.random()*1.05+.25,drift:(Math.random()-.5)*.35,a:Math.random()*.65+.2}))}
-function animate(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const f of flakes){ctx.beginPath();ctx.fillStyle=`rgba(255,255,255,${f.a})`;ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();f.y+=f.v;f.x+=f.drift;if(f.y>innerHeight+4){f.y=-5;f.x=Math.random()*innerWidth}if(f.x<0)f.x=innerWidth;if(f.x>innerWidth)f.x=0}requestAnimationFrame(animate)}
-addEventListener("resize",resize);resize();animate();
+
+/*
+  İzinli özel indirme bağlantılarını buraya ekleyebilirsin.
+  Örnek:
+  const downloadLinks = {
+    "Örnek Oyun": "https://example.com/my-authorized-download"
+  };
+*/
+const downloadLinks = {};
+
+const grid = document.getElementById("grid");
+const filters = document.getElementById("filters");
+const search = document.getElementById("search");
+const empty = document.getElementById("empty");
+
+let active = "Tümü";
+
+const categories = [
+  "Tümü",
+  ...new Set(games.map(game => game.cat))
+];
+
+function steamSearch(name) {
+  return "https://store.steampowered.com/search/?term="
+    + encodeURIComponent(name);
+}
+
+function steamStore(app) {
+  return "https://store.steampowered.com/app/" + app + "/";
+}
+
+function coverURL(app) {
+  return app
+    ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${app}/header.jpg`
+    : "";
+}
+
+function makeFilters() {
+  categories.forEach(category => {
+    const button = document.createElement("button");
+    button.className = "filter";
+    button.textContent = category;
+    button.classList.toggle("active", category === active);
+
+    button.addEventListener("click", () => {
+      active = category;
+
+      document.querySelectorAll(".filter").forEach(item => {
+        item.classList.toggle(
+          "active",
+          item.textContent === active
+        );
+      });
+
+      render();
+    });
+
+    filters.appendChild(button);
+  });
+}
+
+function render() {
+  const query = search.value.trim().toLocaleLowerCase("tr-TR");
+
+  const visible = games.filter(game => {
+    const categoryMatch =
+      active === "Tümü" || game.cat === active;
+
+    const queryMatch =
+      game.name.toLocaleLowerCase("tr-TR").includes(query);
+
+    return categoryMatch && queryMatch;
+  });
+
+  grid.replaceChildren();
+
+  visible.forEach(game => {
+    const card = document.createElement("article");
+    card.className = "game";
+
+    const cover = document.createElement("div");
+    cover.className = "cover";
+    cover.style.setProperty("--glow", game.color);
+
+    const fallback = document.createElement("div");
+    fallback.className = "cover-fallback";
+    fallback.textContent = game.name
+      .split(/[\s:]+/)
+      .slice(0, 2)
+      .map(word => word[0] || "")
+      .join("")
+      .toUpperCase();
+
+    const image = document.createElement("img");
+    image.alt = game.name + " kapak görseli";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    const url = coverURL(game.app);
+
+    if (url) {
+      image.src = url;
+
+      image.addEventListener("error", () => {
+        image.style.display = "none";
+        fallback.style.display = "grid";
+      }, { once: true });
+    } else {
+      image.style.display = "none";
+      fallback.style.display = "grid";
+    }
+
+    cover.append(image, fallback);
+
+    const info = document.createElement("div");
+    info.className = "game-info";
+
+    const title = document.createElement("div");
+    title.className = "game-title";
+    title.textContent = game.name;
+
+    const category = document.createElement("div");
+    category.className = "game-category";
+    category.textContent = game.cat;
+
+    const actions = document.createElement("div");
+    actions.className = "game-actions";
+
+    const storeLink = document.createElement("a");
+    storeLink.className = "game-link";
+    storeLink.href = game.app
+      ? steamStore(game.app)
+      : steamSearch(game.name);
+    storeLink.target = "_blank";
+    storeLink.rel = "noopener noreferrer";
+    storeLink.textContent = "Mağazayı aç ↗";
+
+    actions.appendChild(storeLink);
+
+    if (downloadLinks[game.name]) {
+      const downloadLink = document.createElement("a");
+      downloadLink.className = "game-link";
+      downloadLink.href = downloadLinks[game.name];
+      downloadLink.target = "_blank";
+      downloadLink.rel = "noopener noreferrer";
+      downloadLink.textContent = "İndir ↓";
+      actions.appendChild(downloadLink);
+    }
+
+    info.append(title, category, actions);
+    card.append(cover, info);
+    grid.appendChild(card);
+  });
+
+  empty.style.display = visible.length ? "none" : "block";
+  document.getElementById("gameCount").textContent = games.length;
+}
+
+search.addEventListener("input", render);
+
+makeFilters();
+render();
+
+/* Yıldız / kar animasyonu */
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+let particles = [];
+let animationFrame;
+
+function resizeCanvas() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+  canvas.width = window.innerWidth * ratio;
+  canvas.height = window.innerHeight * ratio;
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  particles = Array.from({
+    length: Math.min(90, Math.floor(window.innerWidth / 12))
+  }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.5 + .4,
+    speed: Math.random() * .7 + .2,
+    drift: (Math.random() - .5) * .3,
+    opacity: Math.random() * .55 + .15
+  }));
+}
+
+function animate() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+  for (const particle of particles) {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255,255,255,${particle.opacity})`;
+    ctx.arc(
+      particle.x,
+      particle.y,
+      particle.r,
+      0,
+      Math.PI * 2
+    );
+    ctx.fill();
+
+    particle.y += particle.speed;
+    particle.x += particle.drift;
+
+    if (particle.y > window.innerHeight + 4) {
+      particle.y = -4;
+      particle.x = Math.random() * window.innerWidth;
+    }
+
+    if (particle.x < 0) particle.x = window.innerWidth;
+    if (particle.x > window.innerWidth) particle.x = 0;
+  }
+
+  animationFrame = requestAnimationFrame(animate);
+}
+
+resizeCanvas();
+animate();
+
+window.addEventListener("resize", resizeCanvas);
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    cancelAnimationFrame(animationFrame);
+  } else {
+    cancelAnimationFrame(animationFrame);
+    animate();
+  }
+});
 </script>
 </body>
 </html>
+```
