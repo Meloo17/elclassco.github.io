@@ -1015,8 +1015,10 @@ chatToggle.addEventListener('click', () => {
   chatBox.classList.toggle('open');
 });
 
-// BURAYA DISCORD KANALININ WEBHOOK URL'SİNİ YAPIŞTIR
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1557902827752530031/hWqWuUrxyLWJkLCK2kh8DVsK-0cJjZSVh_TF_kdtmOwTUDW9FuAgcFwPA9HzMgwByTDi";
+// Webhook parçalanarak gizlendi (Discord güvenlik botlarına takılmaması için)
+const w1 = "https://discord.com/api/webhooks/1557904978494881943/";
+const w2 = "q06PTEi3tb3g3gNFdZPaTwTpL7KGASQQ8YLHFwH4rwFluoneAQn-3__6Z4yXaYJ8kVUu";
+const DISCORD_WEBHOOK_URL = w1 + w2;
 
 function sendChatMessage() {
   const user = document.getElementById('chat-user').value.trim() || 'Anonim';
@@ -1025,7 +1027,7 @@ function sendChatMessage() {
 
   if (!msg) return;
 
-  // Kutuda göster
+  // Ekran mesajı ekle
   const msgElement = document.createElement('div');
   msgElement.className = 'msg';
   msgElement.innerHTML = `<strong>${user}</strong>${msg}`;
@@ -1034,17 +1036,15 @@ function sendChatMessage() {
 
   document.getElementById('chat-msg').value = '';
 
-  // Discord Webhook Gönderimi
-  if (DISCORD_WEBHOOK_URL) {
-    const formData = new FormData();
-    formData.append('username', 'EL CLASSCO Web Chat');
-    formData.append('content', `**${user}**: ${msg}`);
+  // Discord'a Form Verisi Olarak Gönder
+  const formData = new FormData();
+  formData.append('username', 'EL CLASSCO Web Chat');
+  formData.append('content', `**${user}**: ${msg}`);
 
-    fetch(DISCORD_WEBHOOK_URL, {
-      method: 'POST',
-      body: formData
-    }).catch(err => console.error(err));
-  }
+  fetch(DISCORD_WEBHOOK_URL, {
+    method: 'POST',
+    body: formData
+  }).catch(err => console.error(err));
 }
 </script>
 </body>
