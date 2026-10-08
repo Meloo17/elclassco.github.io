@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -509,7 +508,7 @@ footer {
 
     <p class="lead">
       Favori oyunlarını keşfet, kapaklarını incele ve
-      aradığın oyunun mağaza sayfasına ulaş.
+      aradığın oyunun indirme bağlantılarına ulaş.
       Burası EL CLASSCO oyun merkezi.
     </p>
 
@@ -558,11 +557,8 @@ footer {
         <div class="kicker">THIS IS EL CLASSCO</div>
         <h3>Oyun dünyasının merkezine hoş geldin.</h3>
         <p>
-          EL CLASSCO, oyunları tek bir yerde keşfetmen için
+          EL CLASSCO, oyunları tek bir yerde keşfetmen ve indirmen için
           hazırlanan bağımsız bir oyun kataloğudur.
-          Oyun görselleri ilgili oyunların mağaza görsellerinden
-          yüklenir. Satın alma ve indirme koşulları ilgili
-          platformlar tarafından belirlenir.
         </p>
       </div>
 
@@ -579,12 +575,6 @@ footer {
 </footer>
 
 <script>
-/*
-  Steam App ID'leri bilinen oyunlar için mağaza kapakları kullanılır.
-  Kapak adresi çalışmazsa kartın yedek görseli gösterilir.
-  Steam'de bulunmayan oyunlar için mağaza arama bağlantısı sağlanır.
-*/
-
 const games = [
   {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c"},
   {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c"},
@@ -629,14 +619,45 @@ const games = [
   {name:"The Baby in Yellow",cat:"Korku",app:1501610,color:"#e8d16c"}
 ];
 
-/*
-  İzinli özel indirme bağlantılarını buraya ekleyebilirsin.
-  Örnek:
-  const downloadLinks = {
-    "Örnek Oyun": "https://example.com/my-authorized-download"
-  };
-*/
-const downloadLinks = {};
+/* İndirme bağlantıları */
+const downloadLinks = {
+  "Battlefield 1": "https://pixeldrain.com/u/vofoyM4i",
+  "Battlefield 2": "https://gofile.io/d/S8YdaR",
+  "Battlefield 3": "https://www.mediafire.com/file/qzw37ie00ygeevu/Battlefield.3.v1.6.0.iso/file",
+  "Battlefield 4": "https://gofile.io/d/VGIzeM",
+  "Battlefield 5": "https://gofile.io/d/D7gmvc",
+  "Battlefield 6": "https://buzzheavier.com/s3v6a2r44rwj",
+  "BeamNG.drive": "https://drive.usercontent.google.com/download?id=1cQkmx46H5tMu7-9gRIUmCUVdGKl7og53&authuser=0",
+  "Cyberpunk 2077": "https://gofile.io/d/1EMT54",
+  "Euro Truck Simulator 2": "https://megaup.net/9b7c4b29ca80e82f4fb4c2f636ecbd95/Euro.Truck.Simulator.2.v1.60.1.0s.rar",
+  "Grand Theft Auto V": "https://transfer.it/t/qXwxErwn1LaY",
+  "God of War": "https://gofile.io/d/OUbvV2",
+  "Grand Theft Auto: San Andreas": "https://transfer.it/t/DfEDqj51VTwR",
+  "eFootball PES 2021": "https://drive.usercontent.google.com/download?id=1OoQsdHG_9MO8_LPdzFsxm2V4kGdrjlWk&export=download&authuser=0",
+  "Red Dead Redemption 2": "https://gofile.io/d/pdRrzq",
+  "Spider-Man 3": "https://bowfile.com/6sqi#popup1",
+  "Watch Dogs 2": "https://gofile.io/d/wW77bP",
+  "WWE 2K25": "https://gofile.io/d/XMdl5c",
+  "WWE 2K24": "https://datanodes.to/download",
+  "Assetto Corsa": "https://www.mediafire.com/file/ojyxik0g3nrcb35/Assetto+Corsa.7z/file",
+  "Car Dealership Simulator 2": "https://megaup.net/4b92d04ff52a6f49453de25ed6f89557/Car.Dealership.Simulator.2.v0.5.rar",
+  "Car Service Together": "https://megaup.net/d512865493ccd67a78276c7095d821a0/Car.Service.Together.v2.0.rar",
+  "Hello Neighbor 2": "https://gofile.io/d/BX8NB5",
+  "İblis 3": "https://www.mediafire.com/file/yzuuuwb7w8yekiy/iblis+3+(bkbtb+-+berkant).zip/file",
+  "God of War Ragnarök": "https://gofile.io/d/4LbYNU",
+  "Hitman: World of Assassination": "https://gofile.io/d/opbggB",
+  "Hitman: Absolution": "https://datanodes.to/download",
+  "NBA 2K27": "https://gofile.io/d/cvZ0EXRc",
+  "Outlast 2": "https://pixeldrain.com/u/UPTajG2H",
+  "Outlast": "https://gofile.io/d/o8N8Kw",
+  "How to Fish?": "https://gofile.io/d/6663EztW",
+  "Meccha Chamelon": "https://transfer.it/t/E5J6yqpXwLCQ",
+  "PAYDAY: The Heist": "https://www.mediafire.com/file/wl9vudezfddvwhk/PAYDAY.The.Heist.v1.22.0-0xdeadcode.zip/file",
+  "PAYDAY 2": "https://gofile.io/d/tLhrfYoP",
+  "PAYDAY 3": "https://gofile.io/d/q9Gfiv",
+  "PES 2017": "https://pixeldrain.com/u/hmCgm7YT",
+  "The Baby in Yellow": "https://megaup.net/d7dc240914ae60c6e68cc8d204de32f9/The.Baby.In.Yellow.v2025.11.22.rar"
+};
 
 const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
@@ -756,26 +777,14 @@ function render() {
     const actions = document.createElement("div");
     actions.className = "game-actions";
 
-    const storeLink = document.createElement("a");
-    storeLink.className = "game-link";
-    storeLink.href = game.app
-      ? steamStore(game.app)
-      : steamSearch(game.name);
-    storeLink.target = "_blank";
-    storeLink.rel = "noopener noreferrer";
-    storeLink.textContent = "Mağazayı aç ↗";
+    const downloadLink = document.createElement("a");
+    downloadLink.className = "game-link";
+    downloadLink.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
+    downloadLink.target = "_blank";
+    downloadLink.rel = "noopener noreferrer";
+    downloadLink.textContent = "İndir ↓";
 
-    actions.appendChild(storeLink);
-
-    if (downloadLinks[game.name]) {
-      const downloadLink = document.createElement("a");
-      downloadLink.className = "game-link";
-      downloadLink.href = downloadLinks[game.name];
-      downloadLink.target = "_blank";
-      downloadLink.rel = "noopener noreferrer";
-      downloadLink.textContent = "İndir ↓";
-      actions.appendChild(downloadLink);
-    }
+    actions.appendChild(downloadLink);
 
     info.append(title, category, actions);
     card.append(cover, info);
@@ -865,4 +874,3 @@ document.addEventListener("visibilitychange", () => {
 </script>
 </body>
 </html>
-```
