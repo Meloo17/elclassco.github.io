@@ -970,12 +970,12 @@ footer {
   </section>
 </main>
 
-<button id="chat-toggle">💬</button>
-<div id="chat-box">
-  <div class="chat-header">
-    Canlı Destek / Chat <span>Çevrimiçi</span>
-  </div>
-  <div class="chat-messages" id="chat-messages"></div>
+<button id="chat-toggle" aria-label="Canlı sohbeti aç" aria-expanded="false">💬<span class="chat-notice-dot"></span></button>
+<div id="chat-box" role="dialog" aria-label="EL CLASSCO canlı sohbet">
+  <div class="chat-header"><div class="chat-brand"><span class="chat-brand-icon">EC</span><span><b>EL CLASSCO CHAT</b><small><i></i> Canlı topluluk odası</small></span></div><div class="chat-head-actions"><a href="https://discord.gg/rJBhRxVuY" target="_blank" rel="noopener noreferrer" title="Discord'u aç" aria-label="Discord'u aç">↗</a><button id="chat-close" type="button" aria-label="Sohbeti kapat">×</button></div></div>
+  <div id="chat-gate" class="chat-gate"><div class="chat-gate-icon">✦</div><h3>Topluluğa katıl</h3><p>Bir takma ad seç, sohbete dahil ol.</p><form id="chat-nickname-form"><label for="chat-nickname">TAKMA ADIN</label><input id="chat-nickname" maxlength="24" minlength="2" placeholder="Örn. ShadowPlayer" autocomplete="nickname" required><button class="chat-send" type="submit">Sohbete katıl <span>↗</span></button></form><small>2-24 karakter · Gerçek adını yazmak zorunda değilsin</small></div>
+  <div id="chat-room" class="chat-room hidden"><div class="chat-room-bar"><span><i></i> Genel sohbet</span><button id="chat-change-name" type="button">Takma adı değiştir</button></div><div class="chat-messages" id="chat-messages" aria-live="polite"><div class="chat-system-note">Sohbet yükleniyor…</div></div><form id="chat-compose" class="chat-compose"><input id="chat-message-input" maxlength="400" placeholder="Mesajını yaz..." autocomplete="off" aria-label="Mesajın" required><button type="submit" aria-label="Mesajı gönder">➤</button></form><div class="chat-compose-footer"><span>Bağlantı ve spam koruması açık</span><span id="chat-char-count">0/400</span></div></div>
+  <div id="chat-status" class="chat-status" role="status">Takma ad seçerek sohbete katılabilirsin.</div>
 </div>
 
 <!-- OYUN DETAY EKRANI MODAL -->
