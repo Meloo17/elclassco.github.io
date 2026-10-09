@@ -173,8 +173,8 @@
   }
   function init() {
     buildDiscoveryControls();addLibraryFilter();patchRender();attachLibraryButtons();watchModal();loadStats();liveNotifications();
-    const grid=document.getElementById('grid');
-    if(grid)new MutationObserver(()=>{attachLibraryButtons();}).observe(grid,{childList:true,subtree:true});
+    // attachLibraryButtons() zaten patchRender() içinde render tamamlanınca çalışır.
+    // Grid MutationObserver kaldırıldı; aksi halde her kart eklenişinde tüm kartlar yeniden taranıyordu.
     const filters=document.getElementById('filters');
     if(filters)new MutationObserver(()=>{addLibraryFilter();}).observe(filters,{childList:true});
     if(!getClient())setTimeout(liveNotifications,1800);
