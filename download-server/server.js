@@ -1,4 +1,5 @@
 import http from "node:http";
+import { randomBytes } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,6 +12,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://127.0.0.1:5500";
 const SUPABASE_URL = (process.env.SUPABASE_URL || "").replace(/\/$/, "");
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
 const MANIFEST_PATH = path.join(here, "manifest.json");
+const downloadTickets = new Map();
 
 fs.mkdirSync(DOWNLOAD_DIR, { recursive: true });
 
@@ -125,11 +127,31 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  const match = /^\/downloads\/([a-z0-9][a-z0-9-]{0,79})$/i.exec(url.pathname);
-  if (match && (req.method === "GET" || req.method === "HEAD")) {
+  const ticketRoute = /^\\/api\\/download-ticket\\/([a-z0-9][a-z0-9-]{0,79})$/i.exec(url.pathname);
+  if (ticketRoute && req.method === "GET") {
     const auth = await authenticate(req);
     if (!auth.ok) return sendJson(res, 401, { error: auth.reason });
+    let game;
+    try {
+      game = readManifest().find(item => item.id === ticketRoute[1]);
+    } catch {
+      return sendJson(res, 500, { error: "Could not read download manifest." });
+    }
+    if (!game) return sendJson(res, 404, { error: "This file is not in the authorized manifest." });
+    const fullPath = path.resolve(DOWNLOAD_DIR, game.filename);
+    if (!fullPath.startsWith(DOWNLOAD_DIR + path.sep)) return sendJson(res, 400, { error: "Invalid file path." });
+    try {
+      if (!fs.statSync(fullPath).isFile()) throw new Error("not a file");
+    } catch {
+      return sendJson(res, 404, { error: "File not uploaded yet." });
+    }
+    const ticket = randomBytes(32).toString("hex");
+    downloadTickets.set(ticket, { gameId: game.id, userId: auth.user.id, expiresAt: Date.now() + 10 * 60 * 1000, uses: 0 });
+    return sendJson(res, 200, { ticket, expiresInSeconds: 600 });
+  }
 
+  const match = /^\\/downloads\\/([a-z0-9][a-z0-9-]{0,79})$/i.exec(url.pathname);
+  if (match && (req.method === "GET" || req.method === "HEAD")) {
     let game;
     try {
       game = readManifest().find(item => item.id === match[1]);
@@ -137,7 +159,13 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 500, { error: "Could not read download manifest." });
     }
     if (!game) return sendJson(res, 404, { error: "This file is not in the authorized manifest." });
-
+    const ticket = url.searchParams.get("ticket") || "";
+    const ticketData = downloadTickets.get(ticket);
+    if (!ticketData || ticketData.gameId !== game.id || ticketData.expiresAt < Date.now() || ticketData.uses >= 100) {
+      if (ticketData && (ticketData.expiresAt < Date.now() || ticketData.uses >= 100)) downloadTickets.delete(ticket);
+      return sendJson(res, 401, { error: "Download link expired. Request a new link from EL CLASSCO." });
+    }
+    ticketData.uses += 1;
     const fullPath = path.resolve(DOWNLOAD_DIR, game.filename);
     if (!fullPath.startsWith(DOWNLOAD_DIR + path.sep)) return sendJson(res, 400, { error: "Invalid file path." });
     let stat;
