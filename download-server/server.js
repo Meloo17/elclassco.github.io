@@ -75,7 +75,9 @@ async function authenticate(req) {
 
 function parseRange(header, size) {
   if (!header) return null;
-  const match = /^bytes=(\d*)-(\d*)$/.exec(header.trim());
+  const downloadPath = "/downloads/";
+  const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
+  const match = /^[a-z0-9][a-z0-9-]{0,79}$/i.test(downloadId) ? [url.pathname, downloadId] : null;
   if (!match || (!match[1] && !match[2])) return { invalid: true };
   let start;
   let end;
@@ -127,7 +129,9 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  const ticketRoute = /^\\/api\\/download-ticket\\/([a-z0-9][a-z0-9-]{0,79})$/i.exec(url.pathname);
+  const ticketPath = "/api/download-ticket/";
+  const ticketId = url.pathname.startsWith(ticketPath) ? url.pathname.slice(ticketPath.length) : "";
+  const ticketRoute = /^[a-z0-9][a-z0-9-]{0,79}$/i.test(ticketId) ? [url.pathname, ticketId] : null;
   if (ticketRoute && req.method === "GET") {
     const auth = await authenticate(req);
     if (!auth.ok) return sendJson(res, 401, { error: auth.reason });
