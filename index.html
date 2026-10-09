@@ -1788,29 +1788,23 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-/* Canlı Sohbet WidgetBot Entegrasyonu */
-const chatToggle = document.getElementById('chat-toggle');
-const chatBox = document.getElementById('chat-box');
-
-chatToggle.addEventListener('click', () => {
-  chatBox.classList.toggle('open');
-});
-
-const SERVER_ID = "1557531428026191982";
-const CHANNEL_ID = "1557531428982497287";
-
-const chatMessages = document.getElementById('chat-messages');
-
-if (chatMessages) {
-  chatMessages.innerHTML = `
-    <iframe 
-      src="https://e.widgetbot.io/channels/${SERVER_ID}/${CHANNEL_ID}" 
-      width="100%" 
-      height="100%" 
-      style="border:none; border-radius:12px;">
-    </iframe>
-  `;
-}
+/* EL CLASSCO canlı topluluk sohbeti: Supabase Realtime + takma ad */
+const chatToggle=document.getElementById('chat-toggle'),chatBox=document.getElementById('chat-box'),chatGate=document.getElementById('chat-gate'),chatRoom=document.getElementById('chat-room'),chatMessages=document.getElementById('chat-messages'),chatStatus=document.getElementById('chat-status'),chatNicknameInput=document.getElementById('chat-nickname'),chatCompose=document.getElementById('chat-compose'),chatMessageInput=document.getElementById('chat-message-input'),chatCharCount=document.getElementById('chat-char-count');
+let chatClient=null,chatSubscription=null,chatNickname=(localStorage.getItem('elclassco_chat_nickname')||'').slice(0,24),chatVisitorId=localStorage.getItem('elclassco_chat_visitor_id');
+if(!chatVisitorId){chatVisitorId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'ec-'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('elclassco_chat_visitor_id',chatVisitorId);}
+function setChatStatus(message,isError=false){if(chatStatus){chatStatus.textContent=message;chatStatus.style.color=isError?'#fda4af':'#8f82a5';}}
+function setChatOpen(open){chatBox.classList.toggle('open',open);chatToggle.setAttribute('aria-expanded',String(open));chatToggle.setAttribute('aria-label',open?'Canlı sohbeti kapat':'Canlı sohbeti aç');if(open&&chatNickname)chatMessageInput?.focus();}
+chatToggle?.addEventListener('click',()=>setChatOpen(!chatBox.classList.contains('open')));
+document.getElementById('chat-close')?.addEventListener('click',()=>setChatOpen(false));
+function showChatRoom(){chatGate.classList.add('hidden');chatRoom.classList.remove('hidden');loadChatMessages();}
+function showChatGate(){chatRoom.classList.add('hidden');chatGate.classList.remove('hidden');chatNicknameInput.value=chatNickname||'';chatNicknameInput.focus();}
+document.getElementById('chat-nickname-form')?.addEventListener('submit',e=>{e.preventDefault();const nick=chatNicknameInput.value.trim().replace(/[<>]/g,'');if(nick.length<2||nick.length>24){setChatStatus('Takma ad 2-24 karakter olmalı.',true);return;}chatNickname=nick;localStorage.setItem('elclassco_chat_nickname',nick);showChatRoom();});
+document.getElementById('chat-change-name')?.addEventListener('click',showChatGate);
+chatMessageInput?.addEventListener('input',()=>{chatCharCount.textContent=chatMessageInput.value.length+'/400';});
+function appendChatMessage(row){if(!chatMessages||!row||!row.id||chatMessages.querySelector('[data-message-id="'+CSS.escape(String(row.id))+'"]'))return;const note=chatMessages.querySelector('.chat-system-note');if(note)note.remove();const item=document.createElement('article');item.className='chat-message'+(row.nickname===chatNickname?' mine':'');item.dataset.messageId=row.id;const head=document.createElement('div');head.className='chat-message-head';const name=document.createElement('strong');name.textContent=String(row.nickname||'Oyuncu').slice(0,24);const time=document.createElement('time');const date=new Date(row.created_at);time.dateTime=date.toISOString();time.textContent=date.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});time.title=date.toLocaleString('tr-TR');const message=document.createElement('p');message.textContent=String(row.message||'').slice(0,400);head.append(name,time);item.append(head,message);const atBottom=chatMessages.scrollHeight-chatMessages.scrollTop-chatMessages.clientHeight<70;chatMessages.appendChild(item);while(chatMessages.children.length>100)chatMessages.firstElementChild.remove();if(atBottom||row.nickname===chatNickname)chatMessages.scrollTop=chatMessages.scrollHeight;}
+async function loadChatMessages(){if(!chatNickname||!window.supabase||!window.ELCLASSCO_SUPABASE_URL||!window.ELCLASSCO_SUPABASE_ANON_KEY){setChatStatus('Sohbet için Supabase yapılandırması gerekli.',true);return;}if(!chatClient)chatClient=window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);if(chatSubscription){await chatSubscription.unsubscribe();chatSubscription=null;}chatMessages.replaceChildren();const note=document.createElement('div');note.className='chat-system-note';note.textContent='Mesajlar yükleniyor…';chatMessages.appendChild(note);try{const {data,error}=await chatClient.from('chat_messages').select('id,nickname,message,created_at').order('created_at',{ascending:true}).limit(60);if(error)throw error;chatMessages.replaceChildren();if(!data?.length){const empty=document.createElement('div');empty.className='chat-system-note';empty.textContent='Henüz mesaj yok. İlk mesajı sen gönder!';chatMessages.appendChild(empty);}else data.forEach(appendChatMessage);chatMessages.scrollTop=chatMessages.scrollHeight;setChatStatus('Bağlandı · mesajlar anlık güncellenir');chatSubscription=chatClient.channel('el-classco-public-chat').on('postgres_changes',{event:'INSERT',schema:'public',table:'chat_messages'},payload=>appendChatMessage(payload.new)).on('postgres_changes',{event:'DELETE',schema:'public',table:'chat_messages'},payload=>{const el=chatMessages.querySelector('[data-message-id="'+CSS.escape(String(payload.old.id))+'"]');el?.remove();}).subscribe(status=>{if(status==='SUBSCRIBED')setChatStatus('Canlı bağlantı aktif');else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')setChatStatus('Canlı bağlantı kurulamadı; sayfayı yenilemeyi dene.',true);});}catch(error){chatMessages.replaceChildren();const note=document.createElement('div');note.className='chat-system-note';note.textContent='Sohbet kurulumu henüz tamamlanmadı. community-chat.sql dosyasını Supabase SQL Editor içinde çalıştır.';chatMessages.appendChild(note);setChatStatus('Sohbet veritabanına bağlanılamadı.',true);console.warn('EL CLASSCO chat:',error);}}
+chatCompose?.addEventListener('submit',async e=>{e.preventDefault();const message=chatMessageInput.value.trim();if(!message)return;if(message.length>400){setChatStatus('Mesaj en fazla 400 karakter olabilir.',true);return;}if(!chatClient){await loadChatMessages();if(!chatClient)return;}const sendButton=chatCompose.querySelector('button');sendButton.disabled=true;try{const {error}=await chatClient.rpc('send_chat_message',{p_nickname:chatNickname,p_message:message,p_visitor_id:chatVisitorId});if(error)throw error;chatMessageInput.value='';chatCharCount.textContent='0/400';setChatStatus('Mesaj gönderildi.');}catch(error){setChatStatus(error.message||'Mesaj gönderilemedi.',true);}finally{sendButton.disabled=false;chatMessageInput.focus();}});
+if(chatNickname)showChatRoom();else setChatStatus('Takma ad seçerek sohbete katılabilirsin.');
 </script>
 </body>
 </html>
