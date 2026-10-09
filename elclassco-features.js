@@ -103,8 +103,7 @@
   }
   function addLibraryFilter() {
     if(typeof categories==='undefined'||typeof makeFilters!=='function')return;
-    if(!categories.includes('📚 Kütüphanem'))categories.splice(3,0,'📚 Kütüphanem');
-    makeFilters();
+    if(!categories.includes('📚 Kütüphanem')){categories.splice(3,0,'📚 Kütüphanem');makeFilters();}
   }
   function ensureReviewUI() {
     const modal=document.getElementById('gameDetailModal'),content=modal?.querySelector('.modal-content');
