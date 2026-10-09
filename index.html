@@ -1989,7 +1989,7 @@ document.getElementById("authAccountBtn")?.addEventListener("click", async () =>
   openAuthModal("login");
 });
 document.getElementById("authSwitchBtn")?.addEventListener("click", () => {
-  if(authMode === "signup") openAuthModal("login");
+  if(authMode === "signup" || authMode === "reset") openAuthModal("login");
   else openAuthModal("signup");
 });
 document.getElementById("authForgotBtn")?.addEventListener("click", () => openAuthModal("reset"));
@@ -2013,7 +2013,7 @@ document.getElementById("authForm")?.addEventListener("submit", async (event) =>
         closeAuthModal();
         await loadLiveCatalog();
         updateAuthAccountButton();
-        if(pendingDownloadGame) { const game=pendingDownloadGame; pendingDownloadGame=null; openGameDetailModal(game); }
+        if(pendingDownloadGame) { const requestedName=pendingDownloadGame.name; pendingDownloadGame=null; openGameDetailModal(games.find(item=>item.name===requestedName)||{name:requestedName}); }
       } else {
         setAuthStatus("Kayıt isteği başarılı. E-posta adresine gelen doğrulama bağlantısını aç, ardından giriş yap.");
       }
