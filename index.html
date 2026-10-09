@@ -1938,6 +1938,9 @@ function openAuthModal(mode = "login", message = "") {
   const title = document.getElementById("authTitle");
   const subtitle = document.getElementById("authSubtitle");
   const confirm = document.getElementById("authConfirmLabel");
+  const confirmInput = document.getElementById("authConfirmPassword");
+  const passwordLabel = document.getElementById("authPasswordLabel");
+  const passwordInput = document.getElementById("authPassword");
   const forgot = document.getElementById("authForgotBtn");
   const google = document.getElementById("authGoogleBtn");
   const switchText = document.getElementById("authSwitchText");
@@ -1949,19 +1952,19 @@ function openAuthModal(mode = "login", message = "") {
   if(authMode === "signup") {
     title.textContent = "Ücretsiz hesap oluştur";
     subtitle.textContent = "Hesabınla giriş yaparak oyun indirme bağlantılarına erişebilirsin.";
-    confirm.hidden = false; forgot.hidden = true; google.hidden = false;
+    confirm.hidden = false; confirmInput.required = true; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = true; google.hidden = false;
     switchText.textContent = "Zaten hesabın var mı?"; switchBtn.textContent = "Giriş yap";
     pass.autocomplete = "new-password"; submit.textContent = "Kayıt ol";
   } else if(authMode === "reset") {
     title.textContent = "Şifreni sıfırla";
     subtitle.textContent = "E-posta adresine şifre yenileme bağlantısı göndereceğiz.";
-    confirm.hidden = true; forgot.hidden = true; google.hidden = true;
+    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = true; passwordInput.required = false; forgot.hidden = true; google.hidden = true;
     switchText.textContent = "Giriş ekranına dön"; switchBtn.textContent = "Giriş yap";
     pass.closest("label").hidden = true; submit.textContent = "Sıfırlama bağlantısı gönder";
   } else {
     title.textContent = "Oyuncu hesabına giriş yap";
     subtitle.textContent = message || "Oyunları keşfetmek herkese açık. İndirme bağlantılarına erişmek için giriş yap.";
-    confirm.hidden = true; forgot.hidden = false; google.hidden = false;
+    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = false; google.hidden = false;
     switchText.textContent = "Hesabın yok mu?"; switchBtn.textContent = "Kayıt ol";
     pass.closest("label").hidden = false; pass.autocomplete = "current-password"; submit.textContent = "Giriş yap";
   }
