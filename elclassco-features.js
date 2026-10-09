@@ -97,6 +97,9 @@
         cards.sort((a,b)=>{const x=stats[getTitle(a)]||{count:0,average:0},y=stats[getTitle(b)]||{count:0,average:0};return sortMode==='rating'?(y.average-x.average):(y.count-x.count);});
         cards.forEach(card=>grid.appendChild(card));
       }
+      const visibleCount=cards.filter(card=>!card.hidden).length;
+      const countEl=document.getElementById('gameCount');if(countEl)countEl.textContent=String(visibleCount);
+      const emptyEl=document.getElementById('empty');if(emptyEl)emptyEl.style.display=visibleCount?'none':'block';
       attachLibraryButtons();
     };
     enhanced.__ecPatched=true;render=enhanced;
