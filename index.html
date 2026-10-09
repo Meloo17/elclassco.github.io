@@ -799,7 +799,7 @@ footer {
 </head>
 
 <body>
-<canvas id="snow" aria-hidden="true"></canvas>
+
 
 <header>
   <div class="wrap nav">
@@ -1774,77 +1774,7 @@ async function startActiveVisitorCounter(){
 startActiveVisitorCounter();
 
 /* Yıldız / kar animasyonu */
-const canvas = document.getElementById("snow");
-const ctx = canvas.getContext("2d");
-let particles = [];
-let animationFrame;
-
-function resizeCanvas() {
-  const ratio = Math.min(window.devicePixelRatio || 1, 2);
-
-  canvas.width = window.innerWidth * ratio;
-  canvas.height = window.innerHeight * ratio;
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
-
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-  particles = Array.from({
-    length: Math.min(90, Math.floor(window.innerWidth / 12))
-  }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.5 + .4,
-    speed: Math.random() * .7 + .2,
-    drift: (Math.random() - .5) * .3,
-    opacity: Math.random() * .55 + .15
-  }));
-}
-
-function animate() {
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-  for (const particle of particles) {
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(255,255,255,${particle.opacity})`;
-    ctx.arc(
-      particle.x,
-      particle.y,
-      particle.r,
-      0,
-      Math.PI * 2
-    );
-    ctx.fill();
-
-    particle.y += particle.speed;
-    particle.x += particle.drift;
-
-    if (particle.y > window.innerHeight + 4) {
-      particle.y = -4;
-      particle.x = Math.random() * window.innerWidth;
-    }
-
-    if (particle.x < 0) particle.x = window.innerWidth;
-    if (particle.x > window.innerWidth) particle.x = 0;
-  }
-
-  animationFrame = requestAnimationFrame(animate);
-}
-
-resizeCanvas();
-animate();
-
-window.addEventListener("resize", resizeCanvas);
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    cancelAnimationFrame(animationFrame);
-  } else {
-    cancelAnimationFrame(animationFrame);
-    animate();
-  }
-});
-
+// Kar tanesi animasyonu performans için devre dışı bırakıldı.
 /* EL CLASSCO canlı topluluk sohbeti: Supabase Realtime + takma ad */
 const chatToggle=document.getElementById('chat-toggle'),chatBox=document.getElementById('chat-box'),chatGate=document.getElementById('chat-gate'),chatRoom=document.getElementById('chat-room'),chatMessages=document.getElementById('chat-messages'),chatStatus=document.getElementById('chat-status'),chatNicknameInput=document.getElementById('chat-nickname'),chatCompose=document.getElementById('chat-compose'),chatMessageInput=document.getElementById('chat-message-input'),chatCharCount=document.getElementById('chat-char-count');
 let chatClient=null,chatSubscription=null,chatNickname=(localStorage.getItem('elclassco_chat_nickname')||'').slice(0,24),chatVisitorId=localStorage.getItem('elclassco_chat_visitor_id');
@@ -1863,6 +1793,6 @@ async function loadChatMessages(){if(!chatNickname||!window.supabase||!window.EL
 chatCompose?.addEventListener('submit',async e=>{e.preventDefault();const message=chatMessageInput.value.trim();if(!message)return;if(message.length>400){setChatStatus('Mesaj en fazla 400 karakter olabilir.',true);return;}if(!chatClient){await loadChatMessages();if(!chatClient)return;}const sendButton=chatCompose.querySelector('button');sendButton.disabled=true;try{const {error}=await chatClient.rpc('send_chat_message',{p_nickname:chatNickname,p_message:message,p_visitor_id:chatVisitorId});if(error)throw error;chatMessageInput.value='';chatCharCount.textContent='0/400';setChatStatus('Mesaj gönderildi.');}catch(error){setChatStatus(error.message||'Mesaj gönderilemedi.',true);}finally{sendButton.disabled=false;chatMessageInput.focus();}});
 if(chatNickname)showChatRoom();else setChatStatus('Takma ad seçerek sohbete katılabilirsin.');
 </script>
-<script src="./elclassco-features.js"></script>
+<!-- Ek özellik yamaları kaldırıldı; temel katalog korunuyor. -->
 </body>
 </html>
