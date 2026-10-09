@@ -49,7 +49,6 @@ grant select (
 commit;
 
 -- Dashboard steps required outside SQL:
--- 1) Authentication > Providers > Google: enable it and enter Google's OAuth credentials.
--- 2) Authentication > URL Configuration: add https://meloo17.github.io/elclassco.github.io/
---    to Site URL / Redirect URLs (and localhost if you use local testing).
--- 3) Test signup, email confirmation, Google login, and admin login before merging the UI.
+-- 1) Authentication > URL Configuration: ensure the site URL / redirect allowlist includes
+--    https://meloo17.github.io/elclassco.github.io/ (and localhost only for local testing).
+-- 2) Test email signup/confirmation, email login, password reset, and existing admin login before merging.
