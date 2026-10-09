@@ -795,6 +795,9 @@ footer {
   .game { will-change: auto; }
 }
 
+
+/* Günün oyunu + gelişmiş arama */
+.featured-wrap{padding:12px 0 28px}.featured-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);overflow:hidden;border:1px solid #a855f755;border-radius:18px;background:linear-gradient(115deg,#1b1030f5,#100b1cf5);box-shadow:0 12px 35px #00000024}.featured-art{min-height:220px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 25%,#a855f766,transparent 55%),#100b1d}.featured-art img{width:100%;height:100%;min-height:220px;position:absolute;inset:0;object-fit:cover;opacity:.88;transition:transform .35s}.featured-card:hover .featured-art img{transform:scale(1.035)}.featured-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 65%,#100b1d88);pointer-events:none}.featured-copy{padding:clamp(18px,3vw,32px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}.featured-label{color:#e9d5ff;font-size:10px;font-weight:900;letter-spacing:2px}.featured-copy h3{margin:0;font-size:clamp(22px,3vw,34px);line-height:1.15}.featured-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.8}.featured-meta{font-size:10px;color:#d8b4fe}.tools{align-items:center;flex-wrap:wrap}.sort-select{min-width:175px;padding:13px 12px;color:#eee5ff;background:#130e20;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:12px;outline:none}.sort-select:focus{border-color:var(--purple)}@media(max-width:620px){.featured-card{grid-template-columns:1fr}.featured-art,.featured-art img{min-height:165px;height:165px}.featured-art:after{background:linear-gradient(0deg,#100b1d66,transparent 65%)}.sort-select{width:100%}}
 </style>
 </head>
 
@@ -868,6 +871,10 @@ footer {
     </div>
   </section>
 
+  <section class="featured-wrap wrap" aria-label="Günün oyunu">
+    <div id="dailyFeatured"></div>
+  </section>
+
   <section class="section wrap" id="games">
     <div class="kicker">EXPLORE THE COLLECTION</div>
     <h2>Oyun kütüphanesi</h2>
@@ -878,6 +885,13 @@ footer {
         <input id="search" type="search"
           placeholder="Oyun veya hile ara..." aria-label="Oyun ara">
       </label>
+      <select id="sortGames" class="sort-select" aria-label="Oyunları sırala">
+        <option value="recommended">Sıralama: Önerilen</option>
+        <option value="az">İsim: A’dan Z’ye</option>
+        <option value="za">İsim: Z’den A’ya</option>
+        <option value="newest">En yeni eklenen</option>
+        <option value="popular">En çok beğenilen</option>
+      </select>
     </div>
 
     <div class="mod-header" id="modHeader">
@@ -1209,6 +1223,8 @@ const downloadLinks = {
 const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
 const search = document.getElementById("search");
+const sortGames = document.getElementById("sortGames");
+const dailyFeatured = document.getElementById("dailyFeatured");
 const empty = document.getElementById("empty");
 const modHeader = document.getElementById("modHeader");
 
@@ -1369,8 +1385,19 @@ function render() {
     else if (active === "⚡ Hileler") categoryMatch = !!game.isHile;
     else categoryMatch = game.cat === active;
 
-    const queryMatch = game.name.toLocaleLowerCase("tr-TR").includes(query);
+    const searchableText = [game.name, game.cat, game.description, game.tag, ...(game.tags || [])].filter(Boolean).join(" ").toLocaleLowerCase("tr-TR");
+    const queryMatch = searchableText.includes(query);
     return categoryMatch && queryMatch;
+  });
+
+  const sortMode = sortGames ? sortGames.value : "recommended";
+  if (sortMode === "az") visible.sort((a,b) => a.name.localeCompare(b.name,"tr"));
+  if (sortMode === "za") visible.sort((a,b) => b.name.localeCompare(a.name,"tr"));
+  if (sortMode === "newest") visible.sort((a,b) => (Date.parse(b.createdAt || "") || 0) - (Date.parse(a.createdAt || "") || 0));
+  if (sortMode === "popular") visible.sort((a,b) => {
+    const av = JSON.parse(localStorage.getItem("elclassco_votes_" + a.name) || "{\"likes\":0,\"dislikes\":0}").likes || 0;
+    const bv = JSON.parse(localStorage.getItem("elclassco_votes_" + b.name) || "{\"likes\":0,\"dislikes\":0}").likes || 0;
+    return bv - av;
   });
 
   grid.replaceChildren();
@@ -1497,9 +1524,31 @@ function render() {
 }
 
 search.addEventListener("input", render);
+if (sortGames) sortGames.addEventListener("change", render);
+
+function renderDailyFeatured() {
+  if (!dailyFeatured || !games.length) return;
+  const today = new Date();
+  const dayNumber = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000);
+  const game = games[((dayNumber % games.length) + games.length) % games.length];
+  const art = coverURL(game);
+  dailyFeatured.replaceChildren();
+  const card = document.createElement("article"); card.className = "featured-card";
+  const artBox = document.createElement("div"); artBox.className = "featured-art";
+  if (art) { const img = document.createElement("img"); img.src = art; img.alt = game.name + " kapak görseli"; img.loading = "lazy"; img.decoding = "async"; artBox.appendChild(img); }
+  const copy = document.createElement("div"); copy.className = "featured-copy";
+  const label = document.createElement("div"); label.className = "featured-label"; label.textContent = "✦ GÜNÜN OYUNU";
+  const title = document.createElement("h3"); title.textContent = game.name;
+  const desc = document.createElement("p"); desc.textContent = game.description || (game.cat ? game.cat + " kategorisinden bugünün seçimi." : "Bugünün EL CLASSCO seçimi.");
+  const meta = document.createElement("div"); meta.className = "featured-meta"; meta.textContent = game.cat || "Oyun kütüphanesi";
+  const button = document.createElement("button"); button.className = "btn primary"; button.type = "button"; button.textContent = "Oyunu keşfet ↗";
+  button.addEventListener("click", () => openGameDetailModal(game));
+  copy.append(label,title,desc,meta,button); card.append(artBox,copy); dailyFeatured.appendChild(card);
+}
 
 makeFilters();
 render();
+renderDailyFeatured();
 
 // Supabase canlı katalog: veritabanı okunabilirse ana katalog onunla senkronize edilir.
 // Bağlantı başarısız olursa mevcut gömülü katalog çalışmaya devam eder.
@@ -1524,6 +1573,7 @@ async function loadLiveCatalog() {
       return {
         ...old,
         id: row.id,
+        createdAt: row.created_at || "",
         name: row.name,
         cat: row.category || old.cat || "Diğer",
         download_url: row.download_url || "",
@@ -1548,6 +1598,7 @@ async function loadLiveCatalog() {
     ];
     makeFilters();
     render();
+    renderDailyFeatured();
   } catch (error) {
     console.warn("EL CLASSCO canlı katalog yüklenemedi; yerel katalog kullanılacak.", error);
   }
