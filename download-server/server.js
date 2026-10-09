@@ -77,6 +77,8 @@ function parseRange(header, size) {
   if (!header) return null;
   const downloadPath = "/downloads/";
   const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
+  const downloadPath = "/downloads/";
+  const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
   const match = /^[a-z0-9][a-z0-9-]{0,79}$/i.test(downloadId) ? [url.pathname, downloadId] : null;
   if (!match || (!match[1] && !match[2])) return { invalid: true };
   let start;
@@ -154,7 +156,9 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { ticket, expiresInSeconds: 600 });
   }
 
-  const match = /^\\/downloads\\/([a-z0-9][a-z0-9-]{0,79})$/i.exec(url.pathname);
+  const downloadPath = "/downloads/";
+  const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
+  const match = /^[a-z0-9][a-z0-9-]{0,79}$/i.test(downloadId) ? [url.pathname, downloadId] : null;
   if (match && (req.method === "GET" || req.method === "HEAD")) {
     let game;
     try {
