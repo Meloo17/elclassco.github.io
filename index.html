@@ -315,7 +315,6 @@ h2 {
   color:#f3e8ff;
 }
 
-/* Modifikasyonlar Üst Banner Style */
 .mod-header {
   display: none;
   background: rgba(23,16,36,0.6);
@@ -372,6 +371,7 @@ h2 {
   border-radius:14px;
   background:linear-gradient(160deg,#231739ed,#0f0b19f5);
   transition:transform .22s,border-color .22s;
+  cursor: pointer;
 }
 
 .game:hover {
@@ -513,7 +513,9 @@ h2 {
 .vote-box {
   display:flex;
   gap:6px;
-  margin-top:8px;
+  margin-top:10px;
+  padding-top:8px;
+  border-top:1px dashed var(--line);
 }
 
 .vote-btn {
@@ -545,28 +547,136 @@ h2 {
   color:var(--muted);
 }
 
-.panel {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  padding:26px;
-  border:1px solid var(--line);
-  border-radius:17px;
-  background:linear-gradient(120deg,#24143dba,#130d20db);
+/* Modallar & Özel Pop-up Animasyonu */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 7, 17, 0.88);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  place-items: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.panel h3 {
-  font-size:21px;
-  margin:8px 0;
+.modal.open {
+  display: grid;
+  opacity: 1;
 }
 
-.panel p {
-  max-width:650px;
-  color:#bdb1d1;
-  font-size:12px;
-  line-height:1.8;
+.modal-content {
+  background: #171024;
+  border: 1px solid var(--purple);
+  border-radius: 20px;
+  width: min(650px, 100%);
+  padding: 28px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+  position: relative;
+  transform: scale(0.85);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-height: 90vh;
+  overflow-y: auto;
 }
+
+.modal.open .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: .2s;
+}
+
+.modal-close:hover { color: #fff; background: var(--purple); }
+
+/* Özel Oyun Detay Ekranı Stilleri (Özel Görseldekine Benzer) */
+.game-detail-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-detail-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.game-detail-author {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.game-detail-cover {
+  width: 100%;
+  max-height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 15px 0 20px;
+  border: 1px solid var(--line);
+}
+
+.game-detail-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.game-detail-req {
+  text-align: center;
+  background: rgba(9,7,17,0.6);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #d6cce7;
+  margin-bottom: 20px;
+}
+
+.game-detail-download-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.part-btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  text-align: center;
+  background: linear-gradient(110deg, var(--purple), #c026d3);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(168,85,247,0.3);
+  transition: transform .2s;
+}
+
+.part-btn:hover { transform: translateY(-2px); }
 
 footer {
   border-top:1px solid var(--line);
@@ -582,7 +692,6 @@ footer {
   flex-wrap:wrap;
 }
 
-/* Canlı Sohbet Widget Tasarımı */
 #chat-toggle {
   position: fixed;
   bottom: 25px;
@@ -603,9 +712,7 @@ footer {
   transition: transform .2s;
 }
 
-#chat-toggle:hover {
-  transform: scale(1.08);
-}
+#chat-toggle:hover { transform: scale(1.08); }
 
 #chat-box {
   position: fixed;
@@ -622,9 +729,7 @@ footer {
   z-index: 100;
 }
 
-#chat-box.open {
-  display: flex;
-}
+#chat-box.open { display: flex; }
 
 .chat-header {
   background: linear-gradient(110deg,var(--purple),#c026d3);
@@ -643,127 +748,18 @@ footer {
   border-radius: 10px;
 }
 
-.chat-messages {
-  padding: 0;
-  height: 380px;
-  overflow-y: auto;
-}
-
-/* Modal / Pop-Up Stilleri */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(9, 7, 17, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 200;
-  place-items: center;
-  padding: 20px;
-}
-
-.modal.open { display: grid; }
-
-.modal-content {
-  background: #171024;
-  border: 1px solid var(--purple);
-  border-radius: 18px;
-  width: min(500px, 100%);
-  padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 18px;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.modal-close:hover { color: #fff; }
-
-.modal h3 {
-  margin-top: 0;
-  color: #fff;
-  font-size: 20px;
-}
-
-.req-group {
-  margin-top: 15px;
-  background: #090711;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-.req-group strong { color: var(--purple); }
-
-.modal-input input, .modal-input textarea {
-  width: 100%;
-  background: #090711;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px;
-  color: white;
-  margin-top: 10px;
-  font-family: inherit;
-}
+.chat-messages { padding: 0; height: 380px; overflow-y: auto; }
 
 @media(max-width:950px) {
   .grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .links { gap:12px; }
 }
 
 @media(max-width:620px) {
-  .nav {
-    flex-wrap:wrap;
-    padding:12px 0;
-    gap:12px;
-  }
-
+  .nav { flex-wrap:wrap; padding:12px 0; gap:12px; }
   .brand { font-size:21px; }
-
-  .links {
-    width:100%;
-    order:2;
-    justify-content:space-between;
-    gap:8px;
-  }
-
-  .links a, .links button { font-size:10px; }
-
+  .links { width:100%; order:2; justify-content:space-between; gap:8px; }
   .hero { padding:48px 0 30px; }
-
-  h1 { letter-spacing:-2px; }
-
-  .stats { gap:20px; }
-
-  .grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-  }
-
-  .game-info { padding:10px; }
-
-  .game-title { font-size:11px; }
-
-  .game-link { font-size:9px; }
-
-  .panel { padding:18px; }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto; }
-  *,*:before,*:after {
-    animation:none!important;
-    transition:none!important;
-  }
+  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 }
 </style>
 </head>
@@ -841,7 +837,7 @@ footer {
   <section class="section wrap" id="games">
     <div class="kicker">EXPLORE THE COLLECTION</div>
     <h2>Oyun kütüphanesi</h2>
-    <p class="subtitle">Oyunu ara veya kategorisini seç.</p>
+    <p class="subtitle">Oyunu ara veya detayını görmek için kartın üzerine tıkla.</p>
 
     <div class="tools">
       <label class="search">
@@ -850,7 +846,6 @@ footer {
       </label>
     </div>
 
-    <!-- Modifikasyonlar Üst Banner -->
     <div class="mod-header" id="modHeader">
       <div>
         <div class="mod-title">Modifikasyonlar ⚙️</div>
@@ -889,26 +884,27 @@ footer {
   <div class="chat-messages" id="chat-messages"></div>
 </div>
 
-<!-- Sistem Gereksinimleri Modal -->
-<div class="modal" id="sysModal">
+<!-- ÖZEL OYUN DETAY MODAL (Attığın Fotoğraftaki Gibi Ekran) -->
+<div class="modal" id="gameDetailModal">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeSysModal()">✕</button>
-    <h3 id="modalGameTitle">Oyun Adı</h3>
-    <div class="req-group">
-      <strong>Minimum Sistem Gereksinimleri:</strong><br>
-      • İşletim Sistemi: Windows 10 64-bit<br>
-      • İşlemci: Intel i5 / AMD Ryzen 3<br>
-      • Bellek: 8 GB RAM<br>
-      • Ekran Kartı: GTX 1050 Ti / RX 570<br>
-      • Depolama: 50 GB kullanılabilir alan
+    <button class="modal-close" onclick="closeGameDetailModal()">✕</button>
+    <div class="game-detail-header">
+      <div class="game-detail-title" id="detailTitle">Oyun İndir</div>
+      <div class="game-detail-author">by EL CLASSCO Team • Güncellendi</div>
     </div>
-    <div class="req-group">
-      <strong>Önerilen Sistem Gereksinimleri:</strong><br>
-      • İşletim Sistemi: Windows 11 64-bit<br>
-      • İşlemci: Intel i7 / AMD Ryzen 5<br>
-      • Bellek: 16 GB RAM<br>
-      • Ekran Kartı: RTX 2060 / RX 6600<br>
-      • Depolama: SSD Destekli 50 GB
+
+    <div class="game-detail-cover" id="detailCoverBox">
+      <img id="detailImg" src="" alt="Oyun Kapak">
+    </div>
+
+    <div class="game-detail-req">
+      <strong>Sistem Gereksinimi</strong><br>
+      <span id="detailSys">Minimum: İşletim Sistemi: Windows 10 | İşlemci: Intel i5 / Ryzen 5 | Bellek: 8 GB RAM | Depolama: 50 GB</span>
+    </div>
+
+    <div class="game-detail-download-box">
+      <a id="detailLink1" class="part-btn" href="#" target="_blank" rel="noopener noreferrer">PART 1 İndir 🚀</a>
+      <a id="detailLink2" class="part-btn" style="background:#5865f2; display:none;" href="#" target="_blank" rel="noopener noreferrer">Discord Sunucusundan İndir ↗</a>
     </div>
   </div>
 </div>
@@ -947,59 +943,46 @@ const games = [
     score: "99",
     isVideo: true,
     videoUrl: "https://streamable.com/e/v629bh?autoplay=1&muted=1",
-    isHile: true
+    isHile: true,
+    sys: "Minimum: Windows 10 64-Bit | İşlemci: Intel i5 7500 | Bellek: 8 GB RAM | Ekran Kartı: GTX 1050 Ti"
   },
-  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c",tag:"Çok Popüler 🔥"},
-  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c",tag:"Klasik 🏛️"},
+  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce",tag:"Favori 🚚", sys:"Minimum: Windows 10 64-bit | İşlemci: Intel Core i5-6400 / Ryzen 3 1200 | Bellek: 8 GB RAM | Ekran Kartı: GTX 660"},
+  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:248610,color:"#d6a35c",tag:"Çok Popüler 🔥"},
+  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:24860,color:"#b3a58c",tag:"Klasik 🏛️"},
   {name:"Battlefield 3",cat:"FPS / Aksiyon",app:1238820,color:"#c58c62"},
   {name:"Battlefield 4",cat:"FPS / Aksiyon",app:1238860,color:"#d49a69"},
   {name:"Battlefield 5",cat:"FPS / Aksiyon",app:1238810,color:"#d8bd8b"},
-  {name:"Battlefield 6",cat:"FPS / Aksiyon",app:2807960,color:"#a9b4cb",tag:"Yeni ✨"},
-
   {name:"BeamNG.drive",cat:"Simülasyon / Araba",app:284160,color:"#6cb6b0",tag:"Fizik 🔥"},
   {name:"Cyberpunk 2077",cat:"Açık Dünya / RPG",app:1091500,color:"#f0d45c",tag:"Çok Popüler 🔥"},
-  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce",tag:"Favori 🚚"},
   {name:"Grand Theft Auto V",cat:"Açık Dünya / Aksiyon",app:271590,color:"#8fb66a",tag:"Efsane 👑"},
   {name:"God of War",cat:"Aksiyon / Hikâye",app:1593500,color:"#c6d4dc",tag:"Şaheser ⚔️"},
   {name:"Grand Theft Auto: San Andreas",cat:"Açık Dünya / Aksiyon",app:12120,color:"#9bba78",tag:"Düşük Sistem 💻"},
-
   {name:"eFootball PES 2021",cat:"Spor / Futbol",app:1259970,color:"#74a6d8"},
   {name:"Red Dead Redemption 2",cat:"Açık Dünya / Hikâye",app:1174180,color:"#d57b67",tag:"Şaheser 🤠"},
-  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d",tag:"Nostalji 🕸️"},
+  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d",tag:"Nostalji 🕸️", customImg: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2044.jpg"},
   {name:"Watch Dogs 2",cat:"Açık Dünya / Aksiyon",app:447040,color:"#9cb6db"},
-  {name:"WWE 2K25",cat:"Spor / Güreş",app:2878960,color:"#c4a4ee",tag:"Yeni ✨"},
-  {name:"WWE 2K24",cat:"Spor / Güreş",app:2315690,color:"#bba4ed"},
-
+  {name:"WWE 2K24",cat:"Spor / Güreş",app:2315690,color:"#bba4ed",tag:"Yeni ✨"},
   {name:"Assetto Corsa",cat:"Yarış / Simülasyon",app:244210,color:"#e5a45c",tag:"Simülasyon 🏎️"},
-  {name:"Car Dealership Simulator 2",cat:"Simülasyon / Araba",app:null,color:"#a4b2c5"},
-  {name:"Car Service Together",cat:"Simülasyon / Araba",app:null,color:"#70c2c2"},
+  {name:"Car Dealership Simulator",cat:"Simülasyon / Araba",app:2813630,color:"#a4b2c5"},
+  {name:"Car Service Together",cat:"Simülasyon / Araba",app:3259860,color:"#70c2c2"},
   {name:"Hello Neighbor 2",cat:"Korku / Gizem",app:1321680,color:"#d6ad5f"},
-  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777",tag:"Yerli 🇹🇷"},
+  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777",tag:"Yerli 🇹🇷", customImg: "https://cdn.akamai.steamstatic.com/steam/apps/2103320/header.jpg"},
   {name:"God of War Ragnarök",cat:"Aksiyon / Hikâye",app:2322010,color:"#92b8dc",tag:"Yeni ✨"},
-
   {name:"Hitman: World of Assassination",cat:"Gizlilik / Aksiyon",app:1659040,color:"#d3d2dc"},
   {name:"Hitman: Absolution",cat:"Gizlilik / Aksiyon",app:203140,color:"#b8c1d3"},
-  {name:"NBA 2K27",cat:"Spor / Basketbol",app:null,color:"#dba66c"},
   {name:"Outlast 2",cat:"Korku",app:414700,color:"#d5b35e",tag:"Korku 💀"},
   {name:"Outlast",cat:"Korku",app:238320,color:"#c6b46b",tag:"Korku 💀"},
-  {name:"How to Fish?",cat:"Simülasyon",app:null,color:"#8ac7df"},
-
-  {name:"Meccha Chamelon",cat:"Platform / Aksiyon",app:null,color:"#a7a1ef"},
-  {name:"PAYDAY: The Heist",cat:"FPS / Aksiyon",app:24240,color:"#d2c1a0"},
   {name:"PAYDAY 2",cat:"FPS / Aksiyon",app:218620,color:"#b7c1d2",tag:"Co-Op 🎭"},
   {name:"PAYDAY 3",cat:"FPS / Aksiyon",app:1272080,color:"#d5c6aa"},
-  {name:"PES 2017",cat:"Spor / Futbol",app:456610,color:"#7ba9d7",tag:"Düşük Sistem 💻"},
   {name:"The Baby in Yellow",cat:"Korku",app:1501610,color:"#e8d16c"}
 ];
 
-/* İndirme bağlantıları */
 const downloadLinks = {
   "Battlefield 1": "https://pixeldrain.com/u/vofoyM4i",
   "Battlefield 2": "https://gofile.io/d/S8YdaR",
   "Battlefield 3": "https://www.mediafire.com/file/qzw37ie00ygeevu/Battlefield.3.v1.6.0.iso/file",
   "Battlefield 4": "https://gofile.io/d/VGIzeM",
   "Battlefield 5": "https://gofile.io/d/D7gmvc",
-  "Battlefield 6": "https://buzzheavier.com/s3v6a2r44rwj",
   "BeamNG.drive": "https://drive.usercontent.google.com/download?id=1cQkmx46H5tMu7-9gRIUmCUVdGKl7og53&authuser=0",
   "Cyberpunk 2077": "https://gofile.io/d/1EMT54",
   "Euro Truck Simulator 2": "https://megaup.net/9b7c4b29ca80e82f4fb4c2f636ecbd95/Euro.Truck.Simulator.2.v1.60.1.0s.rar",
@@ -1010,25 +993,17 @@ const downloadLinks = {
   "Red Dead Redemption 2": "https://gofile.io/d/pdRrzq",
   "Spider-Man 3": "https://bowfile.com/6sqi#popup1",
   "Watch Dogs 2": "https://gofile.io/d/wW77bP",
-  "WWE 2K25": "https://gofile.io/d/XMdl5c",
   "WWE 2K24": "https://datanodes.to/download",
   "Assetto Corsa": "https://www.mediafire.com/file/ojyxik0g3nrcb35/Assetto+Corsa.7z/file",
-  "Car Dealership Simulator 2": "https://megaup.net/4b92d04ff52a6f49453de25ed6f89557/Car.Dealership.Simulator.2.v0.5.rar",
-  "Car Service Together": "https://megaup.net/d512865493ccd67a78276c7095d821a0/Car.Service.Together.v2.0.rar",
   "Hello Neighbor 2": "https://gofile.io/d/BX8NB5",
   "İblis 3": "https://www.mediafire.com/file/yzuuuwb7w8yekiy/iblis+3+(bkbtb+-+berkant).zip/file",
   "God of War Ragnarök": "https://gofile.io/d/4LbYNU",
   "Hitman: World of Assassination": "https://gofile.io/d/opbggB",
   "Hitman: Absolution": "https://datanodes.to/download",
-  "NBA 2K27": "https://gofile.io/d/cvZ0EXRc",
   "Outlast 2": "https://pixeldrain.com/u/UPTajG2H",
   "Outlast": "https://gofile.io/d/o8N8Kw",
-  "How to Fish?": "https://gofile.io/d/6663EztW",
-  "Meccha Chamelon": "https://transfer.it/t/E5J6yqpXwLCQ",
-  "PAYDAY: The Heist": "https://www.mediafire.com/file/wl9vudezfddvwhk/PAYDAY.The.Heist.v1.22.0-0xdeadcode.zip/file",
   "PAYDAY 2": "https://gofile.io/d/tLhrfYoP",
   "PAYDAY 3": "https://gofile.io/d/q9Gfiv",
-  "PES 2017": "https://pixeldrain.com/u/hmCgm7YT",
   "The Baby in Yellow": "https://megaup.net/d7dc240914ae60c6e68cc8d204de32f9/The.Baby.In.Yellow.v2025.11.22.rar"
 };
 
@@ -1056,8 +1031,9 @@ function steamStore(app) {
   return "https://store.steampowered.com/app/" + app + "/";
 }
 
-function coverURL(app) {
-  return app ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${app}/header.jpg` : "";
+function coverURL(game) {
+  if (game.customImg) return game.customImg;
+  return game.app ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.app}/header.jpg` : "";
 }
 
 function setTheme(color) {
@@ -1102,6 +1078,43 @@ function filterHileler() {
   render();
 }
 
+function openGameDetailModal(game) {
+  document.getElementById("detailTitle").textContent = game.name + " İndir";
+  
+  const coverImg = coverURL(game);
+  const detailImgEl = document.getElementById("detailImg");
+  
+  if (game.isVideo) {
+    detailImgEl.src = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg";
+  } else if (coverImg) {
+    detailImgEl.src = coverImg;
+  } else {
+    detailImgEl.src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80";
+  }
+
+  const sysText = game.sys || "Minimum: Windows 10 64-bit | İşlemci: Intel Core i5-6400 / AMD Ryzen 3 1200 | Bellek: 8 GB RAM | Ekran Kartı: GTX 1050 Ti | Depolama: 50 GB kullanılabilir alan";
+  document.getElementById("detailSys").textContent = sysText;
+
+  const btn1 = document.getElementById("detailLink1");
+  const btn2 = document.getElementById("detailLink2");
+
+  if (game.isHile) {
+    btn1.textContent = "Hile İçin Discord'a Katıl ↗";
+    btn1.href = DISCORD_LINK;
+    btn2.style.display = "none";
+  } else {
+    btn1.textContent = "PART 1 İndir 🚀";
+    btn1.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
+    btn2.style.display = "none";
+  }
+
+  document.getElementById("gameDetailModal").classList.add("open");
+}
+
+function closeGameDetailModal() {
+  document.getElementById("gameDetailModal").classList.remove("open");
+}
+
 function makeFilters() {
   categories.forEach(category => {
     const button = document.createElement("button");
@@ -1119,15 +1132,6 @@ function makeFilters() {
 
     filters.appendChild(button);
   });
-}
-
-function openSysModal(gameName) {
-  document.getElementById("modalGameTitle").textContent = gameName;
-  document.getElementById("sysModal").classList.add("open");
-}
-
-function closeSysModal() {
-  document.getElementById("sysModal").classList.remove("open");
 }
 
 function openRequestModal() {
@@ -1173,6 +1177,9 @@ function render() {
   visible.forEach(game => {
     const card = document.createElement("article");
     card.className = "game";
+    
+    // Kartın kendisine tıklandığında özel detay ekranı açılır
+    card.onclick = () => openGameDetailModal(game);
 
     if (game.tag) {
       const tag = document.createElement("div");
@@ -1221,7 +1228,7 @@ function render() {
       image.loading = "lazy";
       image.decoding = "async";
 
-      const url = coverURL(game.app);
+      const url = coverURL(game);
 
       if (url) {
         image.src = url;
@@ -1251,31 +1258,16 @@ function render() {
     const actions = document.createElement("div");
     actions.className = "game-actions";
 
-    if (game.isHile) {
-      const discordLink = document.createElement("a");
-      discordLink.className = "game-link discord-btn";
-      discordLink.href = DISCORD_LINK;
-      discordLink.target = "_blank";
-      discordLink.rel = "noopener noreferrer";
-      discordLink.textContent = "Hile İçin Discord'a Katıl ↗";
-      actions.appendChild(discordLink);
-    } else {
-      const downloadLink = document.createElement("a");
-      downloadLink.className = "game-link";
-      downloadLink.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
-      downloadLink.target = "_blank";
-      downloadLink.rel = "noopener noreferrer";
-      downloadLink.textContent = "İndir ↓";
+    const detailBtn = document.createElement("button");
+    detailBtn.className = "game-link";
+    detailBtn.textContent = "İncele & İndir ↗";
+    detailBtn.onclick = (e) => {
+      e.stopPropagation();
+      openGameDetailModal(game);
+    };
 
-      const sysBtn = document.createElement("button");
-      sysBtn.className = "game-link";
-      sysBtn.textContent = "Sistem ℹ️";
-      sysBtn.onclick = () => openSysModal(game.name);
+    actions.appendChild(detailBtn);
 
-      actions.append(downloadLink, sysBtn);
-    }
-
-    // Like / Dislike Oy Kutusu
     const votes = JSON.parse(localStorage.getItem("elclassco_votes_" + game.name) || '{"likes": 0, "dislikes": 0, "userVote": null}');
 
     const voteBox = document.createElement("div");
