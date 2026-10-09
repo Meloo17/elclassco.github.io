@@ -315,6 +315,49 @@ h2 {
   color:#f3e8ff;
 }
 
+/* Modifikasyonlar Üst Banner Style */
+.mod-header {
+  display: none;
+  background: rgba(23,16,36,0.6);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+}
+
+.mod-header.active {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.mod-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mod-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.mod-badge {
+  background: rgba(168,85,247,0.15);
+  border: 1px solid var(--purple);
+  color: #e9d5ff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
 .grid {
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
@@ -349,6 +392,19 @@ h2 {
   padding:3px 7px;
   border-radius:6px;
   backdrop-filter:blur(4px);
+}
+
+.score-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: #10b981;
+  color: #000;
+  font-weight: 900;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 6px;
 }
 
 .fav-btn {
@@ -767,6 +823,15 @@ footer {
       </label>
     </div>
 
+    <!-- ExLoader Tarzı Modifikasyonlar Üst Bilgisi -->
+    <div class="mod-header" id="modHeader">
+      <div>
+        <div class="mod-title">Modifikasyonlar ⚙️</div>
+        <div class="mod-desc">Popüler oyunlar için tüm harika ve ücretsiz modları tek bir yerde topladık</div>
+      </div>
+      <div class="mod-badge">🎯 Counter Strike 2</div>
+    </div>
+
     <div class="filters" id="filters"></div>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty">Oyun veya hile bulunamadı.</div>
@@ -847,11 +912,12 @@ const DISCORD_LINK = "https://discord.gg/rJBhRxVuY";
 
 const games = [
   {
-    name: "CS2 Hilesi (Özel)",
+    name: "CS2 Özel Mod / Hilesi",
     cat: "CS2 / Hile",
     app: null,
     color: "#ef4444",
-    tag: "HİLE ⚡",
+    tag: "VİDEO ÖNİZLEME ⚡",
+    score: "99",
     isVideo: true,
     videoUrl: "https://streamable.com/e/v629bh?autoplay=1&muted=1",
     isHile: true
@@ -943,6 +1009,7 @@ const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
 const search = document.getElementById("search");
 const empty = document.getElementById("empty");
+const modHeader = document.getElementById("modHeader");
 
 let active = "Tümü";
 let favorites = JSON.parse(localStorage.getItem("elclassco_favs") || "[]");
@@ -1039,6 +1106,13 @@ function sendGameRequest() {
 function render() {
   const query = search.value.trim().toLocaleLowerCase("tr-TR");
 
+  // Hileler filtresindeysek ExLoader başlığını göster
+  if (active === "⚡ Hileler" || active === "CS2 / Hile") {
+    modHeader.classList.add("active");
+  } else {
+    modHeader.classList.remove("active");
+  }
+
   const visible = games.filter(game => {
     let categoryMatch = false;
     if (active === "Tümü") categoryMatch = true;
@@ -1063,12 +1137,21 @@ function render() {
       card.appendChild(tag);
     }
 
-    const favBtn = document.createElement("button");
-    favBtn.className = `fav-btn ${favorites.includes(game.name) ? 'active' : ''}`;
-    favBtn.innerHTML = "♥";
-    favBtn.title = "Favorilere Ekle";
-    favBtn.onclick = (e) => { e.stopPropagation(); toggleFav(game.name, favBtn); };
-    card.appendChild(favBtn);
+    if (game.score) {
+      const score = document.createElement("div");
+      score.className = "score-badge";
+      score.textContent = game.score;
+      card.appendChild(score);
+    }
+
+    if (!game.isHile) {
+      const favBtn = document.createElement("button");
+      favBtn.className = `fav-btn ${favorites.includes(game.name) ? 'active' : ''}`;
+      favBtn.innerHTML = "♥";
+      favBtn.title = "Favorilere Ekle";
+      favBtn.onclick = (e) => { e.stopPropagation(); toggleFav(game.name, favBtn); };
+      card.appendChild(favBtn);
+    }
 
     const cover = document.createElement("div");
     cover.className = "cover";
