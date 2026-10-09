@@ -381,11 +381,12 @@ h2 {
     linear-gradient(135deg,#21123e,#100b1d);
 }
 
-.cover img {
+.cover img, .cover iframe {
   display:block;
   width:100%;
   height:100%;
   object-fit:cover;
+  border:none;
   transition:transform .3s;
 }
 
@@ -444,6 +445,13 @@ h2 {
 }
 
 .game-link:hover { background:#a855f72b; }
+
+.game-link.discord-btn {
+  background:#5865f2;
+  border-color:#5865f2;
+  color:#fff;
+}
+.game-link.discord-btn:hover { background:#4752c4; }
 
 .empty {
   display:none;
@@ -689,6 +697,7 @@ footer {
 
     <nav class="links">
       <a href="#games">OYUNLAR</a>
+      <a href="#games" onclick="filterHileler()">HİLELER ⚡</a>
       <button onclick="openRequestModal()">İSTEK OYUN 📩</button>
       <a href="#about">HAKKIMIZDA</a>
       
@@ -732,7 +741,7 @@ footer {
 
     <div class="stats">
       <div class="stat">
-        <strong id="gameCount">36</strong>
+        <strong id="gameCount">37</strong>
         <span>OYUN</span>
       </div>
       <div class="stat">
@@ -754,13 +763,13 @@ footer {
     <div class="tools">
       <label class="search">
         <input id="search" type="search"
-          placeholder="Oyun ara..." aria-label="Oyun ara">
+          placeholder="Oyun veya hile ara..." aria-label="Oyun ara">
       </label>
     </div>
 
     <div class="filters" id="filters"></div>
     <div class="grid" id="grid"></div>
-    <div class="empty" id="empty">Oyun bulunamadı.</div>
+    <div class="empty" id="empty">Oyun veya hile bulunamadı.</div>
   </section>
 
   <section class="section wrap" id="about">
@@ -834,7 +843,19 @@ footer {
 </footer>
 
 <script>
+const DISCORD_LINK = "https://discord.gg/rJBhRxVuY";
+
 const games = [
+  {
+    name: "CS2 Hilesi (Özel)",
+    cat: "CS2 / Hile",
+    app: null,
+    color: "#ef4444",
+    tag: "HİLE ⚡",
+    isVideo: true,
+    videoUrl: "https://streamable.com/e/v629bh?autoplay=1&muted=1",
+    isHile: true
+  },
   {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c",tag:"Çok Popüler 🔥"},
   {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c",tag:"Klasik 🏛️"},
   {name:"Battlefield 3",cat:"FPS / Aksiyon",app:1238820,color:"#c58c62"},
@@ -928,6 +949,7 @@ let favorites = JSON.parse(localStorage.getItem("elclassco_favs") || "[]");
 
 const categories = [
   "Tümü",
+  "⚡ Hileler",
   "❤️ Favorilerim",
   ...new Set(games.map(game => game.cat))
 ];
@@ -958,6 +980,14 @@ function toggleFav(gameName, btn) {
   }
   localStorage.setItem("elclassco_favs", JSON.stringify(favorites));
   if (active === "❤️ Favorilerim") render();
+}
+
+function filterHileler() {
+  active = "⚡ Hileler";
+  document.querySelectorAll(".filter").forEach(item => {
+    item.classList.toggle("active", item.textContent === active);
+  });
+  render();
 }
 
 function makeFilters() {
@@ -1013,6 +1043,7 @@ function render() {
     let categoryMatch = false;
     if (active === "Tümü") categoryMatch = true;
     else if (active === "❤️ Favorilerim") categoryMatch = favorites.includes(game.name);
+    else if (active === "⚡ Hileler") categoryMatch = !!game.isHile;
     else categoryMatch = game.cat === active;
 
     const queryMatch = game.name.toLocaleLowerCase("tr-TR").includes(query);
@@ -1043,34 +1074,41 @@ function render() {
     cover.className = "cover";
     cover.style.setProperty("--glow", game.color);
 
-    const fallback = document.createElement("div");
-    fallback.className = "cover-fallback";
-    fallback.textContent = game.name
-      .split(/[\s:]+/)
-      .slice(0, 2)
-      .map(word => word[0] || "")
-      .join("")
-      .toUpperCase();
+    if (game.isVideo) {
+      const iframe = document.createElement("iframe");
+      iframe.src = game.videoUrl;
+      iframe.allow = "autoplay";
+      cover.appendChild(iframe);
+    } else {
+      const fallback = document.createElement("div");
+      fallback.className = "cover-fallback";
+      fallback.textContent = game.name
+        .split(/[\s:]+/)
+        .slice(0, 2)
+        .map(word => word[0] || "")
+        .join("")
+        .toUpperCase();
 
-    const image = document.createElement("img");
-    image.alt = game.name + " kapak görseli";
-    image.loading = "lazy";
-    image.decoding = "async";
+      const image = document.createElement("img");
+      image.alt = game.name + " kapak görseli";
+      image.loading = "lazy";
+      image.decoding = "async";
 
-    const url = coverURL(game.app);
+      const url = coverURL(game.app);
 
-    if (url) {
-      image.src = url;
-      image.addEventListener("error", () => {
+      if (url) {
+        image.src = url;
+        image.addEventListener("error", () => {
+          image.style.display = "none";
+          fallback.style.display = "grid";
+        }, { once: true });
+      } else {
         image.style.display = "none";
         fallback.style.display = "grid";
-      }, { once: true });
-    } else {
-      image.style.display = "none";
-      fallback.style.display = "grid";
-    }
+      }
 
-    cover.append(image, fallback);
+      cover.append(image, fallback);
+    }
 
     const info = document.createElement("div");
     info.className = "game-info";
@@ -1086,19 +1124,29 @@ function render() {
     const actions = document.createElement("div");
     actions.className = "game-actions";
 
-    const downloadLink = document.createElement("a");
-    downloadLink.className = "game-link";
-    downloadLink.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
-    downloadLink.target = "_blank";
-    downloadLink.rel = "noopener noreferrer";
-    downloadLink.textContent = "İndir ↓";
+    if (game.isHile) {
+      const discordLink = document.createElement("a");
+      discordLink.className = "game-link discord-btn";
+      discordLink.href = DISCORD_LINK;
+      discordLink.target = "_blank";
+      discordLink.rel = "noopener noreferrer";
+      discordLink.textContent = "Hile İçin Discord'a Katıl ↗";
+      actions.appendChild(discordLink);
+    } else {
+      const downloadLink = document.createElement("a");
+      downloadLink.className = "game-link";
+      downloadLink.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
+      downloadLink.target = "_blank";
+      downloadLink.rel = "noopener noreferrer";
+      downloadLink.textContent = "İndir ↓";
 
-    const sysBtn = document.createElement("button");
-    sysBtn.className = "game-link";
-    sysBtn.textContent = "Sistem ℹ️";
-    sysBtn.onclick = () => openSysModal(game.name);
+      const sysBtn = document.createElement("button");
+      sysBtn.className = "game-link";
+      sysBtn.textContent = "Sistem ℹ️";
+      sysBtn.onclick = () => openSysModal(game.name);
 
-    actions.append(downloadLink, sysBtn);
+      actions.append(downloadLink, sysBtn);
+    }
 
     info.append(title, category, actions);
     card.append(cover, info);
