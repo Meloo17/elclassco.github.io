@@ -816,6 +816,25 @@ footer {
 @media(max-width:700px){.trending-grid{grid-template-columns:1fr 1fr}.trend-card img{width:72px;height:50px}}
 @media(max-width:440px){.trending-grid{grid-template-columns:1fr}}
 
+
+.hero{position:relative;isolation:isolate;min-height:490px;display:flex;align-items:center;overflow:hidden}
+.hero-main{position:relative;z-index:2;width:62%;max-width:720px}
+.hero:before{content:"";position:absolute;inset:-30px 0 -20px 28%;z-index:-2;background:radial-gradient(ellipse at 65% 45%,#8b5cf633,transparent 45%),radial-gradient(ellipse at 80% 20%,#ec489922,transparent 35%);pointer-events:none}
+.hero-showcase{position:absolute;right:0;top:70px;width:38%;max-width:450px;min-width:280px;z-index:1}
+.showcase-label{font-size:9px;font-weight:900;letter-spacing:2px;color:#e9d5ff;margin:0 0 12px 18px}
+.showcase-window{overflow:hidden;border:1px solid #c084fc66;border-radius:20px;background:linear-gradient(145deg,#211337f5,#0c0916f7);box-shadow:0 25px 80px #0008,0 0 55px #a855f722;transform:rotateY(-8deg);animation:showcase-float 7s ease-in-out infinite}
+.showcase-top{height:40px;padding:13px;border-bottom:1px solid var(--line);font-size:9px;color:#34d399}.showcase-top b{float:right;font-size:8px;letter-spacing:1px;color:#8f82a5}
+.showcase-art{height:245px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at center,#6d28d944,transparent 55%),linear-gradient(140deg,#140d24,#21123c 55%,#0c0915)}
+.showcase-art:before{content:"";position:absolute;width:260px;height:260px;border:1px solid #c084fc44;border-radius:50%;transform:rotateX(65deg) rotate(-25deg)}
+.showcase-ring{position:absolute;width:175px;height:175px;border:1px solid #e9d5ff99;border-radius:50%;box-shadow:0 0 40px #a855f733;transform:rotateX(62deg) rotate(-25deg)}
+.showcase-core{display:grid;place-items:center;width:112px;height:112px;border-radius:30px;border:1px solid #ffffff66;background:linear-gradient(145deg,#a855f7dd,#581c87dd);box-shadow:0 0 55px #a855f777;font-size:38px;font-weight:950;letter-spacing:-3px;transform:rotate(-8deg)}
+.showcase-chip{position:absolute;bottom:26px;right:18px;border:1px solid #d8b4fe55;background:#100b1ddf;padding:8px 10px;border-radius:8px;font-size:8px;font-weight:900;letter-spacing:1px;color:#f3e8ff}
+.showcase-bottom{display:flex;justify-content:space-between;padding:17px 19px;font-size:10px;letter-spacing:1.5px;color:#e9d5ff}
+.showcase-floating{position:absolute;left:-18px;bottom:45px;padding:12px 14px;border:1px solid #c084fc55;border-radius:12px;background:#130d20ef;box-shadow:0 12px 30px #0005;font-size:10px;font-weight:800}
+@keyframes showcase-float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@media(max-width:850px){.hero{min-height:0}.hero-main{width:100%;max-width:680px}.hero-showcase{opacity:.18;right:-100px;top:45px;width:48%;pointer-events:none}.hero-main h1,.hero-main .lead,.hero-main .actions,.hero-main .stats{position:relative;z-index:2}}
+@media(max-width:620px){.hero-showcase{display:none}.hero-main{width:100%}.hero{padding-top:48px}.hero h1{letter-spacing:-2.2px}}
+
 </style>
 </head>
 
@@ -851,6 +870,7 @@ footer {
 
 <main id="top">
   <section class="hero wrap">
+    <div class="hero-main">
     <div class="eyebrow">
       <span class="pulse"></span>
       WELCOME TO EL CLASSCO
@@ -887,6 +907,8 @@ footer {
         <span>GAME CENTER</span>
       </div>
     </div>
+    </div>
+    <aside class="hero-showcase" aria-label="EL CLASSCO oyun vitrini"><div class="showcase-label">✦ EL CLASSCO UNIVERSE</div><div class="showcase-window"><div class="showcase-top">● ● ● <b>GAME LIBRARY / 2026</b></div><div class="showcase-art"><div class="showcase-ring"></div><div class="showcase-core">EC</div><span class="showcase-chip">✦ DISCOVER · LEVEL UP</span></div><div class="showcase-bottom"><strong>YOUR NEXT GAMING ADVENTURE</strong><span>↗</span></div></div><div class="showcase-floating">🎮 Oyunları keşfet</div></aside>
   </section>
 
   <section class="featured-wrap wrap" aria-label="Günün oyunu">
