@@ -1421,6 +1421,7 @@ let supabaseClient = null;
 let currentUser = null;
 let pendingDownloadGame = null;
 let authMode = "login";
+let authListenerRegistered = false;
 const empty = document.getElementById("empty");
 const modHeader = document.getElementById("modHeader");
 
@@ -1852,12 +1853,25 @@ renderTrendingGames();
 async function loadLiveCatalog() {
   try {
     if (!window.supabase || !window.ELCLASSCO_SUPABASE_URL || !window.ELCLASSCO_SUPABASE_ANON_KEY) return;
-    supabaseClient = window.supabase.createClient(
-      window.ELCLASSCO_SUPABASE_URL,
-      window.ELCLASSCO_SUPABASE_ANON_KEY
-    );
+    if (!supabaseClient) {
+      supabaseClient = window.supabase.createClient(
+        window.ELCLASSCO_SUPABASE_URL,
+        window.ELCLASSCO_SUPABASE_ANON_KEY
+      );
+    }
+    if (!authListenerRegistered) {
+      authListenerRegistered = true;
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        currentUser = session?.user || null;
+        updateAuthAccountButton();
+        if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "TOKEN_REFRESHED") {
+          Promise.resolve().then(() => loadLiveCatalog());
+        }
+      });
+    }
     const { data: sessionResult } = await supabaseClient.auth.getSession();
     currentUser = sessionResult?.session?.user || null;
+    updateAuthAccountButton();
     const catalogFields = currentUser
       ? "id,name,category,download_url,cover_url,system_requirements,description,tags,is_cheat,created_at"
       : "id,name,category,cover_url,system_requirements,description,tags,is_cheat,created_at";
@@ -1878,7 +1892,7 @@ async function loadLiveCatalog() {
         createdAt: row.created_at || "",
         name: row.name,
         cat: row.category || old.cat || "Diğer",
-        download_url: row.download_url || "",
+        download_url: currentUser ? (row.download_url || old.download_url || "") : "",
         customImg: row.cover_url || old.customImg || "",
         sys: row.system_requirements || old.sys || "",
         description: row.description || "",
@@ -2027,16 +2041,6 @@ document.getElementById("authGoogleBtn")?.addEventListener("click", async () => 
     if(error) throw error;
   } catch(error) { setAuthStatus(error.message || "Google ile giriş başlatılamadı.", true); }
 });
-if(window.supabase && window.ELCLASSCO_SUPABASE_URL && window.ELCLASSCO_SUPABASE_ANON_KEY) {
-  const authBootstrapClient = window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);
-  authBootstrapClient.auth.onAuthStateChange((event,session) => {
-    currentUser = session?.user || null;
-    updateAuthAccountButton();
-    if(event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "TOKEN_REFRESHED") {
-      if(supabaseClient) loadLiveCatalog();
-    }
-  });
-}
 updateAuthAccountButton();
 
 
