@@ -799,7 +799,6 @@ footer {
 </head>
 
 <body>
-<canvas id="snow" aria-hidden="true"></canvas>
 
 
 
@@ -1775,57 +1774,9 @@ async function startActiveVisitorCounter(){
 }
 startActiveVisitorCounter();
 
-/* Yıldız / kar animasyonu */
-// Kar tanesi a
-// EL CLASSCO snow effect — lightweight, pauses when the page is hidden.
-(() => {
-  const canvas = document.getElementById("snow");
-  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const ctx = canvas.getContext("2d", { alpha: true });
-  if (!ctx) return;
-  let width = 0, height = 0, flakes = [], raf = 0, lastFrame = 0;
-  const maxFlakes = Math.min(55, Math.max(24, Math.floor(window.innerWidth / 24)));
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    width = window.innerWidth; height = window.innerHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    flakes = Array.from({ length: maxFlakes }, () => ({
-      x: Math.random() * width, y: Math.random() * height,
-      r: Math.random() * 1.4 + 0.5, v: Math.random() * 0.45 + 0.2,
-      drift: (Math.random() - 0.5) * 0.22, alpha: Math.random() * 0.45 + 0.2
-    }));
-  }
-  function frame(now) {
-    raf = 0;
-    if (document.hidden) return;
-    if (now - lastFrame < 30) { raf = requestAnimationFrame(frame); return; }
-    lastFrame = now;
-    ctx.clearRect(0, 0, width, height);
-    for (const f of flakes) {
-      ctx.beginPath();
-      ctx.fillStyle = "rgba(255,255,255," + f.alpha + ")";
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      ctx.fill();
-      f.y += f.v; f.x += f.drift;
-      if (f.y > height + 3) { f.y = -3; f.x = Math.random() * width; }
-      if (f.x < -3) f.x = width + 3;
-      if (f.x > width + 3) f.x = -3;
-    }
-    raf = requestAnimationFrame(frame);
-  }
-  function start() { if (!document.hidden && !raf) raf = requestAnimationFrame(frame); }
-  function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
-  resize();
-  start();
-  window.addEventListener("resize", resize, { passive: true });
-  document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
-})();
+// Kar animasyonu performans için kaldırıldı.
 
-// Animasyonu performans için devre dışı bırakıldı.
+
 /* EL CLASSCO canlı topluluk sohbeti: Supabase Realtime + takma ad */
 const chatToggle=document.getElementById('chat-toggle'),chatBox=document.getElementById('chat-box'),chatGate=document.getElementById('chat-gate'),chatRoom=document.getElementById('chat-room'),chatMessages=document.getElementById('chat-messages'),chatStatus=document.getElementById('chat-status'),chatNicknameInput=document.getElementById('chat-nickname'),chatCompose=document.getElementById('chat-compose'),chatMessageInput=document.getElementById('chat-message-input'),chatCharCount=document.getElementById('chat-char-count');
 let chatClient=null,chatSubscription=null,chatNickname=(localStorage.getItem('elclassco_chat_nickname')||'').slice(0,24),chatVisitorId=localStorage.getItem('elclassco_chat_visitor_id');
