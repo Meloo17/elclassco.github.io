@@ -148,7 +148,7 @@
     }catch(e){summary.textContent='Yorumlar yüklenemedi.';status.textContent=e.message||'game-reviews.sql dosyasını çalıştır.';}
   }
   async function submitReview(e) {
-    e.preventDefault();const status=document.getElementById('ec-review-status'),form=e.currentTarget,button=form.querySelector('button[type=submit');
+    e.preventDefault();const status=document.getElementById('ec-review-status'),form=e.currentTarget,button=form.querySelector('button[type="submit"]');
     const nickname=document.getElementById('ec-review-nickname').value.trim().replace(/[<>]/g,''),comment=document.getElementById('ec-review-comment').value.trim(),rating=Number(document.getElementById('ec-review-rating').value);
     if(nickname.length<2||nickname.length>24||!comment||comment.length>500){status.textContent='Takma ad 2-24, yorum 1-500 karakter olmalı.';return;}
     const client=getClient();if(!client){status.textContent='Supabase bağlantısı bulunamadı.';return;}
@@ -173,6 +173,8 @@
     buildDiscoveryControls();addLibraryFilter();patchRender();attachLibraryButtons();watchModal();loadStats();liveNotifications();
     const grid=document.getElementById('grid');
     if(grid)new MutationObserver(()=>{attachLibraryButtons();}).observe(grid,{childList:true,subtree:true});
+    const filters=document.getElementById('filters');
+    if(filters)new MutationObserver(()=>{addLibraryFilter();}).observe(filters,{childList:true});
     if(!getClient())setTimeout(liveNotifications,1800);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
