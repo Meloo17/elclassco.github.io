@@ -1125,7 +1125,6 @@ header {
       <label id="authConfirmLabel" hidden>ŞİFRE TEKRARI<input id="authConfirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Şifreni tekrar yaz"></label>
       <button class="auth-forgot" id="authForgotBtn" type="button">Şifremi unuttum</button>
       <button class="auth-action" id="authSubmitBtn" type="submit">Giriş yap</button>
-      <button class="auth-action auth-google" id="authGoogleBtn" type="button">Google ile devam et</button>
     </form>
     <div class="auth-switch"><span id="authSwitchText">Hesabın yok mu?</span><button id="authSwitchBtn" type="button">Kayıt ol</button></div>
     <p class="auth-status" id="authStatus" role="status" aria-live="polite"></p>
@@ -1942,7 +1941,6 @@ function openAuthModal(mode = "login", message = "") {
   const passwordLabel = document.getElementById("authPasswordLabel");
   const passwordInput = document.getElementById("authPassword");
   const forgot = document.getElementById("authForgotBtn");
-  const google = document.getElementById("authGoogleBtn");
   const switchText = document.getElementById("authSwitchText");
   const switchBtn = document.getElementById("authSwitchBtn");
   const pass = document.getElementById("authPassword");
@@ -1952,19 +1950,19 @@ function openAuthModal(mode = "login", message = "") {
   if(authMode === "signup") {
     title.textContent = "Ücretsiz hesap oluştur";
     subtitle.textContent = "Hesabınla giriş yaparak oyun indirme bağlantılarına erişebilirsin.";
-    confirm.hidden = false; confirmInput.required = true; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = true; google.hidden = false;
+    confirm.hidden = false; confirmInput.required = true; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = true;
     switchText.textContent = "Zaten hesabın var mı?"; switchBtn.textContent = "Giriş yap";
     pass.autocomplete = "new-password"; submit.textContent = "Kayıt ol";
   } else if(authMode === "reset") {
     title.textContent = "Şifreni sıfırla";
     subtitle.textContent = "E-posta adresine şifre yenileme bağlantısı göndereceğiz.";
-    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = true; passwordInput.required = false; forgot.hidden = true; google.hidden = true;
+    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = true; passwordInput.required = false; forgot.hidden = true;
     switchText.textContent = "Giriş ekranına dön"; switchBtn.textContent = "Giriş yap";
     pass.closest("label").hidden = true; submit.textContent = "Sıfırlama bağlantısı gönder";
   } else {
     title.textContent = "Oyuncu hesabına giriş yap";
     subtitle.textContent = message || "Oyunları keşfetmek herkese açık. İndirme bağlantılarına erişmek için giriş yap.";
-    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = false; google.hidden = false;
+    confirm.hidden = true; confirmInput.required = false; passwordLabel.hidden = false; passwordInput.required = true; forgot.hidden = false;
     switchText.textContent = "Hesabın yok mu?"; switchBtn.textContent = "Kayıt ol";
     pass.closest("label").hidden = false; pass.autocomplete = "current-password"; submit.textContent = "Giriş yap";
   }
