@@ -1,0 +1,14 @@
+{
+  "name": "el-classco-download-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EL CLASSCO authorized-file download server with range and concurrent download support",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
