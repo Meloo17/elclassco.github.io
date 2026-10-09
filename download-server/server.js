@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 8787);
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || "0.0.0.0";
 const DOWNLOAD_DIR = path.resolve(process.env.DOWNLOAD_DIR || path.join(here, "downloads"));
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://127.0.0.1:5500";
 const SUPABASE_URL = (process.env.SUPABASE_URL || "").replace(/\/$/, "");
@@ -76,12 +76,9 @@ async function authenticate(req) {
 
 function parseRange(header, size) {
   if (!header) return null;
-  const downloadPath = "/downloads/";
-  const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
-  const downloadPath = "/downloads/";
-  const downloadId = url.pathname.startsWith(downloadPath) ? url.pathname.slice(downloadPath.length) : "";
-  const match = /^[a-z0-9][a-z0-9-]{0,79}$/i.test(downloadId) ? [url.pathname, downloadId] : null;
+  const match = /^bytes=(\\d*)-(\\d*)$/.exec(header.trim());
   if (!match || (!match[1] && !match[2])) return { invalid: true };
+
   let start;
   let end;
   if (!match[1]) {
