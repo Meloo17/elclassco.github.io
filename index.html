@@ -1795,6 +1795,6 @@ async function loadChatMessages(){if(!chatNickname||!window.supabase||!window.EL
 chatCompose?.addEventListener('submit',async e=>{e.preventDefault();const message=chatMessageInput.value.trim();if(!message)return;if(message.length>400){setChatStatus('Mesaj en fazla 400 karakter olabilir.',true);return;}if(!chatClient){await loadChatMessages();if(!chatClient)return;}const sendButton=chatCompose.querySelector('button');sendButton.disabled=true;try{const {error}=await chatClient.rpc('send_chat_message',{p_nickname:chatNickname,p_message:message,p_visitor_id:chatVisitorId});if(error)throw error;chatMessageInput.value='';chatCharCount.textContent='0/400';setChatStatus('Mesaj gönderildi.');}catch(error){setChatStatus(error.message||'Mesaj gönderilemedi.',true);}finally{sendButton.disabled=false;chatMessageInput.focus();}});
 if(chatNickname)showChatRoom();else setChatStatus('Takma ad seçerek sohbete katılabilirsin.');
 </script>
-<script src="./elclassco-features.js"></script>
+<!-- İsteğe bağlı ek özellikler performans testi için geçici olarak kapatıldı. -->
 </body>
 </html>
