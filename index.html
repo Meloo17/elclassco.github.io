@@ -1688,7 +1688,11 @@ async function loadLiveCatalog() {
       .select("id,name,category,download_url,cover_url,system_requirements,description,tags,is_cheat,created_at")
       .order("created_at", { ascending: true });
     if (error) throw error;
-    if (!Array.isArray(data)) return;
+    // Boş bir Supabase tablosu gömülü katalogu silmesin; yerel oyun listesi yedek olarak kalsın.
+    if (!Array.isArray(data) || data.length === 0) {
+      console.warn("EL CLASSCO canlı kataloğu boş; gömülü oyun listesi kullanılmaya devam ediliyor.");
+      return;
+    }
 
     const oldByName = new Map(games.map(game => [game.name.toLocaleLowerCase("tr-TR"), game]));
     games = data.map(row => {
