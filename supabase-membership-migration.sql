@@ -25,45 +25,13 @@ create trigger on_auth_user_created_profile
   after insert on auth.users
   for each row execute procedure public.handle_new_user_profile();
 
--- Keep the current hand-curated links, but move their values into the database
--- before removing them from the public page source. Existing DB values win.
-update public.games as g
-set download_url = case g.name
-  when 'Battlefield 1' then 'https://pixeldrain.com/u/vofoyM4i'
-  when 'Battlefield 5' then 'https://gofile.io/d/D7gmvc'
-  when 'BeamNG.drive' then 'https://drive.usercontent.google.com/download?id=1cQkmx46H5tMu7-9gRIUmCUVdGKl7og53&authuser=0'
-  when 'Cyberpunk 2077' then 'https://gofile.io/d/1EMT54'
-  when 'Euro Truck Simulator 2' then 'https://megaup.net/9b7c4b29ca80e82f4fb4c2f636ecbd95/Euro.Truck.Simulator.2.v1.60.1.0s.rar'
-  when 'Grand Theft Auto V' then 'https://transfer.it/t/qXwxErwn1LaY'
-  when 'God of War' then 'https://gofile.io/d/OUbvV2'
-  when 'Grand Theft Auto: San Andreas' then 'https://transfer.it/t/DfEDqj51VTwR'
-  when 'eFootball PES 2021' then 'https://drive.usercontent.google.com/download?id=1OoQsdHG_9MO8_LPdzFsxm2V4kGdrjlWk&export=download&authuser=0'
-  when 'Red Dead Redemption 2' then 'https://gofile.io/d/pdRrzq'
-  when 'Spider-Man 3' then 'https://bowfile.com/6sqi#popup1'
-  when 'Watch Dogs 2' then 'https://gofile.io/d/wW77bP'
-  when 'WWE 2K24' then 'https://datanodes.to/download'
-  when 'Assetto Corsa' then 'https://www.mediafire.com/file/ojyxik0g3nrcb35/Assetto+Corsa.7z/file'
-  when 'Hello Neighbor 2' then 'https://gofile.io/d/BX8NB5'
-  when 'İblis 3' then 'https://www.mediafire.com/file/yzuuuwb7w8yekiy/iblis+3+(bkbtb+-+berkant).zip/file'
-  when 'God of War Ragnarök' then 'https://gofile.io/d/4LbYNU'
-  when 'Hitman: World of Assassination' then 'https://gofile.io/d/opbggB'
-  when 'Outlast 2' then 'https://pixeldrain.com/u/UPTajG2H'
-  when 'Outlast' then 'https://gofile.io/d/o8N8Kw'
-  when 'PAYDAY 2' then 'https://gofile.io/d/tLhrfYoP'
-  when 'PAYDAY 3' then 'https://gofile.io/d/q9Gfiv'
-  when 'The Baby in Yellow' then 'https://megaup.net/d7dc240914ae60c6e68cc8d204de32f9/The.Baby.In.Yellow.v2025.11.22.rar'
-  else g.download_url
-end
-where (g.download_url is null or btrim(g.download_url) = '')
-  and g.name in (
-    'Battlefield 1','Battlefield 5','BeamNG.drive','Cyberpunk 2077',
-    'Euro Truck Simulator 2','Grand Theft Auto V','God of War',
-    'Grand Theft Auto: San Andreas','eFootball PES 2021','Red Dead Redemption 2',
-    'Spider-Man 3','Watch Dogs 2','WWE 2K24','Assetto Corsa','Hello Neighbor 2',
-    'İblis 3','God of War Ragnarök','Hitman: World of Assassination',
-    'Outlast 2','Outlast','PAYDAY 2','PAYDAY 3','The Baby in Yellow'
-  );
-
+-- Do not put download URLs into this public migration file.
+-- Before rollout, ensure intended direct URLs are stored in public.games.download_url
+-- using the existing admin panel while authenticated. The privilege change below
+-- then makes that column unreadable to anonymous visitors.
+-- Note: URLs committed in older public Git history are already exposed and should
+-- be rotated/replaced if they must be access-controlled.
+ 
 -- Remove table-wide SELECT grants, then explicitly grant only public catalog
 -- columns to anonymous visitors. Authenticated users (including admins) can
 -- also read download_url. Existing RLS policies continue to apply.
