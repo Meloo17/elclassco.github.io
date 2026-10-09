@@ -127,7 +127,6 @@ header {
   color:white!important;
 }
 
-/* Renk Değiştirici Palette */
 .color-picker {
   display:flex;
   gap:6px;
@@ -503,13 +502,6 @@ h2 {
 
 .game-link:hover { background:#a855f72b; }
 
-.game-link.discord-btn {
-  background:#5865f2;
-  border-color:#5865f2;
-  color:#fff;
-}
-.game-link.discord-btn:hover { background:#4752c4; }
-
 .vote-box {
   display:flex;
   gap:6px;
@@ -547,22 +539,24 @@ h2 {
   color:var(--muted);
 }
 
-/* Modallar & Özel Pop-up Animasyonu */
+/* Modallar & Açılış / Kapanış Animasyonları */
 .modal {
-  display: none;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   inset: 0;
   background: rgba(9, 7, 17, 0.88);
   backdrop-filter: blur(10px);
   z-index: 200;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .modal.open {
-  display: grid;
+  visibility: visible;
   opacity: 1;
 }
 
@@ -575,7 +569,7 @@ h2 {
   box-shadow: 0 25px 50px rgba(0,0,0,0.7);
   position: relative;
   transform: scale(0.85);
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -603,7 +597,6 @@ h2 {
 
 .modal-close:hover { color: #fff; background: var(--purple); }
 
-/* Özel Oyun Detay Ekranı Stilleri (Özel Görseldekine Benzer) */
 .game-detail-header {
   text-align: center;
   margin-bottom: 20px;
@@ -642,7 +635,6 @@ h2 {
 }
 
 .game-detail-req {
-  text-align: center;
   background: rgba(9,7,17,0.6);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -662,13 +654,13 @@ h2 {
 
 .part-btn {
   width: 100%;
-  max-width: 300px;
-  padding: 12px;
+  max-width: 320px;
+  padding: 14px;
   text-align: center;
   background: linear-gradient(110deg, var(--purple), #c026d3);
   color: #fff;
   font-weight: 800;
-  font-size: 13px;
+  font-size: 14px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
@@ -820,7 +812,7 @@ footer {
 
     <div class="stats">
       <div class="stat">
-        <strong id="gameCount">37</strong>
+        <strong id="gameCount">30</strong>
         <span>OYUN</span>
       </div>
       <div class="stat">
@@ -875,7 +867,6 @@ footer {
   </section>
 </main>
 
-<!-- Canlı Sohbet Penceresi -->
 <button id="chat-toggle">💬</button>
 <div id="chat-box">
   <div class="chat-header">
@@ -884,9 +875,9 @@ footer {
   <div class="chat-messages" id="chat-messages"></div>
 </div>
 
-<!-- ÖZEL OYUN DETAY MODAL (Attığın Fotoğraftaki Gibi Ekran) -->
-<div class="modal" id="gameDetailModal">
-  <div class="modal-content">
+<!-- OYUN DETAY EKRANI MODAL -->
+<div class="modal" id="gameDetailModal" onclick="closeGameDetailModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeGameDetailModal()">✕</button>
     <div class="game-detail-header">
       <div class="game-detail-title" id="detailTitle">Oyun İndir</div>
@@ -898,20 +889,19 @@ footer {
     </div>
 
     <div class="game-detail-req">
-      <strong>Sistem Gereksinimi</strong><br>
-      <span id="detailSys">Minimum: İşletim Sistemi: Windows 10 | İşlemci: Intel i5 / Ryzen 5 | Bellek: 8 GB RAM | Depolama: 50 GB</span>
+      <strong style="color:var(--purple); display:block; margin-bottom:6px;">Sistem Gereksinimleri:</strong>
+      <div id="detailSys">Yükleniyor...</div>
     </div>
 
     <div class="game-detail-download-box">
-      <a id="detailLink1" class="part-btn" href="#" target="_blank" rel="noopener noreferrer">PART 1 İndir 🚀</a>
-      <a id="detailLink2" class="part-btn" style="background:#5865f2; display:none;" href="#" target="_blank" rel="noopener noreferrer">Discord Sunucusundan İndir ↗</a>
+      <a id="detailLink1" class="part-btn" href="#" target="_blank" rel="noopener noreferrer">Hemen İndir 🚀</a>
     </div>
   </div>
 </div>
 
 <!-- İstek Oyun Modal -->
-<div class="modal" id="reqModal">
-  <div class="modal-content">
+<div class="modal" id="reqModal" onclick="closeReqModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeReqModal()">✕</button>
     <h3>İstek Oyun Gönder 📩</h3>
     <p class="subtitle">Sitede görmek istediğin oyunu bize ilet, hemen ekleyelim!</p>
@@ -937,51 +927,212 @@ const games = [
   {
     name: "CS2 Özel Mod / Hilesi",
     cat: "CS2 / Hile",
-    app: null,
+    app: 730,
     color: "#ef4444",
     tag: "VİDEO ÖNİZLEME ⚡",
     score: "99",
     isVideo: true,
     videoUrl: "https://streamable.com/e/v629bh?autoplay=1&muted=1",
     isHile: true,
-    sys: "Minimum: Windows 10 64-Bit | İşlemci: Intel i5 7500 | Bellek: 8 GB RAM | Ekran Kartı: GTX 1050 Ti"
+    sys: "• İşletim Sistemi: Windows 10 64-Bit<br>• İşlemci: Intel Core i5 7500 / AMD Ryzen 5 1600<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 1050 Ti / RX 570<br>• Depolama: 85 GB kullanılabilir alan"
   },
-  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce",tag:"Favori 🚚", sys:"Minimum: Windows 10 64-bit | İşlemci: Intel Core i5-6400 / Ryzen 3 1200 | Bellek: 8 GB RAM | Ekran Kartı: GTX 660"},
-  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:248610,color:"#d6a35c",tag:"Çok Popüler 🔥"},
-  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:24860,color:"#b3a58c",tag:"Klasik 🏛️"},
-  {name:"Battlefield 3",cat:"FPS / Aksiyon",app:1238820,color:"#c58c62"},
-  {name:"Battlefield 4",cat:"FPS / Aksiyon",app:1238860,color:"#d49a69"},
-  {name:"Battlefield 5",cat:"FPS / Aksiyon",app:1238810,color:"#d8bd8b"},
-  {name:"BeamNG.drive",cat:"Simülasyon / Araba",app:284160,color:"#6cb6b0",tag:"Fizik 🔥"},
-  {name:"Cyberpunk 2077",cat:"Açık Dünya / RPG",app:1091500,color:"#f0d45c",tag:"Çok Popüler 🔥"},
-  {name:"Grand Theft Auto V",cat:"Açık Dünya / Aksiyon",app:271590,color:"#8fb66a",tag:"Efsane 👑"},
-  {name:"God of War",cat:"Aksiyon / Hikâye",app:1593500,color:"#c6d4dc",tag:"Şaheser ⚔️"},
-  {name:"Grand Theft Auto: San Andreas",cat:"Açık Dünya / Aksiyon",app:12120,color:"#9bba78",tag:"Düşük Sistem 💻"},
-  {name:"eFootball PES 2021",cat:"Spor / Futbol",app:1259970,color:"#74a6d8"},
-  {name:"Red Dead Redemption 2",cat:"Açık Dünya / Hikâye",app:1174180,color:"#d57b67",tag:"Şaheser 🤠"},
-  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d",tag:"Nostalji 🕸️", customImg: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2044.jpg"},
-  {name:"Watch Dogs 2",cat:"Açık Dünya / Aksiyon",app:447040,color:"#9cb6db"},
-  {name:"WWE 2K24",cat:"Spor / Güreş",app:2315690,color:"#bba4ed",tag:"Yeni ✨"},
-  {name:"Assetto Corsa",cat:"Yarış / Simülasyon",app:244210,color:"#e5a45c",tag:"Simülasyon 🏎️"},
-  {name:"Car Dealership Simulator",cat:"Simülasyon / Araba",app:2813630,color:"#a4b2c5"},
-  {name:"Car Service Together",cat:"Simülasyon / Araba",app:3259860,color:"#70c2c2"},
-  {name:"Hello Neighbor 2",cat:"Korku / Gizem",app:1321680,color:"#d6ad5f"},
-  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777",tag:"Yerli 🇹🇷", customImg: "https://cdn.akamai.steamstatic.com/steam/apps/2103320/header.jpg"},
-  {name:"God of War Ragnarök",cat:"Aksiyon / Hikâye",app:2322010,color:"#92b8dc",tag:"Yeni ✨"},
-  {name:"Hitman: World of Assassination",cat:"Gizlilik / Aksiyon",app:1659040,color:"#d3d2dc"},
-  {name:"Hitman: Absolution",cat:"Gizlilik / Aksiyon",app:203140,color:"#b8c1d3"},
-  {name:"Outlast 2",cat:"Korku",app:414700,color:"#d5b35e",tag:"Korku 💀"},
-  {name:"Outlast",cat:"Korku",app:238320,color:"#c6b46b",tag:"Korku 💀"},
-  {name:"PAYDAY 2",cat:"FPS / Aksiyon",app:218620,color:"#b7c1d2",tag:"Co-Op 🎭"},
-  {name:"PAYDAY 3",cat:"FPS / Aksiyon",app:1272080,color:"#d5c6aa"},
-  {name:"The Baby in Yellow",cat:"Korku",app:1501610,color:"#e8d16c"}
+  {
+    name: "Euro Truck Simulator 2",
+    cat: "Simülasyon / Araba",
+    app: 227300,
+    color: "#7ca5ce",
+    tag: "Favori 🚚",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5-6400 / AMD Ryzen 3 1200<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 660 / Radeon RX 460<br>• Depolama: 25 GB kullanılabilir alan"
+  },
+  {
+    name: "Cyberpunk 2077",
+    cat: "Açık Dünya / RPG",
+    app: 1091500,
+    color: "#f0d45c",
+    tag: "Çok Popüler 🔥",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i7-6700 / AMD Ryzen 5 1600<br>• Bellek: 12 GB RAM<br>• Ekran Kartı: GTX 1060 6GB / RX 580<br>• Depolama: 70 GB SSD"
+  },
+  {
+    name: "Grand Theft Auto V",
+    cat: "Açık Dünya / Aksiyon",
+    app: 271590,
+    color: "#8fb66a",
+    tag: "Efsane 👑",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5 3470 / AMD X8 FX-8350<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: NVIDIA GTX 660 2GB / AMD HD 7870<br>• Depolama: 110 GB alan"
+  },
+  {
+    name: "God of War",
+    cat: "Aksiyon / Hikâye",
+    app: 1593500,
+    color: "#c6d4dc",
+    tag: "Şaheser ⚔️",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5-2500k / AMD Ryzen 3 1200<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: NVIDIA GTX 960 (4 GB) / AMD R9 290X<br>• Depolama: 70 GB SSD"
+  },
+  {
+    name: "Red Dead Redemption 2",
+    cat: "Açık Dünya / Hikâye",
+    app: 1174180,
+    color: "#d57b67",
+    tag: "Şaheser 🤠",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i7-4770K / AMD FX-9590<br>• Bellek: 12 GB RAM<br>• Ekran Kartı: NVIDIA GTX 1060 6GB / AMD RX 480<br>• Depolama: 150 GB alan"
+  },
+  {
+    name: "BeamNG.drive",
+    cat: "Simülasyon / Araba",
+    app: 284160,
+    color: "#6cb6b0",
+    tag: "Fizik 🔥",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5-4670 / AMD FX-8350<br>• Bellek: 16 GB RAM<br>• Ekran Kartı: GTX 970 / Radeon R9 290<br>• Depolama: 50 GB kullanılabilir alan"
+  },
+  {
+    name: "Battlefield 1",
+    cat: "FPS / Aksiyon",
+    app: 248610,
+    color: "#d6a35c",
+    tag: "Çok Popüler 🔥",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5 6600K / AMD FX-6350<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 660 2GB / HD 7850 2GB<br>• Depolama: 50 GB alan"
+  },
+  {
+    name: "Battlefield 5",
+    cat: "FPS / Aksiyon",
+    app: 1238810,
+    color: "#d8bd8b",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5 6600K / AMD FX-8350<br>• Bellek: 12 GB RAM<br>• Ekran Kartı: NVIDIA GTX 1060 3GB / RX 580<br>• Depolama: 50 GB alan"
+  },
+  {
+    name: "Assetto Corsa",
+    cat: "Yarış / Simülasyon",
+    app: 244210,
+    color: "#e5a45c",
+    tag: "Simülasyon 🏎️",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: AMD Six-Core / Intel Quad-Core<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 970 / Radeon R9 290<br>• Depolama: 30 GB alan"
+  },
+  {
+    name: "God of War Ragnarök",
+    cat: "Aksiyon / Hikâye",
+    app: 2322010,
+    color: "#92b8dc",
+    tag: "Yeni ✨",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5-8600 / AMD Ryzen 5 3600<br>• Bellek: 16 GB RAM<br>• Ekran Kartı: NVIDIA RTX 2060 Super / RX 5700<br>• Depolama: 190 GB SSD"
+  },
+  {
+    name: "Spider-Man 3",
+    cat: "Aksiyon / Süper kahraman",
+    app: null,
+    color: "#df666d",
+    tag: "Nostalji 🕸️",
+    customImg: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2044.jpg",
+    sys: "• İşletim Sistemi: Windows XP / 7 / 10<br>• İşlemci: Intel Pentium 4 2.8 GHz<br>• Bellek: 2 GB RAM<br>• Ekran Kartı: 256 MB DirectX 9.0c Uyumlu Kart<br>• Depolama: 6 GB alan"
+  },
+  {
+    name: "Grand Theft Auto: San Andreas",
+    cat: "Açık Dünya / Aksiyon",
+    app: 12120,
+    color: "#9bba78",
+    tag: "Düşük Sistem 💻",
+    sys: "• İşletim Sistemi: Windows 7 / 10 / 11<br>• İşlemci: 1 GHz Pentium III / Athlon<br>• Bellek: 512 MB RAM<br>• Ekran Kartı: 64 MB DirectX 9 Uyumlu Kart<br>• Depolama: 4.7 GB alan"
+  },
+  {
+    name: "Hitman: World of Assassination",
+    cat: "Gizlilik / Aksiyon",
+    app: 1659040,
+    color: "#d3d2dc",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel CPU Core i5-2500K / AMD Phenom II X4<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: NVIDIA GTX 660 / Radeon HD 7870<br>• Depolama: 80 GB SSD"
+  },
+  {
+    name: "PAYDAY 2",
+    cat: "FPS / Aksiyon",
+    app: 218620,
+    color: "#b7c1d2",
+    tag: "Co-Op 🎭",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: 2 GHz Intel Quad Core Processor<br>• Bellek: 4 GB RAM<br>• Ekran Kartı: NVIDIA GeForce GTX 460 / Radeon HD 5850<br>• Depolama: 83 GB alan"
+  },
+  {
+    name: "Outlast 2",
+    cat: "Korku",
+    app: 414700,
+    color: "#d5b35e",
+    tag: "Korku 💀",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i3-530 / AMD Phenom II X4 965<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 660 2GB / Radeon HD 7850<br>• Depolama: 30 GB alan"
+  },
+  {
+    name: "İblis 3",
+    cat: "Korku",
+    app: null,
+    color: "#d47777",
+    tag: "Yerli 🇹🇷",
+    customImg: "https://cdn.akamai.steamstatic.com/steam/apps/2103320/header.jpg",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5 / AMD Ryzen 3<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 1050 Ti<br>• Depolama: 10 GB alan"
+  },
+  {
+    name: "eFootball PES 2021",
+    cat: "Spor / Futbol",
+    app: 1259970,
+    color: "#74a6d8",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5-3470 / AMD FX 4350<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 670 / Radeon HD 7870<br>• Depolama: 40 GB alan"
+  },
+  {
+    name: "Watch Dogs 2",
+    cat: "Açık Dünya / Aksiyon",
+    app: 447040,
+    color: "#9cb6db",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5 2400s / AMD FX 6120<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 660 / Radeon HD 7870<br>• Depolama: 50 GB alan"
+  },
+  {
+    name: "WWE 2K24",
+    cat: "Spor / Güreş",
+    app: 2315690,
+    color: "#bba4ed",
+    tag: "Yeni ✨",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5-4770 / AMD FX-8350<br>• Bellek: 16 GB RAM<br>• Ekran Kartı: GTX 1070 / Radeon RX 5700<br>• Depolama: 90 GB SSD"
+  },
+  {
+    name: "Car Dealership Simulator",
+    cat: "Simülasyon / Araba",
+    app: 2813630,
+    color: "#a4b2c5",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5-2500K / AMD FX-6300<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 960 / Radeon R9 280<br>• Depolama: 15 GB alan"
+  },
+  {
+    name: "Car Service Together",
+    cat: "Simülasyon / Araba",
+    app: 3259860,
+    color: "#70c2c2",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5 6.Nesil<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 1050 Ti<br>• Depolama: 10 GB alan"
+  },
+  {
+    name: "Hello Neighbor 2",
+    cat: "Korku / Gizem",
+    app: 1321680,
+    color: "#d6ad5f",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5 8400 / AMD Ryzen 5 2600<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 1060 / Radeon RX 580<br>• Depolama: 20 GB alan"
+  },
+  {
+    name: "Outlast",
+    cat: "Korku",
+    app: 238320,
+    color: "#c6b46b",
+    tag: "Korku 💀",
+    sys: "• İşletim Sistemi: Windows 7 / 10 / 11 64-bit<br>• İşlemci: 2.2 GHz Dual Core Processor<br>• Bellek: 4 GB RAM<br>• Ekran Kartı: 512 MB NVIDIA GeForce 9800GT<br>• Depolama: 5 GB alan"
+  },
+  {
+    name: "PAYDAY 3",
+    cat: "FPS / Aksiyon",
+    app: 1272080,
+    color: "#d5c6aa",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5-10400f / AMD Ryzen 5 3600<br>• Bellek: 16 GB RAM<br>• Ekran Kartı: GTX 1650 (4 GB)<br>• Depolama: 65 GB alan"
+  },
+  {
+    name: "The Baby in Yellow",
+    cat: "Korku",
+    app: 1501610,
+    color: "#e8d16c",
+    sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Quad Core 2.5GHz<br>• Bellek: 4 GB RAM<br>• Ekran Kartı: GTX 750 / Radeon R7 260X<br>• Depolama: 2 GB alan"
+  }
 ];
 
 const downloadLinks = {
   "Battlefield 1": "https://pixeldrain.com/u/vofoyM4i",
-  "Battlefield 2": "https://gofile.io/d/S8YdaR",
-  "Battlefield 3": "https://www.mediafire.com/file/qzw37ie00ygeevu/Battlefield.3.v1.6.0.iso/file",
-  "Battlefield 4": "https://gofile.io/d/VGIzeM",
   "Battlefield 5": "https://gofile.io/d/D7gmvc",
   "BeamNG.drive": "https://drive.usercontent.google.com/download?id=1cQkmx46H5tMu7-9gRIUmCUVdGKl7og53&authuser=0",
   "Cyberpunk 2077": "https://gofile.io/d/1EMT54",
@@ -999,7 +1150,6 @@ const downloadLinks = {
   "İblis 3": "https://www.mediafire.com/file/yzuuuwb7w8yekiy/iblis+3+(bkbtb+-+berkant).zip/file",
   "God of War Ragnarök": "https://gofile.io/d/4LbYNU",
   "Hitman: World of Assassination": "https://gofile.io/d/opbggB",
-  "Hitman: Absolution": "https://datanodes.to/download",
   "Outlast 2": "https://pixeldrain.com/u/UPTajG2H",
   "Outlast": "https://gofile.io/d/o8N8Kw",
   "PAYDAY 2": "https://gofile.io/d/tLhrfYoP",
@@ -1092,27 +1242,26 @@ function openGameDetailModal(game) {
     detailImgEl.src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80";
   }
 
-  const sysText = game.sys || "Minimum: Windows 10 64-bit | İşlemci: Intel Core i5-6400 / AMD Ryzen 3 1200 | Bellek: 8 GB RAM | Ekran Kartı: GTX 1050 Ti | Depolama: 50 GB kullanılabilir alan";
-  document.getElementById("detailSys").textContent = sysText;
+  const sysText = game.sys || "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel i5 / AMD Ryzen 3<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 1050 Ti<br>• Depolama: 50 GB kullanılabilir alan";
+  document.getElementById("detailSys").innerHTML = sysText;
 
   const btn1 = document.getElementById("detailLink1");
-  const btn2 = document.getElementById("detailLink2");
 
   if (game.isHile) {
     btn1.textContent = "Hile İçin Discord'a Katıl ↗";
     btn1.href = DISCORD_LINK;
-    btn2.style.display = "none";
   } else {
-    btn1.textContent = "PART 1 İndir 🚀";
+    btn1.textContent = "Hemen İndir 🚀";
     btn1.href = downloadLinks[game.name] || (game.app ? steamStore(game.app) : steamSearch(game.name));
-    btn2.style.display = "none";
   }
 
   document.getElementById("gameDetailModal").classList.add("open");
 }
 
-function closeGameDetailModal() {
-  document.getElementById("gameDetailModal").classList.remove("open");
+function closeGameDetailModal(e) {
+  if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
+    document.getElementById("gameDetailModal").classList.remove("open");
+  }
 }
 
 function makeFilters() {
@@ -1138,8 +1287,10 @@ function openRequestModal() {
   document.getElementById("reqModal").classList.add("open");
 }
 
-function closeReqModal() {
-  document.getElementById("reqModal").classList.remove("open");
+function closeReqModal(e) {
+  if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
+    document.getElementById("reqModal").classList.remove("open");
+  }
 }
 
 function sendGameRequest() {
@@ -1178,7 +1329,6 @@ function render() {
     const card = document.createElement("article");
     card.className = "game";
     
-    // Kartın kendisine tıklandığında özel detay ekranı açılır
     card.onclick = () => openGameDetailModal(game);
 
     if (game.tag) {
@@ -1293,7 +1443,7 @@ function render() {
   });
 
   empty.style.display = visible.length ? "none" : "block";
-  document.getElementById("gameCount").textContent = games.length;
+  document.getElementById("gameCount").textContent = visible.length;
 }
 
 search.addEventListener("input", render);
