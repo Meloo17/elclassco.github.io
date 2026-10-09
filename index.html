@@ -1730,13 +1730,14 @@ async function loadLiveCatalog() {
 loadLiveCatalog();
 renderTrendingGames();
 
+let announcementClient=null;
 async function loadSiteAnnouncements(){
   const section=document.getElementById('announcementsSection');
   const list=document.getElementById('siteAnnouncements');
   if(!section||!list||!window.supabase||!window.ELCLASSCO_SUPABASE_URL||!window.ELCLASSCO_SUPABASE_ANON_KEY)return;
   try{
-    const client=window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);
-    const {data,error}=await client.from('site_announcements').select('id,title,body,created_at').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
+    if(!announcementClient)announcementClient=window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);
+    const {data,error}=await announcementClient.from('site_announcements').select('id,title,body,created_at').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
     if(error)throw error;
     list.replaceChildren();
     (data||[]).forEach(item=>{
@@ -1747,10 +1748,13 @@ async function loadSiteAnnouncements(){
       card.append(title,body,time);list.appendChild(card);
     });
     section.hidden=!list.children.length;
-    client.channel('el-classco-announcements').on('postgres_changes',{event:'*',schema:'public',table:'site_announcements'},loadSiteAnnouncements).subscribe();
   }catch(error){console.warn('EL CLASSCO duyuruları yüklenemedi:',error.message);}
 }
 loadSiteAnnouncements();
+if(window.supabase&&window.ELCLASSCO_SUPABASE_URL&&window.ELCLASSCO_SUPABASE_ANON_KEY){
+  announcementClient=window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);
+  announcementClient.channel('el-classco-announcements').on('postgres_changes',{event:'*',schema:'public',table:'site_announcements'},()=>loadSiteAnnouncements()).subscribe();
+}
 
 async function startActiveVisitorCounter(){
   const counter=document.getElementById('activeVisitors');
