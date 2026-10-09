@@ -1825,7 +1825,7 @@ startActiveVisitorCounter();
   document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
 })();
 
-nimasyonu performans için devre dışı bırakıldı.
+// Animasyonu performans için devre dışı bırakıldı.
 /* EL CLASSCO canlı topluluk sohbeti: Supabase Realtime + takma ad */
 const chatToggle=document.getElementById('chat-toggle'),chatBox=document.getElementById('chat-box'),chatGate=document.getElementById('chat-gate'),chatRoom=document.getElementById('chat-room'),chatMessages=document.getElementById('chat-messages'),chatStatus=document.getElementById('chat-status'),chatNicknameInput=document.getElementById('chat-nickname'),chatCompose=document.getElementById('chat-compose'),chatMessageInput=document.getElementById('chat-message-input'),chatCharCount=document.getElementById('chat-char-count');
 let chatClient=null,chatSubscription=null,chatNickname=(localStorage.getItem('elclassco_chat_nickname')||'').slice(0,24),chatVisitorId=localStorage.getItem('elclassco_chat_visitor_id');
