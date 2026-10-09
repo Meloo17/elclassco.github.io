@@ -86,4 +86,5 @@
  if(configured){client.auth.getSession().then(async({data})=>{if(data.session){try{await enter(data.session.user);}catch(e){$('loginView').classList.remove('hidden');$('adminView').classList.add('hidden');$('configNotice').textContent=e.message;$('configNotice').className='notice';await client.auth.signOut();}}});}
 })();
 </script>
+<script src="./elclassco-admin-features.js"></script>
 </body></html>
