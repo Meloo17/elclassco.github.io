@@ -3,6 +3,7 @@
   const style=document.createElement('style');
   style.textContent='.ec-admin-review{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;background:#0f0a19;padding:13px;margin-top:10px}.ec-admin-review-copy{min-width:0;overflow-wrap:anywhere}.ec-admin-review-copy strong{font-size:11px;color:#e9d5ff}.ec-admin-review-copy p{font-size:12px;line-height:1.6;color:#e9e2f5;white-space:pre-wrap;margin:6px 0}.ec-admin-review-copy small{font-size:10px;color:var(--muted)}@media(max-width:650px){.ec-admin-review{flex-direction:column}}';
   document.head.appendChild(style);
+  let adminClient=null;
   function init(){
     const nav=document.querySelector('.sidebar'),anchor=document.getElementById('section-announcements');
     if(!nav||!anchor||document.getElementById('section-reviews'))return;
@@ -12,7 +13,7 @@
     anchor.parentNode.insertBefore(section,anchor);
     tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===tab));document.querySelectorAll('[id^="section-"]').forEach(s=>s.classList.toggle('hidden',s!==section));load();});
     document.getElementById('ecRefreshReviews').addEventListener('click',load);
-    const client=()=>window.supabase&&window.ELCLASSCO_SUPABASE_URL&&window.ELCLASSCO_SUPABASE_ANON_KEY?window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY):null;
+    const client=()=>{if(!adminClient&&window.supabase&&window.ELCLASSCO_SUPABASE_URL&&window.ELCLASSCO_SUPABASE_ANON_KEY)adminClient=window.supabase.createClient(window.ELCLASSCO_SUPABASE_URL,window.ELCLASSCO_SUPABASE_ANON_KEY);return adminClient;};
     async function load(){
       const c=client(),status=document.getElementById('ecReviewsStatus'),list=document.getElementById('ecReviewsList');list.replaceChildren();
       if(!c){status.textContent='Supabase bağlantısı bulunamadı.';return;}
