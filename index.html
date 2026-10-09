@@ -752,6 +752,49 @@ footer {
   .hero { padding:48px 0 30px; }
   .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 }
+
+/* Hafif, GPU-dostu mikro animasyonlar */
+@keyframes ec-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ec-soft-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 #a855f733; }
+  50% { opacity: .78; box-shadow: 0 0 0 5px #a855f700; }
+}
+.hero .eyebrow { animation: ec-fade-up .45s ease-out both; }
+.hero h1 { animation: ec-fade-up .55s .06s ease-out both; }
+.hero .lead { animation: ec-fade-up .55s .12s ease-out both; }
+.hero .actions, .hero .stats { animation: ec-fade-up .55s .18s ease-out both; }
+.pulse { animation: ec-soft-pulse 2.4s ease-in-out infinite; }
+.game {
+  animation: ec-fade-up .38s ease-out both;
+  will-change: opacity, transform;
+}
+.game:nth-child(4n + 1) { animation-delay: .02s; }
+.game:nth-child(4n + 2) { animation-delay: .05s; }
+.game:nth-child(4n + 3) { animation-delay: .08s; }
+.game:nth-child(4n) { animation-delay: .11s; }
+.game:hover {
+  box-shadow: 0 10px 28px #a855f71c;
+}
+.btn, .game-link, .filter, .color-dot, #chat-toggle, .part-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 2px solid #e9d5ff;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+  .game { will-change: auto; }
+}
+
 </style>
 </head>
 
