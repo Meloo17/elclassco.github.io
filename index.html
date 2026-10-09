@@ -87,7 +87,7 @@ header {
   font-size:24px;
   font-weight:900;
   letter-spacing:2px;
-  background:linear-gradient(100deg,#fff,#c084fc 55%,#f0abfc);
+  background:linear-gradient(100deg,#fff,var(--purple) 55%,#f0abfc);
   color:transparent;
   background-clip:text;
   white-space:nowrap;
@@ -104,17 +104,21 @@ header {
 .links {
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:18px;
   margin-left:auto;
 }
 
-.links a {
+.links a, .links button {
   color:#d6cce7;
   font-size:12px;
   font-weight:800;
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-family:inherit;
 }
 
-.links a:hover { color:#fff; }
+.links a:hover, .links button:hover { color:#fff; }
 
 .discord {
   background:#5865f2;
@@ -122,6 +126,32 @@ header {
   border-radius:10px;
   color:white!important;
 }
+
+/* Renk Değiştirici Palette */
+.color-picker {
+  display:flex;
+  gap:6px;
+  align-items:center;
+  background:rgba(23,16,36,0.8);
+  padding:6px 10px;
+  border-radius:20px;
+  border:1px solid var(--line);
+}
+
+.color-dot {
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  cursor:pointer;
+  transition:transform .2s;
+}
+
+.color-dot:hover { transform:scale(1.25); }
+.dot-purple { background:#a855f7; }
+.dot-blue { background:#3b82f6; }
+.dot-red { background:#ef4444; }
+.dot-green { background:#10b981; }
+.dot-pink { background:#ec4899; }
 
 .hero {
   padding:78px 0 48px;
@@ -146,7 +176,7 @@ header {
   height:7px;
   border-radius:50%;
   background:#d8b4fe;
-  box-shadow:0 0 14px #c084fc;
+  box-shadow:0 0 14px var(--purple);
 }
 
 h1 {
@@ -160,7 +190,7 @@ h1 {
 h1 em {
   font-style:normal;
   color:transparent;
-  background:linear-gradient(90deg,#c084fc,#f0abfc 55%,#fff);
+  background:linear-gradient(90deg,var(--purple),#f0abfc 55%,#fff);
   background-clip:text;
 }
 
@@ -196,7 +226,7 @@ h1 em {
 
 .btn.primary {
   border:0;
-  background:linear-gradient(110deg,#9333ea,#c026d3);
+  background:linear-gradient(110deg,var(--purple),#c026d3);
   box-shadow:0 10px 30px #a855f733;
 }
 
@@ -220,7 +250,7 @@ h1 em {
 .section { padding:25px 0 55px; }
 
 .kicker {
-  color:#c084fc;
+  color:var(--purple);
   font-size:10px;
   font-weight:800;
   letter-spacing:2px;
@@ -257,7 +287,7 @@ h2 {
   font-size:13px;
 }
 
-.search input:focus { border-color:#c084fc; }
+.search input:focus { border-color:var(--purple); }
 
 .filters {
   display:flex;
@@ -281,7 +311,7 @@ h2 {
 .filter.active,
 .filter:hover {
   background:#9333ea35;
-  border-color:#c084fc;
+  border-color:var(--purple);
   color:#f3e8ff;
 }
 
@@ -292,6 +322,7 @@ h2 {
 }
 
 .game {
+  position:relative;
   overflow:hidden;
   min-width:0;
   border:1px solid var(--line);
@@ -302,15 +333,51 @@ h2 {
 
 .game:hover {
   transform:translateY(-4px);
-  border-color:#c084fc99;
+  border-color:var(--purple);
 }
+
+.game-tag {
+  position:absolute;
+  top:8px;
+  left:8px;
+  z-index:2;
+  background:rgba(10,7,18,0.85);
+  border:1px solid var(--purple);
+  color:#f3e8ff;
+  font-size:9px;
+  font-weight:800;
+  padding:3px 7px;
+  border-radius:6px;
+  backdrop-filter:blur(4px);
+}
+
+.fav-btn {
+  position:absolute;
+  top:8px;
+  right:8px;
+  z-index:2;
+  background:rgba(10,7,18,0.75);
+  border:1px solid var(--line);
+  color:#fff;
+  border-radius:50%;
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  font-size:12px;
+  transition:transform .2s;
+}
+
+.fav-btn:hover { transform:scale(1.15); }
+.fav-btn.active { color:#ef4444; border-color:#ef4444; }
 
 .cover {
   position:relative;
   overflow:hidden;
   aspect-ratio:460 / 215;
   background:
-    radial-gradient(circle at 75% 20%,var(--glow,#a855f7),transparent 48%),
+    radial-gradient(circle at 75% 20%,var(--glow,var(--purple)),transparent 48%),
     linear-gradient(135deg,#21123e,#100b1d);
 }
 
@@ -333,7 +400,7 @@ h2 {
   font-weight:900;
   letter-spacing:-2px;
   color:#fff;
-  text-shadow:0 0 25px var(--glow,#a855f7);
+  text-shadow:0 0 25px var(--glow,var(--purple));
 }
 
 .cover img:not([src=""]) + .cover-fallback { display:none; }
@@ -372,6 +439,8 @@ h2 {
   font-weight:800;
   color:#f5d0fe;
   text-align:center;
+  cursor:pointer;
+  background:none;
 }
 
 .game-link:hover { background:#a855f72b; }
@@ -427,7 +496,7 @@ footer {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background: linear-gradient(110deg,#9333ea,#c026d3);
+  background: linear-gradient(110deg,var(--purple),#c026d3);
   color: white;
   border: none;
   width: 55px;
@@ -451,7 +520,7 @@ footer {
   position: fixed;
   bottom: 90px;
   right: 25px;
-  width: 320px;
+  width: 330px;
   background: #171024;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -467,7 +536,7 @@ footer {
 }
 
 .chat-header {
-  background: linear-gradient(110deg,#9333ea,#c026d3);
+  background: linear-gradient(110deg,var(--purple),#c026d3);
   padding: 14px;
   font-weight: 800;
   font-size: 13px;
@@ -484,58 +553,75 @@ footer {
 }
 
 .chat-messages {
-  padding: 15px;
-  height: 220px;
+  padding: 0;
+  height: 380px;
   overflow-y: auto;
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-.msg {
-  background: #231739;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
+/* Modal / Pop-Up Stilleri */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 7, 17, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  place-items: center;
+  padding: 20px;
 }
 
-.msg strong {
-  color: #c084fc;
-  display: block;
-  font-size: 10px;
-  margin-bottom: 2px;
+.modal.open { display: grid; }
+
+.modal-content {
+  background: #171024;
+  border: 1px solid var(--purple);
+  border-radius: 18px;
+  width: min(500px, 100%);
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  position: relative;
 }
 
-.chat-input {
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-close:hover { color: #fff; }
+
+.modal h3 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.req-group {
+  margin-top: 15px;
+  background: #090711;
   padding: 12px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.7;
 }
 
-.chat-input input, .chat-input textarea {
+.req-group strong { color: var(--purple); }
+
+.modal-input input, .modal-input textarea {
   width: 100%;
   background: #090711;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 8px;
+  padding: 10px;
   color: white;
+  margin-top: 10px;
   font-family: inherit;
-  font-size: 12px;
-  outline: none;
-}
-
-.chat-input button {
-  background: #9333ea;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  font-weight: 800;
-  cursor: pointer;
-  font-size: 12px;
 }
 
 @media(max-width:950px) {
@@ -559,7 +645,7 @@ footer {
     gap:8px;
   }
 
-  .links a { font-size:10px; }
+  .links a, .links button { font-size:10px; }
 
   .hero { padding:48px 0 30px; }
 
@@ -603,7 +689,17 @@ footer {
 
     <nav class="links">
       <a href="#games">OYUNLAR</a>
+      <button onclick="openRequestModal()">İSTEK OYUN 📩</button>
       <a href="#about">HAKKIMIZDA</a>
+      
+      <div class="color-picker" title="Tema Rengi Değiştir">
+        <span class="color-dot dot-purple" onclick="setTheme('#a855f7')"></span>
+        <span class="color-dot dot-blue" onclick="setTheme('#3b82f6')"></span>
+        <span class="color-dot dot-red" onclick="setTheme('#ef4444')"></span>
+        <span class="color-dot dot-green" onclick="setTheme('#10b981')"></span>
+        <span class="color-dot dot-pink" onclick="setTheme('#ec4899')"></span>
+      </div>
+
       <a class="discord" href="https://discord.gg/rJBhRxVuY"
          target="_blank" rel="noopener noreferrer">Discord ↗</a>
     </nav>
@@ -689,16 +785,44 @@ footer {
   <div class="chat-header">
     Canlı Destek / Chat <span>Çevrimiçi</span>
   </div>
-  <div class="chat-messages" id="chat-messages">
-    <div class="msg">
-      <strong>Sistem</strong>
-      Selam! Bize istediğin soruyu veya istek oyunu yazabilirsin.
+  <div class="chat-messages" id="chat-messages"></div>
+</div>
+
+<!-- Sistem Gereksinimleri Modal -->
+<div class="modal" id="sysModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeSysModal()">✕</button>
+    <h3 id="modalGameTitle">Oyun Adı</h3>
+    <div class="req-group">
+      <strong>Minimum Sistem Gereksinimleri:</strong><br>
+      • İşletim Sistemi: Windows 10 64-bit<br>
+      • İşlemci: Intel i5 / AMD Ryzen 3<br>
+      • Bellek: 8 GB RAM<br>
+      • Ekran Kartı: GTX 1050 Ti / RX 570<br>
+      • Depolama: 50 GB kullanılabilir alan
+    </div>
+    <div class="req-group">
+      <strong>Önerilen Sistem Gereksinimleri:</strong><br>
+      • İşletim Sistemi: Windows 11 64-bit<br>
+      • İşlemci: Intel i7 / AMD Ryzen 5<br>
+      • Bellek: 16 GB RAM<br>
+      • Ekran Kartı: RTX 2060 / RX 6600<br>
+      • Depolama: SSD Destekli 50 GB
     </div>
   </div>
-  <div class="chat-input">
-    <input type="text" id="chat-user" placeholder="Kullanıcı Adın">
-    <textarea id="chat-msg" rows="2" placeholder="Mesajın..."></textarea>
-    <button onclick="sendChatMessage()">Gönder</button>
+</div>
+
+<!-- İstek Oyun Modal -->
+<div class="modal" id="reqModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeReqModal()">✕</button>
+    <h3>İstek Oyun Gönder 📩</h3>
+    <p class="subtitle">Sitede görmek istediğin oyunu bize ilet, hemen ekleyelim!</p>
+    <div class="modal-input">
+      <input type="text" id="reqName" placeholder="Adın veya İsim">
+      <textarea id="reqGame" rows="3" placeholder="İstediğin oyunun adı..."></textarea>
+      <button class="btn primary" style="width:100%; margin-top:10px;" onclick="sendGameRequest()">Gönder 🚀</button>
+    </div>
   </div>
 </div>
 
@@ -711,46 +835,46 @@ footer {
 
 <script>
 const games = [
-  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c"},
-  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c"},
+  {name:"Battlefield 1",cat:"FPS / Aksiyon",app:1238840,color:"#d6a35c",tag:"Çok Popüler 🔥"},
+  {name:"Battlefield 2",cat:"FPS / Aksiyon",app:null,color:"#b3a58c",tag:"Klasik 🏛️"},
   {name:"Battlefield 3",cat:"FPS / Aksiyon",app:1238820,color:"#c58c62"},
   {name:"Battlefield 4",cat:"FPS / Aksiyon",app:1238860,color:"#d49a69"},
   {name:"Battlefield 5",cat:"FPS / Aksiyon",app:1238810,color:"#d8bd8b"},
-  {name:"Battlefield 6",cat:"FPS / Aksiyon",app:2807960,color:"#a9b4cb"},
+  {name:"Battlefield 6",cat:"FPS / Aksiyon",app:2807960,color:"#a9b4cb",tag:"Yeni ✨"},
 
-  {name:"BeamNG.drive",cat:"Simülasyon / Araba",app:284160,color:"#6cb6b0"},
-  {name:"Cyberpunk 2077",cat:"Açık Dünya / RPG",app:1091500,color:"#f0d45c"},
-  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce"},
-  {name:"Grand Theft Auto V",cat:"Açık Dünya / Aksiyon",app:271590,color:"#8fb66a"},
-  {name:"God of War",cat:"Aksiyon / Hikâye",app:1593500,color:"#c6d4dc"},
-  {name:"Grand Theft Auto: San Andreas",cat:"Açık Dünya / Aksiyon",app:12120,color:"#9bba78"},
+  {name:"BeamNG.drive",cat:"Simülasyon / Araba",app:284160,color:"#6cb6b0",tag:"Fizik 🔥"},
+  {name:"Cyberpunk 2077",cat:"Açık Dünya / RPG",app:1091500,color:"#f0d45c",tag:"Çok Popüler 🔥"},
+  {name:"Euro Truck Simulator 2",cat:"Simülasyon / Araba",app:227300,color:"#7ca5ce",tag:"Favori 🚚"},
+  {name:"Grand Theft Auto V",cat:"Açık Dünya / Aksiyon",app:271590,color:"#8fb66a",tag:"Efsane 👑"},
+  {name:"God of War",cat:"Aksiyon / Hikâye",app:1593500,color:"#c6d4dc",tag:"Şaheser ⚔️"},
+  {name:"Grand Theft Auto: San Andreas",cat:"Açık Dünya / Aksiyon",app:12120,color:"#9bba78",tag:"Düşük Sistem 💻"},
 
   {name:"eFootball PES 2021",cat:"Spor / Futbol",app:1259970,color:"#74a6d8"},
-  {name:"Red Dead Redemption 2",cat:"Açık Dünya / Hikâye",app:1174180,color:"#d57b67"},
-  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d"},
+  {name:"Red Dead Redemption 2",cat:"Açık Dünya / Hikâye",app:1174180,color:"#d57b67",tag:"Şaheser 🤠"},
+  {name:"Spider-Man 3",cat:"Aksiyon / Süper kahraman",app:null,color:"#df666d",tag:"Nostalji 🕸️"},
   {name:"Watch Dogs 2",cat:"Açık Dünya / Aksiyon",app:447040,color:"#9cb6db"},
-  {name:"WWE 2K25",cat:"Spor / Güreş",app:2878960,color:"#c4a4ee"},
+  {name:"WWE 2K25",cat:"Spor / Güreş",app:2878960,color:"#c4a4ee",tag:"Yeni ✨"},
   {name:"WWE 2K24",cat:"Spor / Güreş",app:2315690,color:"#bba4ed"},
 
-  {name:"Assetto Corsa",cat:"Yarış / Simülasyon",app:244210,color:"#e5a45c"},
+  {name:"Assetto Corsa",cat:"Yarış / Simülasyon",app:244210,color:"#e5a45c",tag:"Simülasyon 🏎️"},
   {name:"Car Dealership Simulator 2",cat:"Simülasyon / Araba",app:null,color:"#a4b2c5"},
   {name:"Car Service Together",cat:"Simülasyon / Araba",app:null,color:"#70c2c2"},
   {name:"Hello Neighbor 2",cat:"Korku / Gizem",app:1321680,color:"#d6ad5f"},
-  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777"},
-  {name:"God of War Ragnarök",cat:"Aksiyon / Hikâye",app:2322010,color:"#92b8dc"},
+  {name:"İblis 3",cat:"Korku",app:null,color:"#d47777",tag:"Yerli 🇹🇷"},
+  {name:"God of War Ragnarök",cat:"Aksiyon / Hikâye",app:2322010,color:"#92b8dc",tag:"Yeni ✨"},
 
   {name:"Hitman: World of Assassination",cat:"Gizlilik / Aksiyon",app:1659040,color:"#d3d2dc"},
   {name:"Hitman: Absolution",cat:"Gizlilik / Aksiyon",app:203140,color:"#b8c1d3"},
   {name:"NBA 2K27",cat:"Spor / Basketbol",app:null,color:"#dba66c"},
-  {name:"Outlast 2",cat:"Korku",app:414700,color:"#d5b35e"},
-  {name:"Outlast",cat:"Korku",app:238320,color:"#c6b46b"},
+  {name:"Outlast 2",cat:"Korku",app:414700,color:"#d5b35e",tag:"Korku 💀"},
+  {name:"Outlast",cat:"Korku",app:238320,color:"#c6b46b",tag:"Korku 💀"},
   {name:"How to Fish?",cat:"Simülasyon",app:null,color:"#8ac7df"},
 
   {name:"Meccha Chamelon",cat:"Platform / Aksiyon",app:null,color:"#a7a1ef"},
   {name:"PAYDAY: The Heist",cat:"FPS / Aksiyon",app:24240,color:"#d2c1a0"},
-  {name:"PAYDAY 2",cat:"FPS / Aksiyon",app:218620,color:"#b7c1d2"},
+  {name:"PAYDAY 2",cat:"FPS / Aksiyon",app:218620,color:"#b7c1d2",tag:"Co-Op 🎭"},
   {name:"PAYDAY 3",cat:"FPS / Aksiyon",app:1272080,color:"#d5c6aa"},
-  {name:"PES 2017",cat:"Spor / Futbol",app:456610,color:"#7ba9d7"},
+  {name:"PES 2017",cat:"Spor / Futbol",app:456610,color:"#7ba9d7",tag:"Düşük Sistem 💻"},
   {name:"The Baby in Yellow",cat:"Korku",app:1501610,color:"#e8d16c"}
 ];
 
@@ -800,15 +924,16 @@ const search = document.getElementById("search");
 const empty = document.getElementById("empty");
 
 let active = "Tümü";
+let favorites = JSON.parse(localStorage.getItem("elclassco_favs") || "[]");
 
 const categories = [
   "Tümü",
+  "❤️ Favorilerim",
   ...new Set(games.map(game => game.cat))
 ];
 
 function steamSearch(name) {
-  return "https://store.steampowered.com/search/?term="
-    + encodeURIComponent(name);
+  return "https://store.steampowered.com/search/?term=" + encodeURIComponent(name);
 }
 
 function steamStore(app) {
@@ -816,9 +941,23 @@ function steamStore(app) {
 }
 
 function coverURL(app) {
-  return app
-    ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${app}/header.jpg`
-    : "";
+  return app ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${app}/header.jpg` : "";
+}
+
+function setTheme(color) {
+  document.documentElement.style.setProperty('--purple', color);
+}
+
+function toggleFav(gameName, btn) {
+  if (favorites.includes(gameName)) {
+    favorites = favorites.filter(f => f !== gameName);
+    btn.classList.remove("active");
+  } else {
+    favorites.push(gameName);
+    btn.classList.add("active");
+  }
+  localStorage.setItem("elclassco_favs", JSON.stringify(favorites));
+  if (active === "❤️ Favorilerim") render();
 }
 
 function makeFilters() {
@@ -830,14 +969,9 @@ function makeFilters() {
 
     button.addEventListener("click", () => {
       active = category;
-
       document.querySelectorAll(".filter").forEach(item => {
-        item.classList.toggle(
-          "active",
-          item.textContent === active
-        );
+        item.classList.toggle("active", item.textContent === active);
       });
-
       render();
     });
 
@@ -845,16 +979,43 @@ function makeFilters() {
   });
 }
 
+function openSysModal(gameName) {
+  document.getElementById("modalGameTitle").textContent = gameName;
+  document.getElementById("sysModal").classList.add("open");
+}
+
+function closeSysModal() {
+  document.getElementById("sysModal").classList.remove("open");
+}
+
+function openRequestModal() {
+  document.getElementById("reqModal").classList.add("open");
+}
+
+function closeReqModal() {
+  document.getElementById("reqModal").classList.remove("open");
+}
+
+function sendGameRequest() {
+  const name = document.getElementById("reqName").value.trim() || 'Anonim';
+  const game = document.getElementById("reqGame").value.trim();
+  if(!game) return alert("Lütfen oyun adını yazın!");
+
+  alert("İsteğin alındı kanka! Chat paneline ve ekibe iletildi.");
+  closeReqModal();
+  document.getElementById("reqGame").value = "";
+}
+
 function render() {
   const query = search.value.trim().toLocaleLowerCase("tr-TR");
 
   const visible = games.filter(game => {
-    const categoryMatch =
-      active === "Tümü" || game.cat === active;
+    let categoryMatch = false;
+    if (active === "Tümü") categoryMatch = true;
+    else if (active === "❤️ Favorilerim") categoryMatch = favorites.includes(game.name);
+    else categoryMatch = game.cat === active;
 
-    const queryMatch =
-      game.name.toLocaleLowerCase("tr-TR").includes(query);
-
+    const queryMatch = game.name.toLocaleLowerCase("tr-TR").includes(query);
     return categoryMatch && queryMatch;
   });
 
@@ -863,6 +1024,20 @@ function render() {
   visible.forEach(game => {
     const card = document.createElement("article");
     card.className = "game";
+
+    if (game.tag) {
+      const tag = document.createElement("div");
+      tag.className = "game-tag";
+      tag.textContent = game.tag;
+      card.appendChild(tag);
+    }
+
+    const favBtn = document.createElement("button");
+    favBtn.className = `fav-btn ${favorites.includes(game.name) ? 'active' : ''}`;
+    favBtn.innerHTML = "♥";
+    favBtn.title = "Favorilere Ekle";
+    favBtn.onclick = (e) => { e.stopPropagation(); toggleFav(game.name, favBtn); };
+    card.appendChild(favBtn);
 
     const cover = document.createElement("div");
     cover.className = "cover";
@@ -886,7 +1061,6 @@ function render() {
 
     if (url) {
       image.src = url;
-
       image.addEventListener("error", () => {
         image.style.display = "none";
         fallback.style.display = "grid";
@@ -919,7 +1093,12 @@ function render() {
     downloadLink.rel = "noopener noreferrer";
     downloadLink.textContent = "İndir ↓";
 
-    actions.appendChild(downloadLink);
+    const sysBtn = document.createElement("button");
+    sysBtn.className = "game-link";
+    sysBtn.textContent = "Sistem ℹ️";
+    sysBtn.onclick = () => openSysModal(game.name);
+
+    actions.append(downloadLink, sysBtn);
 
     info.append(title, category, actions);
     card.append(cover, info);
@@ -1007,7 +1186,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-/* Canlı Sohbet JS Mantığı */
+/* Canlı Sohbet WidgetBot Entegrasyonu */
 const chatToggle = document.getElementById('chat-toggle');
 const chatBox = document.getElementById('chat-box');
 
@@ -1015,15 +1194,12 @@ chatToggle.addEventListener('click', () => {
   chatBox.classList.toggle('open');
 });
 
-/* WidgetBot Discord İframe Entegrasyonu */
 const SERVER_ID = "1557531428026191982";
 const CHANNEL_ID = "1557531428982497287";
 
 const chatMessages = document.getElementById('chat-messages');
 
 if (chatMessages) {
-  chatMessages.style.height = "380px";
-  chatMessages.style.padding = "0";
   chatMessages.innerHTML = `
     <iframe 
       src="https://e.widgetbot.io/channels/${SERVER_ID}/${CHANNEL_ID}" 
@@ -1032,12 +1208,6 @@ if (chatMessages) {
       style="border:none; border-radius:12px;">
     </iframe>
   `;
-}
-
-// Eski alt input alanını gizle (WidgetBot kendi klavye/mesaj alanını içerir)
-const chatInputArea = document.querySelector('.chat-input');
-if (chatInputArea) {
-  chatInputArea.style.display = "none";
 }
 </script>
 </body>
