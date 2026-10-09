@@ -907,6 +907,52 @@ header {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+
+/* Daha görünür premium düzen: yalnızca CSS, mevcut HTML/JS korunur */
+.hero {
+  padding-top: clamp(64px, 8vw, 100px);
+  padding-bottom: clamp(56px, 7vw, 84px);
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(192,132,252,.55), rgba(236,72,153,.35), transparent);
+  pointer-events: none;
+}
+.hero h1 { font-size: clamp(48px, 7.4vw, 88px); }
+.hero .eyebrow { background: linear-gradient(100deg, rgba(168,85,247,.18), rgba(236,72,153,.09)); border-color: rgba(216,180,254,.42); }
+.hero-showcase { filter: drop-shadow(0 20px 40px rgba(88,28,135,.2)); }
+.showcase-window { border-color: rgba(216,180,254,.48); box-shadow: 0 24px 75px rgba(0,0,0,.45), 0 0 0 1px rgba(168,85,247,.08); }
+.section h2 { font-size: clamp(28px, 3vw, 36px); }
+.kicker { display: inline-flex; align-items: center; gap: 9px; }
+.kicker:before { content: ""; display: inline-block; width: 22px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--purple), var(--pink)); }
+.grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.game { border-radius: 17px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+.game:hover { transform: translateY(-3px); border-color: rgba(216,180,254,.72); box-shadow: 0 18px 38px rgba(0,0,0,.32), 0 0 0 1px rgba(168,85,247,.12); }
+.cover { aspect-ratio: 16 / 9; }
+.game-info { padding: 16px; }
+.game-title { font-size: 13px; }
+.game-link { border-radius: 9px; transition: background-color .16s ease, border-color .16s ease; }
+.game-link:hover { border-color: rgba(216,180,254,.75); background: rgba(168,85,247,.12); }
+.featured-card { box-shadow: 0 20px 55px rgba(0,0,0,.26), 0 0 0 1px rgba(168,85,247,.05); }
+.trending-grid { gap: 16px; }
+.trend-card { border-radius: 16px; padding: 14px; }
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+}
+@media (max-width: 620px) {
+  .hero { padding-top: 48px; padding-bottom: 42px; }
+  .hero h1 { font-size: clamp(42px, 11vw, 58px); }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .game-info { padding: 11px; }
+  .game-title { font-size: 11px; }
+}
+@media (max-width: 380px) {
+  .grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 
