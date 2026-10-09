@@ -1916,6 +1916,14 @@ async function loadLiveCatalog() {
     render();
     renderDailyFeatured();
     renderTrendingGames();
+    if (currentUser && !pendingDownloadGame) {
+      const pendingName = sessionStorage.getItem("elclassco_pending_download");
+      if (pendingName) {
+        sessionStorage.removeItem("elclassco_pending_download");
+        const pendingGame = games.find(item => item.name === pendingName);
+        if (pendingGame) openGameDetailModal(pendingGame);
+      }
+    }
   } catch (error) {
     console.warn("EL CLASSCO canlı katalog yüklenemedi; yerel katalog kullanılacak.", error);
   }
@@ -2028,7 +2036,7 @@ document.getElementById("authForm")?.addEventListener("submit", async (event) =>
       closeAuthModal();
       await loadLiveCatalog();
       updateAuthAccountButton();
-      if(pendingDownloadGame) { const game=pendingDownloadGame; pendingDownloadGame=null; openGameDetailModal(game); }
+      if(pendingDownloadGame) { const requestedName=pendingDownloadGame.name; pendingDownloadGame=null; openGameDetailModal(games.find(item=>item.name===requestedName)||{name:requestedName}); }
     }
   } catch(error) {
     setAuthStatus(error.message || "İşlem tamamlanamadı. Tekrar dene.", true);
@@ -2037,6 +2045,7 @@ document.getElementById("authForm")?.addEventListener("submit", async (event) =>
 document.getElementById("authGoogleBtn")?.addEventListener("click", async () => {
   if(!supabaseClient) { setAuthStatus("Supabase bağlantısı kurulamadı.", true); return; }
   try {
+    if(pendingDownloadGame?.name) sessionStorage.setItem("elclassco_pending_download", pendingDownloadGame.name);
     const {error} = await supabaseClient.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.origin+window.location.pathname}});
     if(error) throw error;
   } catch(error) { setAuthStatus(error.message || "Google ile giriş başlatılamadı.", true); }
