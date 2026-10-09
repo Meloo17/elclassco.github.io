@@ -812,7 +812,6 @@ footer {
       <a href="#games">OYUNLAR</a>
       <a href="#games" onclick="filterHileler()">HİLELER ⚡</a>
       <button onclick="openRequestModal()">İSTEK OYUN 📩</button>
-      <button type="button" data-classco-ai-open>🤖 AI DESTEK</button>
       <a href="#about">HAKKIMIZDA</a>
       
       <div class="color-picker" title="Tema Rengi Değiştir">
@@ -1688,11 +1687,7 @@ async function loadLiveCatalog() {
       .select("id,name,category,download_url,cover_url,system_requirements,description,tags,is_cheat,created_at")
       .order("created_at", { ascending: true });
     if (error) throw error;
-    // Boş bir Supabase tablosu gömülü katalogu silmesin; yerel oyun listesi yedek olarak kalsın.
-    if (!Array.isArray(data) || data.length === 0) {
-      console.warn("EL CLASSCO canlı kataloğu boş; gömülü oyun listesi kullanılmaya devam ediliyor.");
-      return;
-    }
+    if (!Array.isArray(data)) return;
 
     const oldByName = new Map(games.map(game => [game.name.toLocaleLowerCase("tr-TR"), game]));
     games = data.map(row => {
@@ -1869,6 +1864,5 @@ chatCompose?.addEventListener('submit',async e=>{e.preventDefault();const messag
 if(chatNickname)showChatRoom();else setChatStatus('Takma ad seçerek sohbete katılabilirsin.');
 </script>
 <script src="./elclassco-features.js"></script>
-<script src="./classco-ai.js"></script>
 </body>
 </html>
