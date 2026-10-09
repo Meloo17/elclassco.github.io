@@ -498,6 +498,7 @@ h2 {
   text-align:center;
   cursor:pointer;
   background:none;
+  transition: background .2s, border-color .2s;
 }
 
 .game-link:hover { background:#a855f72b; }
@@ -508,6 +509,32 @@ h2 {
   color:#fff;
 }
 .game-link.discord-btn:hover { background:#4752c4; }
+
+.vote-box {
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+}
+
+.vote-btn {
+  flex:1;
+  padding:6px 0;
+  font-size:10px;
+  font-weight:800;
+  border-radius:6px;
+  border:1px solid var(--line);
+  background:rgba(9,7,17,0.5);
+  color:var(--muted);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+
+.vote-btn:hover { color:#fff; border-color:var(--purple); }
+.vote-btn.liked { background:#10b98122; border-color:#10b981; color:#10b981; }
+.vote-btn.disliked { background:#ef444422; border-color:#ef4444; color:#ef4444; }
 
 .empty {
   display:none;
@@ -823,7 +850,7 @@ footer {
       </label>
     </div>
 
-    <!-- ExLoader Tarzı Modifikasyonlar Üst Bilgisi -->
+    <!-- Modifikasyonlar Üst Banner -->
     <div class="mod-header" id="modHeader">
       <div>
         <div class="mod-title">Modifikasyonlar ⚙️</div>
@@ -1049,6 +1076,24 @@ function toggleFav(gameName, btn) {
   if (active === "❤️ Favorilerim") render();
 }
 
+function handleVote(gameName, voteType) {
+  let votes = JSON.parse(localStorage.getItem("elclassco_votes_" + gameName) || '{"likes": 0, "dislikes": 0, "userVote": null}');
+
+  if (votes.userVote === voteType) {
+    votes[voteType === 'like' ? 'likes' : 'dislikes']--;
+    votes.userVote = null;
+  } else {
+    if (votes.userVote === 'like') votes.likes--;
+    if (votes.userVote === 'dislike') votes.dislikes--;
+
+    votes[voteType === 'like' ? 'likes' : 'dislikes']++;
+    votes.userVote = voteType;
+  }
+
+  localStorage.setItem("elclassco_votes_" + gameName, JSON.stringify(votes));
+  render();
+}
+
 function filterHileler() {
   active = "⚡ Hileler";
   document.querySelectorAll(".filter").forEach(item => {
@@ -1106,7 +1151,6 @@ function sendGameRequest() {
 function render() {
   const query = search.value.trim().toLocaleLowerCase("tr-TR");
 
-  // Hileler filtresindeysek ExLoader başlığını göster
   if (active === "⚡ Hileler" || active === "CS2 / Hile") {
     modHeader.classList.add("active");
   } else {
@@ -1231,7 +1275,27 @@ function render() {
       actions.append(downloadLink, sysBtn);
     }
 
-    info.append(title, category, actions);
+    // Like / Dislike Oy Kutusu
+    const votes = JSON.parse(localStorage.getItem("elclassco_votes_" + game.name) || '{"likes": 0, "dislikes": 0, "userVote": null}');
+
+    const voteBox = document.createElement("div");
+    voteBox.className = "vote-box";
+
+    const likeBtn = document.createElement("button");
+    likeBtn.className = `vote-btn ${votes.userVote === 'like' ? 'liked' : ''}`;
+    likeBtn.innerHTML = `👍 ${votes.likes}`;
+    likeBtn.title = "Çalışıyor / Beğendim";
+    likeBtn.onclick = (e) => { e.stopPropagation(); handleVote(game.name, 'like'); };
+
+    const dislikeBtn = document.createElement("button");
+    dislikeBtn.className = `vote-btn ${votes.userVote === 'dislike' ? 'disliked' : ''}`;
+    dislikeBtn.innerHTML = `👎 ${votes.dislikes}`;
+    dislikeBtn.title = "Çalışmıyor / Beğenmedim";
+    dislikeBtn.onclick = (e) => { e.stopPropagation(); handleVote(game.name, 'dislike'); };
+
+    voteBox.append(likeBtn, dislikeBtn);
+
+    info.append(title, category, actions, voteBox);
     card.append(cover, info);
     grid.appendChild(card);
   });
