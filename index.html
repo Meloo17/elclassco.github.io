@@ -83,22 +83,44 @@ header {
   gap:25px;
 }
 
+/* LOGO VE MARKA ALANI */
 .brand {
-  font-size:24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.site-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.site-logo:hover {
+  transform: scale(1.05);
+}
+
+.brand-text {
+  font-size:22px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:1.5px;
   background:linear-gradient(100deg,#fff,var(--purple) 55%,#f0abfc);
   color:transparent;
   background-clip:text;
   white-space:nowrap;
+  display: flex;
+  flex-direction: column;
 }
 
-.brand small {
+.brand-text small {
   display:block;
-  font-size:9px;
-  letter-spacing:4px;
+  font-size:8px;
+  letter-spacing:3px;
   color:#c4b5fd;
-  margin-top:4px;
+  margin-top:2px;
 }
 
 .links {
@@ -699,7 +721,8 @@ footer {
 
 @media(max-width:620px) {
   .nav { flex-wrap:wrap; padding:12px 0; gap:12px; }
-  .brand { font-size:21px; }
+  .site-logo { height:38px; }
+  .brand-text { font-size:18px; }
   .links { width:100%; order:2; justify-content:space-between; gap:8px; }
   .hero { padding:48px 0 30px; }
   .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
@@ -800,13 +823,14 @@ footer {
 
 <body>
 
-
-
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top">
-      EL CLASSCO
-      <small>ULTIMATE GAME CENTER</small>
+      <img src="SOFTWARE.jpg" alt="EL CLASSCO SOFTWARE Logo" class="site-logo">
+      <span class="brand-text">
+        EL CLASSCO
+        <small>ULTIMATE GAME CENTER</small>
+      </span>
     </a>
 
     <nav class="links">
@@ -1774,9 +1798,6 @@ async function startActiveVisitorCounter(){
 }
 startActiveVisitorCounter();
 
-// Kar animasyonu performans için kaldırıldı.
-
-
 /* EL CLASSCO canlı topluluk sohbeti: Supabase Realtime + takma ad */
 const chatToggle=document.getElementById('chat-toggle'),chatBox=document.getElementById('chat-box'),chatGate=document.getElementById('chat-gate'),chatRoom=document.getElementById('chat-room'),chatMessages=document.getElementById('chat-messages'),chatStatus=document.getElementById('chat-status'),chatNicknameInput=document.getElementById('chat-nickname'),chatCompose=document.getElementById('chat-compose'),chatMessageInput=document.getElementById('chat-message-input'),chatCharCount=document.getElementById('chat-char-count');
 let chatClient=null,chatSubscription=null,chatNickname=(localStorage.getItem('elclassco_chat_nickname')||'').slice(0,24),chatVisitorId=localStorage.getItem('elclassco_chat_visitor_id');
@@ -1795,6 +1816,5 @@ async function loadChatMessages(){if(!chatNickname||!window.supabase||!window.EL
 chatCompose?.addEventListener('submit',async e=>{e.preventDefault();const message=chatMessageInput.value.trim();if(!message)return;if(message.length>400){setChatStatus('Mesaj en fazla 400 karakter olabilir.',true);return;}if(!chatClient){await loadChatMessages();if(!chatClient)return;}const sendButton=chatCompose.querySelector('button');sendButton.disabled=true;try{const {error}=await chatClient.rpc('send_chat_message',{p_nickname:chatNickname,p_message:message,p_visitor_id:chatVisitorId});if(error)throw error;chatMessageInput.value='';chatCharCount.textContent='0/400';setChatStatus('Mesaj gönderildi.');}catch(error){setChatStatus(error.message||'Mesaj gönderilemedi.',true);}finally{sendButton.disabled=false;chatMessageInput.focus();}});
 if(chatNickname)showChatRoom();else setChatStatus('Takma ad seçerek sohbete katılabilirsin.');
 </script>
-<!-- İsteğe bağlı ek özellikler performans testi için geçici olarak kapatıldı. -->
 </body>
 </html>
