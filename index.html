@@ -539,7 +539,6 @@ h2 {
   color:var(--muted);
 }
 
-/* Modallar & Açılış / Kapanış Animasyonları */
 .modal {
   display: flex;
   visibility: hidden;
@@ -812,7 +811,7 @@ footer {
 
     <div class="stats">
       <div class="stat">
-        <strong id="gameCount">30</strong>
+        <strong id="gameCount">26</strong>
         <span>OYUN</span>
       </div>
       <div class="stat">
@@ -923,6 +922,7 @@ footer {
 <script>
 const DISCORD_LINK = "https://discord.gg/rJBhRxVuY";
 
+// DOĞRU DÜZELTİLMİŞ STEAM APP ID'LERİ & ÖZEL RESİMLER
 const games = [
   {
     name: "CS2 Özel Mod / Hilesi",
@@ -987,7 +987,7 @@ const games = [
   {
     name: "Battlefield 1",
     cat: "FPS / Aksiyon",
-    app: 248610,
+    app: 1238840,
     color: "#d6a35c",
     tag: "Çok Popüler 🔥",
     sys: "• İşletim Sistemi: Windows 10 64-bit<br>• İşlemci: Intel Core i5 6600K / AMD FX-6350<br>• Bellek: 8 GB RAM<br>• Ekran Kartı: GTX 660 2GB / HD 7850 2GB<br>• Depolama: 50 GB alan"
@@ -1027,9 +1027,10 @@ const games = [
   {
     name: "Grand Theft Auto: San Andreas",
     cat: "Açık Dünya / Aksiyon",
-    app: 12120,
+    app: null,
     color: "#9bba78",
     tag: "Düşük Sistem 💻",
+    customImg: "https://cdn.cloudflare.steamstatic.com/steam/apps/12120/header.jpg",
     sys: "• İşletim Sistemi: Windows 7 / 10 / 11<br>• İşlemci: 1 GHz Pentium III / Athlon<br>• Bellek: 512 MB RAM<br>• Ekran Kartı: 64 MB DirectX 9 Uyumlu Kart<br>• Depolama: 4.7 GB alan"
   },
   {
