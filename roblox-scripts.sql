@@ -22,7 +22,7 @@ alter table public.roblox_scripts enable row level security;
 drop policy if exists "public read published Roblox resources" on public.roblox_scripts;
 create policy "public read published Roblox resources"
   on public.roblox_scripts for select to anon, authenticated
-  using (is_published = true or public.is_admin());
+  using (is_published = true);
 drop policy if exists "admins manage Roblox resources" on public.roblox_scripts;
 create policy "admins manage Roblox resources"
   on public.roblox_scripts for all to authenticated
