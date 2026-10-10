@@ -960,6 +960,15 @@ header {
 .auth-card h2{margin:0 0 8px;font-size:26px}.auth-subtitle{margin:0 0 20px;color:var(--muted);font-size:13px;line-height:1.6}.auth-close{position:absolute;right:13px;top:12px;width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#21152f;color:#fff;font-size:20px;cursor:pointer}
 .auth-form{display:grid;gap:12px}.auth-form label{display:grid;gap:6px;color:#d8b4fe;font-size:11px;font-weight:800;letter-spacing:.08em}.auth-form input{width:100%;min-height:44px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#0a0711;color:#fff;font:inherit;letter-spacing:normal}.auth-action{width:100%;min-height:44px;border:1px solid rgba(192,132,252,.4);border-radius:11px;background:linear-gradient(100deg,#9333ea,#c026d3);color:white;font-weight:800;cursor:pointer}.auth-action:disabled{opacity:.6;cursor:wait}.auth-switch{display:flex;justify-content:center;gap:5px;margin-top:16px;color:var(--muted);font-size:12px;flex-wrap:wrap}.auth-switch button,.auth-forgot{border:0;background:none;color:#d8b4fe;text-decoration:underline;cursor:pointer;font:inherit}.auth-forgot{justify-self:end;font-size:12px}.auth-status{min-height:20px;margin:12px 0 0;color:#d8b4fe;font-size:12px;line-height:1.5}.auth-status.error{color:#fda4af}.auth-account{border:1px solid rgba(216,180,254,.3)!important;border-radius:10px;padding:8px 12px!important;background:rgba(168,85,247,.12)!important;color:#f5d0fe!important;font-weight:700;cursor:pointer}
 @media(max-width:620px){.auth-card{padding:24px 18px}.auth-card h2{font-size:23px}}
+
+.roblox-center-card{display:flex;align-items:center;gap:16px;margin:22px 0;padding:18px 20px;border:1px solid #a855f766;border-radius:16px;background:radial-gradient(ellipse at 0% 50%,#7e22ce30,transparent 55%),linear-gradient(120deg,#171024ee,#0e0a18ee);box-shadow:0 12px 35px #0002;transition:transform .2s,border-color .2s}
+.roblox-center-card:hover{transform:translateY(-2px);border-color:#e879f9}
+.roblox-center-icon{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#a855f7,#e879f9);font-weight:950;font-size:25px;color:#fff}
+.roblox-center-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.roblox-center-copy strong{font-size:13px;letter-spacing:.6px}
+.roblox-center-copy small{font-size:11px;line-height:1.6;color:var(--muted)}
+.roblox-center-arrow{margin-left:auto;white-space:nowrap;color:#e9d5ff;font-size:10px;font-weight:900}
+@media(max-width:620px){.roblox-center-card{align-items:flex-start;flex-wrap:wrap;padding:14px}.roblox-center-arrow{margin-left:64px}}
 </style>
 </head>
 
@@ -978,6 +987,7 @@ header {
     <nav class="links">
       <a href="#games">OYUNLAR</a>
 <a href="#games" onclick="filterHileler()">HİLELER ⚡</a>
+      <a href="./roblox.html">ROBLOX SCRIPTLERİ</a>
       <button onclick="openRequestModal()">İSTEK OYUN 📩</button>
       <a href="#about">HAKKIMIZDA</a>
       
@@ -1060,6 +1070,12 @@ header {
     <div class="kicker">EXPLORE THE COLLECTION</div>
     <h2>Oyun kütüphanesi</h2>
     <p class="subtitle">Oyunu ara veya detayını görmek için kartın üzerine tıkla.</p>
+
+    <a class="roblox-center-card" href="./roblox.html" aria-label="Roblox Script Merkezi'ni aç">
+      <span class="roblox-center-icon">R</span>
+      <span class="roblox-center-copy"><strong>ROBLOX SCRIPT MERKEZİ</strong><small>Oyunlara göre scriptleri ara, kodları tek tıkla kopyala ve geliştirici araçlarını keşfet.</small></span>
+      <span class="roblox-center-arrow">SCRIPT MERKEZİNİ AÇ ↗</span>
+    </a>
 
     <div class="tools">
       <label class="search">
