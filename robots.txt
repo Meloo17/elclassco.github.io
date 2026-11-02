@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meloo17.github.io/elclassco.github.io/sitemap.xml
